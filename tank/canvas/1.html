@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script>
+      const el = document.querySelector('#canvas')
+      const app = el.getContext('2d')
+      //1 颜料  线  图片
+      //2 画
+      //TS
+      app.fillStyle = 'red'
+      app.fillRect(0, 0, 300, 300)
+    </script>
+  </body>
+</html>

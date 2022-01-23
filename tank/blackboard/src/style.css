@@ -1,0 +1,23 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #34495e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.btns {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.color-container {
+  display: flex;
+}
+
+.img-short {
+  width: 300px;
+  margin-top: 20px;
+}
