@@ -1,10 +1,8 @@
 import straw from './static/images/straw/straw.png'
-import tank from './static/images/tank/bottom.gif'
 
 export default {
-  //画布
   canvas: {
-    width: 1200,
+    width: 900,
     height: 600,
   },
   model: {
@@ -12,11 +10,13 @@ export default {
     height: 30,
   },
   straw: {
-    num: 30,
+    num: 50,
   },
-  //贴图
   images: {
     straw,
-    tank: tank,
+    tank: straw,
+    wall: straw,
+    ab: straw,
+    ff: straw,
   },
 }

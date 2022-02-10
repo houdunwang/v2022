@@ -1,10 +1,9 @@
 import config from '../config'
-import { image } from '../service/imageService'
 import canvasAbstract from './canvasAbstract'
+import model from '../model/straw'
 class straw extends canvasAbstract {
   render(): void {
-    // this.canvas.drawImage(image.get('straw')!, 0, 0, 20, 20)
-    super.renderModel(config.straw.num)
+    super.drawModels(config.straw.num, model)
   }
 }
 
