@@ -1,6 +1,7 @@
 import config from '../config'
 
 type positionType = { x: number; y: number }
+
 class position {
   collection: positionType[] = []
   //批量获取唯一坐标

@@ -1,3 +1,4 @@
+import { image } from './../service/image'
 import config from '../config'
 import position from '../service/position'
 
