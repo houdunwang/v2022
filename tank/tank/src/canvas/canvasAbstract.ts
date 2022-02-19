@@ -4,7 +4,7 @@ import position from '../service/position'
 export default abstract class canvasAbstract {
   public models: IModel[] = []
   abstract num(): number
-  abstract model(): ModelConstructor
+  abstract model(): ModelConstructor | BulletModelConstructor
   abstract render(): void
 
   constructor(
@@ -33,6 +33,7 @@ export default abstract class canvasAbstract {
 
   //将模型渲染到画布上
   protected renderModels() {
+    this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height)
     this.models.forEach(model => model.render())
   }
 }

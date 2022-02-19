@@ -2,10 +2,12 @@ import config from '../config'
 import canvasAbstract from './canvasAbstract'
 import model from '../model/tank'
 import position from '../service/position'
+
 class tank extends canvasAbstract implements ICanvas {
   num(): number {
     return config.tank.num
   }
+
   model(): ModelConstructor {
     return model
   }
