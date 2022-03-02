@@ -18,10 +18,12 @@ interface IModel {
   height: number
   tank?: IModel
   direction: directionType
+  destroy(): void
 }
 
 interface ICanvas {
   model(): ModelConstructor | BulletModelConstructor
   num(): number
   ctx: CanvasRenderingContext2D
+  removeModel(model: IModel): void
 }

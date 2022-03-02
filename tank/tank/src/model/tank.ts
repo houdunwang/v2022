@@ -14,8 +14,6 @@ export default class extends modelAbstract implements IModel {
   render(): void {
     this.move()
     if (_.random(20) == 1) this.direction = directionEnum.bottom
-
-    // bullet.addModel(this)
   }
 
   protected move(): void {
@@ -36,7 +34,7 @@ export default class extends modelAbstract implements IModel {
           x--
           break
       }
-      if (util.isTouch(x, y) === true) {
+      if (util.isTouchCanvas(x, y) || util.isTouchModel(x, y)) {
         this.randomDirection()
       } else {
         this.x = x

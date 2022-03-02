@@ -2,6 +2,9 @@ import { directionEnum } from './../enum/directionEnum'
 import bullet from '../canvas/bullet'
 import { image } from '../service/image'
 import modelAbstract from './modelAbstract'
+import util from '../util'
+import wall from '../canvas/wall'
+import water from '../canvas/water'
 export default class extends modelAbstract implements IModel {
   canvas: ICanvas = bullet
   name: string = 'wall'
@@ -25,21 +28,30 @@ export default class extends modelAbstract implements IModel {
     let y = this.y
     switch (this.direction) {
       case directionEnum.top:
-        y -= 10
+        y -= 1
         break
       case directionEnum.right:
-        x += 10
+        x += 1
         break
       case directionEnum.bottom:
-        y += 10
+        y += 1
         break
       case directionEnum.left:
-        x -= 10
+        x -= 1
         break
     }
-    this.x = x
-    this.y = y
-    this.draw()
+    const touchModel = util.isTouchModel(x, y, 2, 2, [...wall.models])
+    if (util.isTouchCanvas(x, y) || touchModel) {
+      this.destroy()
+      if (touchModel) {
+        touchModel.destroy()
+        this.blast(touchModel)
+      }
+    } else {
+      this.x = x
+      this.y = y
+      this.draw()
+    }
   }
 
   protected draw() {

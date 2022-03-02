@@ -22,4 +22,23 @@ export default abstract class modelAbstract {
   protected draw() {
     this.canvas.ctx.drawImage(this.image(), this.x, this.y, config.model.width, config.model.height)
   }
+
+  public destroy() {
+    this.canvas.removeModel(this)
+  }
+
+  public blast(model: IModel) {
+    Array(...Array(8).keys()).reduce((promise, index) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const img = new Image()
+          img.src = `/src/static/images/blasts/blast${index}.gif`
+          img.onload = () => {
+            this.canvas.ctx.drawImage(img, model.x, model.y, config.model.width, config.model.height)
+            resolve(promise)
+          }
+        }, 100)
+      })
+    }, Promise.resolve())
+  }
 }
