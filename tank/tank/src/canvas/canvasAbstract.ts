@@ -8,6 +8,7 @@ export default abstract class canvasAbstract {
   abstract render(): void
 
   constructor(
+    protected name: string,
     protected app = document.querySelector('#app') as HTMLDivElement,
     protected el = document.createElement('canvas'),
     public ctx = el.getContext('2d')!
@@ -17,9 +18,11 @@ export default abstract class canvasAbstract {
 
   //创建画布
   protected createCanvas() {
+    this.el.setAttribute('name', this.name)
     this.el.width = config.canvas.width
     this.el.height = config.canvas.height
-    this.app.insertAdjacentElement('afterbegin', this.el)
+    this.app.appendChild(this.el)
+    // this.app.insertAdjacentElement('afterbegin', this.el)
   }
 
   //生成模型实例
@@ -32,7 +35,7 @@ export default abstract class canvasAbstract {
   }
 
   //将模型渲染到画布上
-  protected renderModels() {
+  public renderModels() {
     this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height)
     this.models.forEach(model => model.render())
   }

@@ -12,6 +12,7 @@ type directionType = 'top' | 'bottom' | 'left' | 'right'
 
 interface IModel {
   render(): void
+  name: string
   x: number
   y: number
   width: number
@@ -26,4 +27,5 @@ interface ICanvas {
   num(): number
   ctx: CanvasRenderingContext2D
   removeModel(model: IModel): void
+  renderModels(): void
 }

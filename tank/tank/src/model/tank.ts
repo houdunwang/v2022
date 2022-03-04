@@ -9,7 +9,7 @@ import util from '../util'
 
 export default class extends modelAbstract implements IModel {
   canvas: ICanvas = tank
-  protected name: string = 'tank'
+  name: string = 'tank'
 
   render(): void {
     this.move()

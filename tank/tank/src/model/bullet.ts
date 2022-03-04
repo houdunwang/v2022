@@ -4,7 +4,10 @@ import { image } from '../service/image'
 import modelAbstract from './modelAbstract'
 import util from '../util'
 import wall from '../canvas/wall'
-import water from '../canvas/water'
+import steel from '../canvas/steel'
+import boss from '../canvas/boss'
+import play from '../canvas/play'
+import tank from '../canvas/tank'
 export default class extends modelAbstract implements IModel {
   canvas: ICanvas = bullet
   name: string = 'wall'
@@ -28,25 +31,33 @@ export default class extends modelAbstract implements IModel {
     let y = this.y
     switch (this.direction) {
       case directionEnum.top:
-        y -= 1
+        y -= 5
         break
       case directionEnum.right:
-        x += 1
+        x += 5
         break
       case directionEnum.bottom:
-        y += 1
+        y += 5
         break
       case directionEnum.left:
-        x -= 1
+        x -= 5
         break
     }
-    const touchModel = util.isTouchModel(x, y, 2, 2, [...wall.models])
-    if (util.isTouchCanvas(x, y) || touchModel) {
+
+    const touchModel = util.isTouchModel(x, y, 2, 2, [
+      ...wall.models,
+      ...steel.models,
+      ...boss.models,
+      ...tank.models,
+      ...play.models,
+    ])
+
+    if (util.isTouchCanvas(x, y, 2, 2)) {
       this.destroy()
-      if (touchModel) {
-        touchModel.destroy()
-        this.blast(touchModel)
-      }
+    } else if (touchModel && touchModel.name != this.tank.name) {
+      this.blast(touchModel)
+      this.destroy()
+      if (touchModel.name != 'steel') touchModel.destroy()
     } else {
       this.x = x
       this.y = y

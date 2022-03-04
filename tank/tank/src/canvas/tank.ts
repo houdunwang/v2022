@@ -3,7 +3,8 @@ import canvasAbstract from './canvasAbstract'
 import model from '../model/tank'
 import position from '../service/position'
 
-class tank extends canvasAbstract implements ICanvas {
+export default new (class extends canvasAbstract implements ICanvas {
+  intervalId = 0
   num(): number {
     return config.tank.num
   }
@@ -15,11 +16,14 @@ class tank extends canvasAbstract implements ICanvas {
   render(): void {
     this.createModels()
     this.renderModels()
-
-    setInterval(() => this.renderModels(), config.timeout)
+    this.intervalId = setInterval(() => this.renderModels(), config.timeout)
   }
 
-  protected renderModels() {
+  stop() {
+    clearInterval(this.intervalId)
+  }
+
+  renderModels() {
     this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height)
     super.renderModels()
   }
@@ -33,6 +37,4 @@ class tank extends canvasAbstract implements ICanvas {
       this.models.push(instance)
     }
   }
-}
-
-export default new tank()
+})('tank')

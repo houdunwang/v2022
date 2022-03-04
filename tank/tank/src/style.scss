@@ -8,6 +8,10 @@ body {
   #app {
     background-color: #000;
     border: solid 10px #333;
+    background-image: url('/src/static/images/cover/cover.png');
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
     position: relative;
     overflow: hidden;
     box-sizing: content-box;

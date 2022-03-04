@@ -6,10 +6,8 @@ import boss from './canvas/boss'
 
 export default {
   //撞墙
-  isTouchCanvas(x: number, y: number): boolean {
-    return (
-      x < 0 || x + config.model.width > config.canvas.width || y < 0 || y + config.model.height > config.canvas.height
-    )
+  isTouchCanvas(x: number, y: number, width = config.model.width, height = config.model.height): boolean {
+    return x < 0 || x + width > config.canvas.width || y < 0 || y + height > config.canvas.height
   },
   //触碰模型
   isTouchModel(
@@ -17,7 +15,7 @@ export default {
     y: number,
     width = config.model.width,
     height = config.model.height,
-    models: IModel[] = [...water.models, ...wall.models, ...steel.models, ...boss.models]
+    models: IModel[] = [...wall.models, ...steel.models, ...boss.models]
   ): IModel | undefined {
     return models.find(model => {
       const state =

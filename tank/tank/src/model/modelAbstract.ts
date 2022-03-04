@@ -1,4 +1,5 @@
 import config from '../config'
+import audio from '../service/audio'
 import { directionEnum } from './../enum/directionEnum'
 
 export default abstract class modelAbstract {
@@ -24,10 +25,12 @@ export default abstract class modelAbstract {
   }
 
   public destroy() {
-    this.canvas.removeModel(this)
+    this.canvas.removeModel(this as any)
   }
 
   public blast(model: IModel) {
+    if (model.name != 'steel') audio.blast()
+
     Array(...Array(8).keys()).reduce((promise, index) => {
       return new Promise(resolve => {
         setTimeout(() => {

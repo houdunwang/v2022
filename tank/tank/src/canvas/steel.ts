@@ -1,11 +1,7 @@
 import config from '../config'
 import canvasAbstract from './canvasAbstract'
 import model from '../model/steel'
-class steel extends canvasAbstract implements ICanvas {
-  constructor() {
-    super()
-  }
-
+export default new (class extends canvasAbstract implements ICanvas {
   render(): void {
     super.createModels()
     super.renderModels()
@@ -16,6 +12,4 @@ class steel extends canvasAbstract implements ICanvas {
   model(): ModelConstructor {
     return model
   }
-}
-
-export default new steel()
+})('steel')
