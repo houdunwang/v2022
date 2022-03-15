@@ -3,24 +3,20 @@ import canvasAbstract from './canvasAbstract'
 import model from '../model/boss'
 export default new (class extends canvasAbstract implements ICanvas {
   num(): number {
-    return config.water.num
+    return 0
   }
   model(): ModelConstructor {
     return model
   }
-
   render(): void {
     this.createModels()
-    super.renderModels()
+    this.renderModels()
   }
 
-  createModels() {
-    const cw = config.canvas.width
-    const ch = config.canvas.height
-    const mh = config.model.height
-    const pos = [{ x: cw / 2, y: ch - mh }]
-    pos.forEach(position => {
-      const model = this.model()
+  //生成模型实例
+  protected createModels() {
+    ;[{ x: config.canvas.width / 2, y: config.canvas.height - config.model.height }].forEach(position => {
+      const model = this.model() as ModelConstructor
       const instance = new model(position.x, position.y)
       this.models.push(instance)
     })

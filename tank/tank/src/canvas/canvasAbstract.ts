@@ -18,11 +18,10 @@ export default abstract class canvasAbstract {
 
   //创建画布
   protected createCanvas() {
-    this.el.setAttribute('name', this.name)
     this.el.width = config.canvas.width
     this.el.height = config.canvas.height
+    this.el.setAttribute('name', this.name)
     this.app.appendChild(this.el)
-    // this.app.insertAdjacentElement('afterbegin', this.el)
   }
 
   //生成模型实例
@@ -41,7 +40,6 @@ export default abstract class canvasAbstract {
   }
 
   public removeModel(model: IModel) {
-    this.models = this.models.filter(item => item !== model)
-    this.renderModels()
+    this.models = this.models.filter(m => m != model)
   }
 }

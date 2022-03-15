@@ -3,7 +3,7 @@ import audio from '../service/audio'
 import { directionEnum } from './../enum/directionEnum'
 
 export default abstract class modelAbstract {
-  protected abstract name: string
+  abstract name: string
   abstract canvas: ICanvas
   abstract render(): void
   protected abstract image(): HTMLImageElement
@@ -25,19 +25,19 @@ export default abstract class modelAbstract {
   }
 
   public destroy() {
-    this.canvas.removeModel(this as any)
+    this.canvas.removeModel(this)
+    this.canvas.renderModels()
   }
 
-  public blast(model: IModel) {
-    if (model.name != 'steel') audio.blast()
-
+  protected blast(model: IModel) {
+    audio.blast()
     Array(...Array(8).keys()).reduce((promise, index) => {
       return new Promise(resolve => {
         setTimeout(() => {
           const img = new Image()
           img.src = `/src/static/images/blasts/blast${index}.gif`
           img.onload = () => {
-            this.canvas.ctx.drawImage(img, model.x, model.y, config.model.width, config.model.height)
+            this.canvas.ctx.drawImage(img, model.x, model.y, model.width, model.height)
             resolve(promise)
           }
         }, 100)

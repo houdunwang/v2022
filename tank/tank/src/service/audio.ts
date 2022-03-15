@@ -1,6 +1,6 @@
 export default {
   el(id: string) {
-    return document.querySelector(id) as HTMLAudioElement
+    return document.querySelector<HTMLAudioElement>(id)!
   },
   start() {
     this.el('#aStart').play()

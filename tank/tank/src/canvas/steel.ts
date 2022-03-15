@@ -12,4 +12,4 @@ export default new (class extends canvasAbstract implements ICanvas {
   model(): ModelConstructor {
     return model
   }
-})('steel')
+})('sleet')

@@ -9,17 +9,16 @@ export default new (class extends canvasAbstract implements ICanvas {
     return model
   }
   render(): void {
-    this.bossWall()
     super.createModels()
+    this.createBossWall()
     super.renderModels()
   }
 
-  bossWall() {
+  createBossWall() {
     const cw = config.canvas.width
     const ch = config.canvas.height
     const mw = config.model.width
     const mh = config.model.height
-
     const pos = [
       { x: cw / 2 - mw * 2, y: ch - mh },
       { x: cw / 2 - mw * 2, y: ch - mh * 2 },
@@ -28,12 +27,12 @@ export default new (class extends canvasAbstract implements ICanvas {
       { x: cw / 2, y: ch - mh * 3 },
       { x: cw / 2 + mw, y: ch - mh * 3 },
       { x: cw / 2 + mw * 2, y: ch - mh * 3 },
+      { x: cw / 2 + mw * 2, y: ch - mh * 3 },
       { x: cw / 2 + mw * 2, y: ch - mh * 2 },
       { x: cw / 2 + mw * 2, y: ch - mh },
     ]
-
     pos.forEach(position => {
-      const model = this.model()
+      const model = this.model() as ModelConstructor
       const instance = new model(position.x, position.y)
       this.models.push(instance)
     })

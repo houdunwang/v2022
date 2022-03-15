@@ -1,7 +1,7 @@
 import canvasAbstract from './canvasAbstract'
 import model from '../model/bullet'
-import bullet from '../model/bullet'
 import tank from './tank'
+import bullet from '../model/bullet'
 import play from './play'
 import audio from '../service/audio'
 export default new (class extends canvasAbstract implements ICanvas {
@@ -9,29 +9,30 @@ export default new (class extends canvasAbstract implements ICanvas {
   num(): number {
     return 0
   }
-  model() {
+  model(): BulletModelConstructor {
     return model
-  }
-  render(): void {
-    this.intervalId = setInterval(() => {
-      this.addBullet()
-      super.renderModels()
-    }, 20)
   }
   stop() {
     clearInterval(this.intervalId)
   }
-  addBullet() {
+  render(): void {
+    this.intervalId = setInterval(() => {
+      this.createBullet()
+      this.renderModels()
+    }, 50)
+  }
+  createBullet() {
     tank.models.forEach(tank => {
-      const isHas = this.models.some(model => model.tank == tank)
-      if (!isHas) {
-        audio.fire()
+      const isExists = this.models.some(m => m.tank == tank)
+      if (!isExists) {
         this.models.push(new bullet(tank))
+        // audio.fire()
       }
     })
   }
 
   addPlayBullet() {
     this.models.push(new bullet(play.models[0]))
+    audio.fire()
   }
 })('bullet')

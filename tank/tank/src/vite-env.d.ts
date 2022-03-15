@@ -8,17 +8,15 @@ interface BulletModelConstructor {
   new (tank: IModel): IModel
 }
 
-type directionType = 'top' | 'bottom' | 'left' | 'right'
-
 interface IModel {
-  render(): void
   name: string
+  render(): void
+  tank?: IModel
   x: number
   y: number
   width: number
   height: number
-  tank?: IModel
-  direction: directionType
+  direction: string
   destroy(): void
 }
 
@@ -28,4 +26,5 @@ interface ICanvas {
   ctx: CanvasRenderingContext2D
   removeModel(model: IModel): void
   renderModels(): void
+  stop?(): void
 }

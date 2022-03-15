@@ -12,9 +12,8 @@ import playTop from './static/images/player/top.gif'
 import playRight from './static/images/player/right.gif'
 import playBottom from './static/images/player/bottom.gif'
 import playLeft from './static/images/player/left.gif'
-
 export default {
-  timeout: 30,
+  timeout: 10,
   canvas: {
     width: 900,
     height: 600,
@@ -24,19 +23,19 @@ export default {
     height: 30,
   },
   straw: {
-    num: 80,
+    num: 200,
   },
   wall: {
-    num: 100,
+    num: 80,
   },
   water: {
-    num: 50,
+    num: 20,
   },
   steel: {
     num: 10,
   },
   tank: {
-    num: 10,
+    num: 20,
   },
   images: {
     straw,
