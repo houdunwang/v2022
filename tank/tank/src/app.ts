@@ -10,7 +10,7 @@ import tank from './canvas/tank'
 import bullet from './canvas/bullet'
 import boss from './canvas/boss'
 import play from './canvas/play'
-
+import audio from './service/audio'
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.style.width = config.canvas.width + 'px'
 app.style.height = config.canvas.height + 'px'
@@ -49,7 +49,7 @@ export default {
   },
   async start() {
     if (this.isStart === true) return
-    // audio.start()
+    audio.start()
     this.isStart = true
     app.style.backgroundImage = 'none'
     await Promise.all(promises)
