@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(RegisterRequest $request, UserService $userService)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3'
-        ]);
         $user = User::create([
-            'email' => $request->email,
-            'password' => $request->password,
+            $userService->fieldName() => $request->account,
+            'password' => Hash::make($request->password),
         ]);
 
-        return $user;
+        return [
+            'user' => $user,
+            'token' => $user->createToken('auth')->plainTextToken
+        ];
     }
 }

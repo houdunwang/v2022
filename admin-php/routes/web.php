@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Notifications\EmailValidateCodeNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    $user =  User::factory()->make();
-    $user->save();
+    Notification::send(User::factory()->make(), new EmailValidateCodeNotification(3434));
+    // return (new EmailValidateCodeNotification())
+    //     ->toMail(User::factory()->make());
 });
