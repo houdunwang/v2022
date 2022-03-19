@@ -7,38 +7,61 @@ use App\Notifications\EmailValidateCodeNotification;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CodeService
 {
-    protected $account;
-
+    /**
+     * 统一发送接口
+     * @param string|int $account
+     * @return void
+     * @throws HttpException
+     * @throws NotFoundHttpException
+     */
     public function send(string|int $account)
     {
-        $this->account = $account;
-
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (Cache::get($this->account)) abort(403, '验证码已经发送');
+        if (Cache::get($account)) abort(403, '验证码已经发送');
 
-        $this->$action();
+        return $this->$action($account);
     }
 
     /**
      * 邮箱验证码
      * @return void
      */
-    protected function email()
+    public function email(string $email): int
     {
-        $code = mt_rand(1000, 9999);
-        Cache::put($this->account, $code);
-        $user = User::factory()->make(['email' => $this->account]);
-        Notification::send($user, new EmailValidateCodeNotification($code));
+        $user = User::factory()->make(['email' => $email]);
+        Notification::send($user, new EmailValidateCodeNotification($code = $this->getCode()));
+        Cache::put($email, $code, config('code_expire_time'));
+        return $code;
     }
 
+    /**
+     * 验证码
+     * @return int
+     */
+    protected function getCode(): int
+    {
+        return mt_rand(1000, 9999);
+    }
     /**
      * 手机发送验证码
      * @return void
      */
     protected function mobile()
     {
+    }
+
+    public function check($account,  $code): bool
+    {
+        return Cache::get($account) == $code;
+    }
+
+    public function clear($account): void
+    {
+        Cache::forget($account);
     }
 }

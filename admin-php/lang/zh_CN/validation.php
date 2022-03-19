@@ -157,5 +157,6 @@ return [
         'title'                 => '标题',
         'username'              => '用户名',
         'year'                  => '年',
+        'code' => '验证码'
     ],
 ];

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'code_expire_time' => env('code_expire_time', 30),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
