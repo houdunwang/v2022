@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Config;
 use App\Models\User;
 use App\Notifications\EmailValidateCodeNotification;
 use Illuminate\Support\Facades\Notification;
@@ -21,7 +22,9 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    Notification::send(User::factory()->make(), new EmailValidateCodeNotification(3434));
+    // return config('hd.site.name');
+    // return config('database.connections.sqlite.driver');
+    // Notification::send(User::factory()->make(), new EmailValidateCodeNotification(3434));
     // return (new EmailValidateCodeNotification())
     //     ->toMail(User::factory()->make());
 });

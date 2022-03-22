@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Config;
 use App\Services\CodeService;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $config = Config::firstOrNew();
+        config(['hd' => $config->toArray()]);
     }
 }
