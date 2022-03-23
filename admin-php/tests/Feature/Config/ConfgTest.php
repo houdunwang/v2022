@@ -3,6 +3,7 @@
 namespace Tests\Feature\Config;
 
 use App\Models\Config;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,7 +18,8 @@ class ConfgTest extends TestCase
      */
     public function updateSiteConfiguration()
     {
-        $response = $this->put('/api/config/site', [
+        $this->signIn();
+        $response = $this->putJson('/api/config/site', [
             'name' => '后盾人',
             'tel' => 'abcdefg'
         ]);

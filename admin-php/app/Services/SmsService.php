@@ -60,9 +60,9 @@ class SmsService
                     'file' => './easy-sms.log',
                 ],
                 'aliyun' => [
-                    'access_key_id' => config('hd.aliyun.accessKeyId'),
-                    'access_key_secret' => config('hd.aliyun.accessKeySecret'),
-                    'sign_name' => config('hd.aliyun.sms.signName'),
+                    'access_key_id' => config('hd.aliyun.access_key_id'),
+                    'access_key_secret' => config('hd.aliyun.access_key_secret'),
+                    'sign_name' => config('hd.aliyun.sms_sign_name'),
                 ],
             ],
         ];

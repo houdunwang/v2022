@@ -22,6 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
+    Cache::forget('2300071698@qq.com');
+    // dd(config('hd.mobile'));
     // return config('hd.site.name');
     // return config('database.connections.sqlite.driver');
     // Notification::send(User::factory()->make(), new EmailValidateCodeNotification(3434));

@@ -22,7 +22,7 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (Cache::get($account)) abort(403, '验证码已经发送');
+        if (Cache::get($account)) abort(403, '验证码不允许重复发送');
 
         return $this->$action($account);
     }
@@ -35,7 +35,20 @@ class CodeService
     {
         $user = User::factory()->make(['email' => $email]);
         Notification::send($user, new EmailValidateCodeNotification($code = $this->getCode()));
-        Cache::put($email, $code, config('code_expire_time'));
+        Cache::put($email, $code, config('hd.code_expire_time'));
+        return $code;
+    }
+
+    /**
+     * 手机发送验证码
+     * @return void
+     */
+    protected function mobile($phone)
+    {
+        app('sms')->send($phone, 'SMS_12840367', [
+            'code' => $code = $this->getCode(),
+            'product' => config('app.name')
+        ]);
         return $code;
     }
 
@@ -47,13 +60,7 @@ class CodeService
     {
         return mt_rand(1000, 9999);
     }
-    /**
-     * 手机发送验证码
-     * @return void
-     */
-    protected function mobile()
-    {
-    }
+
 
     public function check($account,  $code): bool
     {

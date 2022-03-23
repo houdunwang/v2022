@@ -22,6 +22,16 @@ class GuestValideCodeTest extends TestCase
     }
 
     /**
+     * 发送手机验证码
+     */
+    public function sendMobilePhoneVerificationCode()
+    {
+        $this->post('/api/code/guest', [
+            'account' => config('hd.mobile')
+        ])->assertOk();
+    }
+
+    /**
      * 邮箱格式错误
      * @test
      */
