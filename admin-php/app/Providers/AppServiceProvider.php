@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Config;
 use App\Services\CodeService;
 use App\Services\SmsService;
+use App\Services\UploadService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,9 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->instance('user', new UserService());
-        $this->app->instance('code', new CodeService());
+        $this->app->instance('user', new UserService);
+        $this->app->instance('code', new CodeService);
         $this->app->instance("sms", new SmsService);
+        $this->app->instance("upload", new UploadService);
     }
 
     /**
