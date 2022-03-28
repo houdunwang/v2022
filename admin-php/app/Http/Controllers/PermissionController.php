@@ -20,11 +20,10 @@ class PermissionController extends Controller
         return PermissionResource::collection($permissions);
     }
 
-
     public function store(StorePermissionRequest $request)
     {
         $permission = Permission::create(['name' => $request->name, 'title' => $request->title]);
-        return response()->json(['message' => '权限添加成功', 'permission' => $permission]);
+        return new PermissionResource($permission);
     }
 
     public function show(Permission $permission)
@@ -34,17 +33,15 @@ class PermissionController extends Controller
 
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        //
+        $permission->name = $request->name;
+        $permission->title = $request->title;
+        $permission->save();
+        return new PermissionResource($permission);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return response(['message' => '权限删除成功']);
     }
 }

@@ -22,7 +22,7 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (Cache::get($account)) abort(403, '验证码不允许重复发送');
+        if (!config('app.debug') &&  Cache::get($account)) abort(403, '验证码不允许重复发送');
 
         return $this->$action($account);
     }

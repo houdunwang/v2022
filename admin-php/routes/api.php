@@ -18,7 +18,8 @@ Route::post('register', RegisterController::class);
 Route::post('login', LoginController::class);
 Route::post('account/forget-password', ForgetPasswordController::class);
 
-Route::post('code/guest', [ValidateCodeController::class, 'guest']);
+Route::post('code/send', [ValidateCodeController::class, 'send']);
+Route::post('code/user/{type}', [ValidateCodeController::class, 'user']);
 
 Route::put('config/{name}', [ConfigController::class, 'update']);
 

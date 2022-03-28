@@ -18,7 +18,7 @@ class RegisterController extends Controller
         ]);
 
         return [
-            'user' => $user,
+            'user' => $user->refresh(),
             'token' => $user->createToken('auth')->plainTextToken
         ];
     }

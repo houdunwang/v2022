@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdatePermissionRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +26,8 @@ class UpdatePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'unique:permissions,name,' . request('id')],
+            'title' => ['required', Rule::unique('permissions', 'title')->ignore(request('id'))],
         ];
     }
 }
