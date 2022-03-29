@@ -19,8 +19,7 @@ class ConfigMiddleware
     {
         $config = Config::firstOrNew()->toArray();
 
-        config(['hd.aliyun' => $config['aliyun'] ?? config('hd.aliyun')]);
-        config(['hd.site' => $config['site'] ?? config('hd.site')]);
+        config(['system' => $config ?? config('system')]);
 
         return $next($request);
     }

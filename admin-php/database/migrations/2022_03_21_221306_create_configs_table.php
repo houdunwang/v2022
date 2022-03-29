@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->json('site')->nullable()->comment('站点信息');
-            $table->json('aliyun')->nullable()->comment('阿里云配置');
-            $table->json('data')->nullable()->comment('其他配置');
+            $table->string('name')->unique()->comment('模块标识');
+            $table->json('data')->comment('配置项内容');
             $table->timestamps();
         });
     }
