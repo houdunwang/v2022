@@ -13,7 +13,7 @@ import playRight from './static/images/player/right.gif'
 import playBottom from './static/images/player/bottom.gif'
 import playLeft from './static/images/player/left.gif'
 export default {
-  timeout: 100,
+  timeout: 20,
   canvas: {
     width: 900,
     height: 600,
@@ -35,7 +35,7 @@ export default {
     num: 10,
   },
   tank: {
-    num: 2,
+    num: 20,
   },
   images: {
     straw,

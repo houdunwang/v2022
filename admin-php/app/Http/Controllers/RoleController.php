@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -43,5 +44,12 @@ class RoleController extends Controller
     {
         $role->delete();
         return response(['message' => '删除成功']);
+    }
+
+    public function permission(Role $role, Request $request)
+    {
+        $permissions = $request->permissions;
+        $role->syncPermissions($permissions);
+        return $this->success('操作成功');
     }
 }
