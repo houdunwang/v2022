@@ -17,7 +17,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        return RoleResource::collection(Role::all());
+        return $this->success(data: RoleResource::collection(Role::all()));
     }
 
     public function store(StoreRoleRequest $request, Role $role)
@@ -25,25 +25,25 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->title = $request->title;
         $role->save();
-        return new RoleResource($role);
+        return $this->success(data: new RoleResource($role));
     }
 
     public function show(Role $role)
     {
-        return new RoleResource($role);
+        return $this->success(data: new RoleResource($role));
     }
 
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->fill($request->input())->save();
-        return new RoleResource($role);
+        return $this->success(data: new RoleResource($role));
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-        return response(['message' => '删除成功']);
+        return $this->success('删除成功');
     }
 
     public function permission(Role $role, Request $request)

@@ -17,18 +17,18 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        return PermissionResource::collection($permissions);
+        return $this->success(data: PermissionResource::collection($permissions));
     }
 
     public function store(StorePermissionRequest $request)
     {
         $permission = Permission::create(['name' => $request->name, 'title' => $request->title]);
-        return new PermissionResource($permission);
+        return $this->success(data: new PermissionResource($permission));
     }
 
     public function show(Permission $permission)
     {
-        return new PermissionResource($permission);
+        return $this->success(data: new PermissionResource($permission));
     }
 
     public function update(UpdatePermissionRequest $request, Permission $permission)
@@ -36,12 +36,12 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->title = $request->title;
         $permission->save();
-        return new PermissionResource($permission);
+        return $this->success(data: new PermissionResource($permission));
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return response(['message' => '权限删除成功']);
+        return $this->success('权限删除成功');
     }
 }

@@ -17,9 +17,9 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return [
+        return $this->success(data: [
             'user' => $user->refresh(),
             'token' => $user->createToken('auth')->plainTextToken
-        ];
+        ]);
     }
 }

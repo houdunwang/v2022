@@ -20,7 +20,7 @@ class GetRoleTest extends TestCase
         $this->signIn();
         $response = $this->getJson('/api/role');
 
-        $response->assertStatus(200)->assertJson(fn (AssertableJson $json) => $json->has('data'));
+        $response->assertStatus(200)->assertJson(fn (AssertableJson $json) => $json->has('data')->etc());
     }
 
     /**
@@ -33,6 +33,6 @@ class GetRoleTest extends TestCase
         $role = create(Role::class);
         $response = $this->getJson('/api/role/' . $role->id);
 
-        $response->assertStatus(200)->assertJson(fn (AssertableJson $json) => $json->has('data'));
+        $response->assertStatus(200)->assertJson(fn (AssertableJson $json) => $json->has('data')->etc());
     }
 }

@@ -35,9 +35,9 @@ class LoginController extends Controller
             ]);
         }
 
-        return [
+        return $this->success(data: [
             'user' => $user,
             'token' =>  $user->createToken('auth')->plainTextToken
-        ];
+        ]);
     }
 }

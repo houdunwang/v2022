@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
-class ValidateCodeController extends Controller
+class CodeController extends Controller
 {
     public function __construct()
     {
@@ -20,12 +20,12 @@ class ValidateCodeController extends Controller
     public function send(ValidateCodeRequest $request, CodeService $codeService)
     {
         $code = $codeService->send($request->account);
-        return response(['message' => '验证码发送成功', 'code' => $code]);
+        return $this->success('验证码发送成功',  $code);
     }
 
     public function user(string $type, CodeService $codeService)
     {
         $code = $codeService->send(Auth::user()[$type == 'email' ? 'email' : 'mobile']);
-        return response(['message' => '验证码发送成功', 'code' => $code]);
+        return $this->success('验证码发送成功', $code);
     }
 }

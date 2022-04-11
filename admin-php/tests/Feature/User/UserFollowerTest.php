@@ -40,7 +40,6 @@ class UserFollowerTest extends TestCase
 
         $response->assertJson(['data' => true]);
 
-        $response->dd();
         $this->assertEquals($this->user->followers()->first()->id, $user->id);
     }
 }

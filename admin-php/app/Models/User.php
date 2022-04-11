@@ -37,7 +37,8 @@ class User extends Authenticatable
         'openid',
         'unionid',
         'miniapp_openid',
-        'mobile'
+        'mobile',
+        'avatar'
     ];
 
     protected $appends = ['avatar_url'];
@@ -53,7 +54,7 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar ?? url('images/avatar.png');
+        return $this->avatar ?? url('static/avatar.png');
     }
 
     /**
