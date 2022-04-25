@@ -14,6 +14,7 @@ use App\Http\Controllers\CodeController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CaptchaController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -41,3 +42,6 @@ Route::apiResource('user', UserController::class);
 Route::get('follower/{user}', [FollowerController::class, 'index']);
 Route::get('follower/toggle/{user}', [FollowerController::class, 'toggle']);
 Route::get('fans/{user}', [FansController::class, 'index']);
+
+
+Route::get('captcha', CaptchaController::class);

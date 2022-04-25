@@ -10,7 +10,8 @@ class LoginRequest extends FormRequest
     {
         return [
             'account' => $this->accountRule(),
-            'password' => ['required', 'min:3']
+            'password' => ['required', 'min:3'],
+            'captcha_code' => 'required|captcha_api:' . request('captcha_key') . ',math'
         ];
     }
 
@@ -21,5 +22,10 @@ class LoginRequest extends FormRequest
         }
 
         return ['required', 'regex:/^\d{11}$/'];
+    }
+
+    public function messages()
+    {
+        return ['captcha_code.captcha_api' => '验证码输入错误'];
     }
 }

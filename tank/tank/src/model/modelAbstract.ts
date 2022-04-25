@@ -32,16 +32,18 @@ export default abstract class modelAbstract {
   protected blast(model: IModel) {
     audio.blast()
     Array(...Array(8).keys()).reduce((promise, index) => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const img = new Image()
-          img.src = `/src/static/images/blasts/blast${index}.gif`
-          img.onload = () => {
-            this.canvas.ctx.drawImage(img, model.x, model.y, model.width, model.height)
-            resolve(promise)
-          }
-        }, 100)
-      })
+      return promise.then(() =>
+        new Promise(resolve => {
+          setTimeout(() => {
+            const img = new Image()
+            img.src = `/src/static/images/blasts/blast${index}.gif`
+            img.onload = () => {
+              this.canvas.ctx.drawImage(img, model.x, model.y, model.width, model.height)
+              resolve(promise)
+            }
+          }, 1000)
+        })
+      )
     }, Promise.resolve())
   }
 }
