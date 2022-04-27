@@ -41,7 +41,7 @@ class User extends Authenticatable
         'avatar'
     ];
 
-    // protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url'];
 
     /**
      * The attributes that should be cast.
@@ -52,10 +52,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // public function getAvatarUrlAttribute()
-    // {
-    //     return $this->avatar ?? url('static/avatar.png');
-    // }
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ?? url('static/avatar.png');
+    }
 
     /**
      * 关注列表

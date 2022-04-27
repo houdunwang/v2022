@@ -8,8 +8,6 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
-        return [
-            'avatar' => $this->avatar ?? url('static/avatar.png')
-        ] + parent::toArray($request);
+        return parent::toArray($request);
     }
 }
