@@ -11,10 +11,17 @@ class ForgetPasswordRequest extends FormRequest
     {
         return [
             'account' => $this->accountRule(),
-            'code' => ['required', new ValidateCodeRule],
             'password' => ['required', 'confirmed', 'min:3']
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->sometimes('code', ['required', new ValidateCodeRule], function ($input) {
+            return app()->environment() == 'production' || request('code');
+        });
+    }
+
 
     protected function accountRule()
     {

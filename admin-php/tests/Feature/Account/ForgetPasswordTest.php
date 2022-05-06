@@ -17,9 +17,9 @@ class ForgetPasswordTest extends TestCase
      */
     public function validateForm()
     {
-        $response = $this->post('/api/account/forget-password', []);
+        $response = $this->postJson('/api/account/forget-password', []);
 
-        $response->assertSessionHasErrors(['account', 'code', 'password']);
+        $response->assertJsonValidationErrors(['account', 'password']);
     }
 
     /**
@@ -43,16 +43,13 @@ class ForgetPasswordTest extends TestCase
     public function retrievePassword()
     {
         $user = create(User::class);
-        $codeResponse = $this->postJson('/api/code/send', [
-            'account' => $user->email
-        ]);
 
         $response = $this->postJson('/api/account/forget-password', [
             'account' => $user->email,
-            'code' => $codeResponse['data'],
             'password' => 'admin88843983249834',
             'password_confirmation' => 'admin88843983249834'
         ]);
+
         $response->assertOk();
     }
 }

@@ -12,14 +12,21 @@ class RegisterRequest extends FormRequest
         return [
             'account' => $this->accountRule(),
             'password' => ['required', 'min:3', 'confirmed'],
-            'code' => ['required', new ValidateCodeRule]
+            // 'code' => ['required', new ValidateCodeRule]
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->sometimes('code', ['required', new ValidateCodeRule], function ($input) {
+            return app()->environment() == 'production' || request('code');
+        });
     }
 
     protected function accountRule()
     {
         if (filter_var(request('account'), FILTER_VALIDATE_EMAIL)) {
-            return 'required|email|unique:users,email';
+            return ['required', 'email', 'unique:users,email'];
         }
 
         return ['required', 'regex:/^\d{11}$/', 'unique:users,mobile'];

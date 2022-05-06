@@ -2,8 +2,11 @@
 $xj = include __DIR__ . '/xj.php';
 
 return [
-    'mobile' => $xj['mobile'],
-    'code_expire_time' => env('CODE_EXPIRE_TIME', 3),
+    'code' => [
+        'expire' => env('CODE_EXPIRE_TIME', 10),
+        'timeout' => env('CODE_TIMEOUT_TIME', 60),
+        'length' => env('CODE_LENGTH', 6),
+    ],
     'aliyun' => [
         'access_key_id' => env('ALIYUN_ACCESS_KEY_ID'),
         'access_key_secret' => env('ALIYUN_ACCESS_KEY_SECRET'),

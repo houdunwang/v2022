@@ -23,6 +23,7 @@ class LoginController extends Controller
     public function __invoke(LoginRequest $request, UserService $userService)
     {
         $user = User::where($userService->fieldName(), $request->account)->first();
+
         return $this->success(data: [
             'user' => new UserResource($user),
             'token' =>  $user->createToken('auth')->plainTextToken

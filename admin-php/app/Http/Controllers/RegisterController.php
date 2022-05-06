@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class RegisterController extends Controller
         ]);
 
         return $this->success(data: [
-            'user' => $user->refresh(),
+            'user' => new UserResource($user->refresh()),
             'token' => $user->createToken('auth')->plainTextToken
         ]);
     }

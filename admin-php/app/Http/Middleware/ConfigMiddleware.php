@@ -18,7 +18,7 @@ class ConfigMiddleware
     public function handle(Request $request, Closure $next)
     {
         $config = Config::where('name', 'system')->firstOrNew()->toArray();
-        config(['system' => empty($config) ? config('system') : $config]);
+        config(['system' => empty($config) ? config('system') : $config['data']]);
 
         return $next($request);
     }

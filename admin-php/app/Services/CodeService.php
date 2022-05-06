@@ -22,7 +22,13 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (!app()->isLocal() && Cache::get($account)) abort(403, '验证码不允许重复发送');
+        if ($cache = Cache::get($account)) {
+            $diff = $cache['sendTime']->diffInSeconds(now());
+            $timeout = config('system.code.timeout');
+            if ($diff <= $timeout) {
+                abort(403, "验证码不允许重复发送,请稍" . ($timeout - $diff) . "秒后再试");
+            }
+        }
 
         return $this->$action($account);
     }
@@ -35,7 +41,7 @@ class CodeService
     {
         $user = User::factory()->make(['email' => $email]);
         Notification::send($user, new EmailValidateCodeNotification($code = $this->getCode()));
-        Cache::put($email, $code, config('hd.code_expire_time'));
+        $this->cache($email, $code);
         return $code;
     }
 
@@ -49,22 +55,29 @@ class CodeService
             'code' => $code = $this->getCode(),
             'product' => config('app.name')
         ]);
+        $this->cache($phone, $code);
         return $code;
     }
 
+    protected function cache(string $account, int $code)
+    {
+        Cache::put($account, ['code' => $code, 'sendTime' => now()], config('system.code.expire'));
+    }
     /**
      * 验证码
      * @return int
      */
     protected function getCode(): int
     {
-        return mt_rand(1000, 9999);
+        return rand(pow(10, config('system.code.length') - 1), pow(10, config('system.code.length'))) - 1;
     }
-
 
     public function check($account,  $code): bool
     {
-        return Cache::get($account) == $code;
+        if ($cache = Cache::get($account)) {
+            return $cache['code'] == $code;
+        }
+        return false;
     }
 
     public function clear($account): void

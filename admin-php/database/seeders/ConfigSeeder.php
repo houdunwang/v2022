@@ -8,33 +8,33 @@ use Illuminate\Database\Seeder;
 
 class ConfigSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        Config::create([
-            'name' => 'system',
-            'data' => [
-                'site' => [
-                    'name' => '后盾人',
-                    'tel' => 'abc',
-                    'icp' => '',
-                    'keywords' => '',
-                    'address' => '',
-                    'email' => '',
-                    'author' => ''
-                ],
-                'aliyun' => [
-                    'accessKeyId' => '',
-                    'accessKeySecret' => '',
-                    'sms' => [
-                        'signName' => ""
-                    ]
-                ]
-            ]
-        ]);
+        // dd(config('system'));
+        Config::create(
+            ['name' => 'system', 'data' => config('system')]
+        );
+
+        // Config::create([
+        //     'name' => 'system',
+        //     'data' => [
+        //         'site' => [
+        //             'name' => '后盾人',
+        //             'tel' => 'abc',
+        //             'icp' => '',
+        //             'keywords' => '',
+        //             'address' => '',
+        //             'email' => '',
+        //             'author' => ''
+        //         ],
+        //         'aliyun' => [
+        //             'accessKeyId' => '',
+        //             'accessKeySecret' => '',
+        //             'sms' => [
+        //                 'signName' => ""
+        //             ]
+        //         ]
+        //     ]
+        // ]);
     }
 }

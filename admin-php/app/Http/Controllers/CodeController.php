@@ -19,13 +19,13 @@ class CodeController extends Controller
 
     public function send(ValidateCodeRequest $request, CodeService $codeService)
     {
-        $code = $codeService->send($request->account);
-        return $this->success('验证码发送成功',  $code);
+        $codeService->send($request->account);
+        return $this->success('验证码发送成功');
     }
 
     public function user(string $type, CodeService $codeService)
     {
-        $code = $codeService->send(Auth::user()[$type == 'email' ? 'email' : 'mobile']);
-        return $this->success('验证码发送成功', $code);
+        $codeService->send(Auth::user()[$type == 'email' ? 'email' : 'mobile']);
+        return $this->success('验证码发送成功');
     }
 }

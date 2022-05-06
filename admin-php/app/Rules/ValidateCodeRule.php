@@ -25,7 +25,7 @@ class ValidateCodeRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return app('code')->check(request('account'), $value);
+        return request('account') && app('code')->check(request('account'), $value);
     }
 
     /**
