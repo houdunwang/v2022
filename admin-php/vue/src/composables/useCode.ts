@@ -1,11 +1,22 @@
 import { MessagePlugin } from 'tdesign-vue-next'
 import store from '@/utils/store'
-import { ApiSendCode } from '@/apis/commonApi'
+import { ApiSendCode, ApiSendToExistUser, ApiSendToNotExistUser } from '@/apis/commonApi'
 import dayjs from 'dayjs'
 
+export type ICodeType = 'any' | 'notExist' | 'exist'
 export default () => {
-  const sendCode = async (account: string) => {
-    await ApiSendCode(account)
+  const sendCode = async (account: string, type: ICodeType = 'any') => {
+    switch (type) {
+      case 'notExist':
+        await ApiSendToNotExistUser(account)
+
+        break
+      case 'exist':
+        await ApiSendToExistUser(account)
+        break
+      default:
+        await ApiSendCode(account)
+    }
     store.set('codeSendTime', dayjs())
     MessagePlugin.success('验证码发送成功')
   }

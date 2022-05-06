@@ -5,11 +5,14 @@ namespace Tests\Feature\ValidateCode;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+use PHPUnit\Framework\ExpectationFailedException;
 use Tests\TestCase;
 
 class SendValideCodeTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * 发送邮件验证码
      * @test
@@ -58,5 +61,31 @@ class SendValideCodeTest extends TestCase
         $this->post('/api/code/send', [
             'account' => $user->email
         ])->assertStatus(403);
+    }
+
+    /**
+     * 不存在的用户发送验证码
+     * @test
+     */
+    public function sendToNotExistUser()
+    {
+        create(User::class, ['email' => 'abc@qq.com']);
+
+        $response = $this->postJson('/api/code/not_exist_user', ['account' => 'abc@qq.com']);
+
+        $response->assertJsonValidationErrors('account');
+    }
+
+    /**
+     * 向已经存在的用户发送验证码
+     * @test
+     */
+    public function sendCodeToExistUser()
+    {
+        $user = create(User::class, ['email' => 'abc@qq.com']);
+
+        $response = $this->postJson('/api/code/exist_user', ['account' => $user->email]);
+
+        $response->assertSuccessful();
     }
 }

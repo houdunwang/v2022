@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateCodeRequest extends FormRequest
+class CodeRequest extends FormRequest
 {
     public function rules()
     {

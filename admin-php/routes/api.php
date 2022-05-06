@@ -25,6 +25,8 @@ Route::get('logout', LogoutController::class);
 Route::post('account/forget-password', ForgetPasswordController::class);
 
 Route::post('code/send', [CodeController::class, 'send']);
+Route::post('code/not_exist_user', [CodeController::class, 'notExistUser']);
+Route::post('code/exist_user', [CodeController::class, 'existUser']);
 Route::post('code/user/{type}', [CodeController::class, 'user']);
 
 Route::put('config/{name}', [ConfigController::class, 'update']);

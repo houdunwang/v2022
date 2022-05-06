@@ -17,7 +17,8 @@ loadCaptcha()
   <div class="">
     <div class="flex justify-between">
       <FormInput
-        @input="$emit('update:captcha_code',($event.target as HTMLInputElement).value)"
+        @input="emit('update:captcha_code',($event.target as HTMLInputElement).value)"
+        :value="props.captcha_code"
         v-clearError="'captcha_code'"
         placeholder="请输入验证码" />
       <img :src="captcha?.img" @click="loadCaptcha()" class="ml-1 cursor-pointer rounded-md border" />

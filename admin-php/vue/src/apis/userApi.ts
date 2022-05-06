@@ -21,9 +21,18 @@ export interface IRegisterForm {
   password_confirmation: string
   code: string
 }
-export function apiRegister(data: ILoginForm) {
+
+export function apiRegister(data: IRegisterForm) {
   return http.request<IRegisterResponse>({
     url: `register`,
+    method: 'post',
+    data,
+  })
+}
+
+export function apiForgetPassword(data: IRegisterForm) {
+  return http.request<IRegisterResponse>({
+    url: `account/forget-password`,
     method: 'post',
     data,
   })

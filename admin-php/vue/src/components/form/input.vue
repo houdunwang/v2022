@@ -2,6 +2,10 @@
 const props = defineProps({
   modelValue: String,
 })
+
+// onUpdated(() => {
+//   console.log('update.... input')
+// })
 </script>
 
 <template>

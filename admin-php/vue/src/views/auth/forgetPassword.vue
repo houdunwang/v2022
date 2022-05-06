@@ -11,7 +11,7 @@ const form = reactive({
 })
 
 const onSubmit = async () => {
-  utils.user.register(form)
+  utils.user.forgetPassword(form)
 }
 
 const error = errorStore()
@@ -23,7 +23,7 @@ const error = errorStore()
       class="w-[720px] translate-y-32 md:translate-y-0 bg-white md:grid grid-cols-2 rounded-md shadow-md overflow-hidden">
       <div class="p-6 flex flex-col justify-between">
         <div>
-          <h2 class="text-center text-gray-700 text-lg mt-3">会员注册</h2>
+          <h2 class="text-center text-gray-700 text-lg mt-3">密码重置</h2>
           <div class="mt-8">
             <FormInput v-model="form.account" placeholder="请输入邮箱或手机号" v-clearError="'account'" />
             <FormError name="account" />
@@ -33,12 +33,12 @@ const error = errorStore()
 
             <FormInput v-model="form.password_confirmation" class="mt-3" type="password" placeholder="请再次输入密码" />
 
-            <HdCode :account="form.account" v-model:code="form.code" class="mt-2" type="notExist" />
+            <HdCode :account="form.account" v-model:code="form.code" class="mt-2" type="exist" />
 
             <FormError name="captcha_code" />
           </div>
 
-          <FormButton class="w-full primary" :disabled="error.hasError"> 注册</FormButton>
+          <FormButton class="w-full primary" :disabled="error.hasError"> 确定修改</FormButton>
           <div class="flex justify-center mt-3">
             <icon-wechat
               theme="outline"
@@ -50,7 +50,7 @@ const error = errorStore()
         <Footer />
       </div>
       <div class="hidden md:block relative">
-        <img src="/images/register.jpg" class="absolute h-full w-full object-cover" />
+        <img src="/images/forget-password.jpg" class="absolute h-full w-full object-cover" />
       </div>
     </div>
   </form>

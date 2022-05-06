@@ -11,8 +11,24 @@ export function getCaptcha() {
 }
 
 export function ApiSendCode(account: string) {
-  return http.request<null, ICaptcha>({
+  return http.request<null>({
     url: '/code/send',
+    method: 'POST',
+    data: { account },
+  })
+}
+
+export function ApiSendToNotExistUser(account: string) {
+  return http.request<null>({
+    url: 'code/not_exist_user',
+    method: 'POST',
+    data: { account },
+  })
+}
+
+export function ApiSendToExistUser(account: string) {
+  return http.request<null>({
+    url: 'code/exist_user',
     method: 'POST',
     data: { account },
   })

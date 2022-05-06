@@ -1,4 +1,4 @@
-import { apiRegister, IRegisterForm } from './../apis/userApi'
+import { apiForgetPassword, apiRegister, IRegisterForm } from './../apis/userApi'
 import { ILoginForm, IRegisterResponse } from './../apis/types/user'
 import utils from '@/utils'
 import userApi from '@/apis/userApi'
@@ -20,6 +20,12 @@ export async function login(values: ILoginForm) {
 
 export async function register(values: IRegisterForm) {
   const { data } = await apiRegister(values)
+
+  loginAndRegisterCallback(data)
+}
+
+export async function forgetPassword(values: IRegisterForm) {
+  const { data } = await apiForgetPassword(values)
 
   loginAndRegisterCallback(data)
 }
