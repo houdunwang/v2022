@@ -7,9 +7,9 @@ import setupIconPark from './iconpark'
 import setupDayjs from './dayjs'
 
 export function setupPlugins(app: App) {
-  setupTailwindcss()
-  setupElementPlus()
-  setupPinia(app)
-  setupIconPark(app)
-  setupDayjs()
+    setupTailwindcss()
+    setupElementPlus()
+    setupPinia(app)
+    setupIconPark(app)
+    setupDayjs()
 }

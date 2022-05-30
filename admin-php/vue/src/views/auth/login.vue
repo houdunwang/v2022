@@ -4,7 +4,7 @@ import errorStore from '@/store/errorStore'
 import utils from '@/utils'
 import Footer from './footer.vue'
 
-const form = reactive({ account: '', password: 'admin888', captcha_code: '', captcha_key: '' })
+const form = reactive({ account: '2300071698@qq.com', password: 'admin888', captcha_code: '', captcha_key: '' })
 
 const onSubmit = async () => {
   useCaptcha().loadCaptcha()
@@ -21,7 +21,11 @@ const error = errorStore()
         <div>
           <h2 class="text-center text-gray-700 text-lg mt-3">会员登录</h2>
           <div class="mt-8">
-            <FormInput v-model="form.account" v-clearError="'account'" placeholder="请输入邮箱或手机号" />
+            <FormInput
+              v-model="form.account"
+              type="password"
+              v-clearError="'account'"
+              placeholder="请输入邮箱或手机号" />
             <FormError name="account" />
 
             <FormInput v-model="form.password" class="mt-3" type="password" placeholder="请输入密码" />

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UploadAvatarRequest;
+use App\Http\Requests\UploadImageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,5 +21,10 @@ class UploadController extends Controller
         $user->avatar = $res['url'];
         $user->save();
         return ['url' => $res['url']];
+    }
+    public function image(UploadImageRequest $request)
+    {
+        $res = app('upload')->file($request->file);
+        return $this->success(data: ['url' => $res['url']]);
     }
 }

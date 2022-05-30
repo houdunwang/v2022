@@ -39,6 +39,8 @@ class User extends Authenticatable
         'unionid',
         'miniapp_openid',
         'mobile',
+        'email',
+        'real_name'
     ];
 
 
@@ -78,5 +80,10 @@ class User extends Authenticatable
     public function fans()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    public function site()
+    {
+        return $this->hasMany(Site::class);
     }
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\SiteController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -32,6 +33,7 @@ Route::post('code/user/{type}', [CodeController::class, 'user']);
 Route::put('config/{name}', [ConfigController::class, 'update']);
 
 Route::post('upload/avatar', [UploadController::class, 'avatar']);
+Route::post('upload/image', [UploadController::class, 'image']);
 
 Route::apiResource('permission', PermissionController::class);
 Route::put('role/permission/{role}', [RoleController::class, 'permission']);
@@ -43,3 +45,5 @@ Route::apiResource('user', UserController::class);
 Route::get('follower/{user}', [FollowerController::class, 'index']);
 Route::get('follower/toggle/{user}', [FollowerController::class, 'toggle']);
 Route::get('fans/{user}', [FansController::class, 'index']);
+
+Route::apiResource('site', SiteController::class);

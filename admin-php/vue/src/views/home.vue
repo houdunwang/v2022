@@ -7,7 +7,7 @@ import { RouteEnum } from '@/enum/routeEnum'
   <div class="h-screen w-screen bg-gray-700 flex flex-col justify-center items-center">
     <img src="/images/xj.jpg" class="w-40 h-40 object-cover rounded-full border-8 border-white mb-5" />
     <div>
-      <FormButton class="primary" @click="$router.push({ name: 'admin.home' })">后台管理</FormButton>
+      <FormButton class="primary" @click="$router.push({ name: 'admin' })">后台管理</FormButton>
       <FormButton class="danger ml-3" v-if="!utils.user.isLogin()" @click="$router.push({ name: RouteEnum.LOGIN })"
         >用户登录</FormButton
       >

@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function success(string $message = '操作成功', $data = [], $code = 0)
+    protected function success(string $message = '', $data = [], $code = 0)
     {
         return response()->json([
             'code' => $code,

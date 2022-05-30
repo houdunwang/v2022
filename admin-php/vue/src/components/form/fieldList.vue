@@ -1,0 +1,38 @@
+<script setup lang="ts">
+import _ from 'lodash'
+
+const props = defineProps<{
+  model: Record<string, any>
+  fields: { title: string; name: string; type?: 'input' | 'textarea' | 'radio' | 'image' }[]
+}>()
+
+const emit = defineEmits<{
+  (e: 'submit'): void
+}>()
+</script>
+
+<template>
+  <div class="">
+    <el-card shadow="never" :body-style="{ padding: '20px' }">
+      <el-form :model="model" label-width="80px" size="large">
+        <el-form-item :label="field.title" v-for="field of props.fields">
+          <template v-if="field.type == 'input' || !field.type">
+            <el-input v-model="model[field.name]"></el-input>
+            <FormError :name="field.name" />
+          </template>
+          <template v-if="field.type == 'image'">
+            <UploadSingleImage />
+            <FormError :name="field.name" />
+          </template>
+        </el-form-item>
+        <el-form-item>
+          <slot name="button">
+            <el-button type="primary" @click="emit('submit')">保存提交</el-button>
+          </slot>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </div>
+</template>
+
+<style lang="scss"></style>

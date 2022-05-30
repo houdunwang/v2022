@@ -1,65 +1,31 @@
-<script setup lang="ts">
-import userStore from '@/store/userStore'
-import utils from '@/utils'
-import menuService from '@/composables/useMenu'
-import { RouteEnum } from '@/enum/RouteEnum'
-
-const user = userStore()
-
-const isFullScreen = ref<boolean>(false)
-const fullScreen = () => {
-  isFullScreen.value ? document.exitFullscreen() : document.documentElement.requestFullscreen()
-  isFullScreen.value = !isFullScreen.value
-}
-
-document.addEventListener('fullscreenchange', (e) => {
-  isFullScreen.value = Boolean(document.fullscreenElement)
-})
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="bg-white p-3 px-5 flex justify-between items-center">
-    <div class="flex items-center">
-      <div @click="menuService.toggleState" class="mr-2">
-        <icon-menu-fold-one
-          theme="filled"
-          size="24"
-          fill="#10ad57"
-          v-if="menuService.close.value"
-          class="cursor-pointer" />
-        <icon-menu-unfold-one theme="filled" size="24" fill="#10ad57" v-else class="cursor-pointer" />
-      </div>
-      <HdBreadcrumb class="hidden md:block" />
-    </div>
+  <div class="navbar py-3">
+    <section class="">
+      <router-link to="/"><icon-blocks-and-arrows theme="outline" />模块管理</router-link>
+      <router-link to="/"> <icon-me theme="outline" /> 会员中心</router-link>
+      <router-link to="/"><icon-blocks-and-arrows theme="outline" />模块管理</router-link>
+    </section>
     <div class="flex justify-center items-center relative cursor-pointer">
-      <HdNotification class="mr-8" />
-      <icon-off-screen theme="outline" size="24" fill="#333" @click="fullScreen" class="mr-5" v-if="isFullScreen" />
-      <icon-full-screen-one theme="outline" size="24" fill="#333" @click="fullScreen" class="mr-5" v-else />
-      <div class="group relative">
-        <div class="flex justify-center items-center">
-          <ElImage
-            v-if="user.info?.avatar"
-            :src="user.info?.avatar"
-            fit="cover"
-            class="w-8 h-8 rounded-full border-white" />
-          <span class="ml-1 text-sm text-gray-600">{{ user.info?.name }}</span>
-        </div>
-        <section
-          class="group-hover:block absolute right-0 top-full z-50 bg-white shadow-sm px-5 whitespace-nowrap border rounded-md hidden">
-          <div class="flex items-center cursor-pointer border-b py-3">
-            <icon-log theme="outline" size="18" fill="#333" />
-            <span class="text-xs text-gray-600 ml-2">文档资料</span>
-          </div>
-          <div class="flex items-center cursor-pointer py-3" @click="$router.push({ name: RouteEnum.HOME })">
-            <icon-home theme="outline" size="18" fill="#333" />
-            <span class="text-xs text-gray-600 ml-2">网站首页</span>
-          </div>
-          <div class="flex items-center cursor-pointer py-3" @click="utils.user.logout()">
-            <icon-logout theme="outline" size="18" fill="#333" />
-            <span class="text-xs text-gray-600 ml-2">退出登录</span>
-          </div>
-        </section>
-      </div>
+      <HdNotification class="mr-8 text-[#7ed321]" />
+      <HdFullscreen class="text-[#7ed321]" />
+      <UserDrop class="text-gray-300" />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.navbar {
+  @apply bg-gray-800 flex justify-between items-center px-5;
+  :first-of-type {
+    @apply flex;
+    a {
+      @apply flex items-center text-gray-300 text-base mr-2 hover:text-white duration-300 opacity-80;
+      span {
+        @apply mr-1;
+      }
+    }
+  }
+}
+</style>
