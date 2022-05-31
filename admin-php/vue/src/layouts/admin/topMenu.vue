@@ -1,17 +1,20 @@
 <script setup lang="ts">
+import systemStore from '@/store/systemStore'
 import utils from '@/utils'
+import { is_super_admin } from '@/utils/helper'
+const store = systemStore()
 </script>
 
 <template>
   <div class="topmenu">
-    <img src="/images/logo.png" alt="" />
+    <img :src="store.config.logo" alt="" />
     <section>
       <div class="">
         <router-link :to="{ name: 'site.index' }">
           <icon-category-management theme="outline" />
           网站管理
         </router-link>
-        <router-link :to="{ name: 'system.index' }">
+        <router-link :to="{ name: 'system.index' }" v-if="is_super_admin()">
           <icon-system theme="outline" />
           系统设置
         </router-link>

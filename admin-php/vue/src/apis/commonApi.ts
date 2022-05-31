@@ -1,4 +1,11 @@
 import { http } from '@/plugins/axios'
+
+export function initDataApi() {
+  return http.request<Record<string, any>>({
+    url: 'init',
+  })
+}
+
 export interface ICaptcha {
   key: string
   img: string

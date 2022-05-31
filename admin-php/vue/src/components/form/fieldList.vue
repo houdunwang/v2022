@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const props = defineProps<{
   model: Record<string, any>
-  fields: { title: string; name: string; type?: 'input' | 'textarea' | 'radio' | 'image' }[]
+  fields: { title: string; name: string; error_name?: string; type?: 'input' | 'textarea' | 'radio' | 'image' }[]
 }>()
 
 const emit = defineEmits<{
@@ -18,11 +18,11 @@ const emit = defineEmits<{
         <el-form-item :label="field.title" v-for="field of props.fields">
           <template v-if="field.type == 'input' || !field.type">
             <el-input v-model="model[field.name]"></el-input>
-            <FormError :name="field.name" />
+            <FormError :name="field.error_name || field.name" />
           </template>
           <template v-if="field.type == 'image'">
-            <UploadSingleImage />
-            <FormError :name="field.name" />
+            <UploadSingleImage v-model="model[field.name]" />
+            <FormError :name="field.error_name || field.name" />
           </template>
         </el-form-item>
         <el-form-item>

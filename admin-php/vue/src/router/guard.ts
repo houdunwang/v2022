@@ -3,11 +3,15 @@ import { CacheEnum } from '../enum/CacheEnum'
 import util from '@/utils'
 import { RouteLocationNormalized, Router } from 'vue-router'
 import store from '@/utils/store'
+import systemStore from '@/store/systemStore'
 
 class Guard {
   constructor(private router: Router) {}
 
-  public run() {
+  public async run() {
+    const storeSystem = systemStore()
+    await storeSystem.load()
+
     this.router.beforeEach(this.beforeEach.bind(this))
   }
 

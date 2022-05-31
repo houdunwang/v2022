@@ -5,10 +5,18 @@ import { Plus } from '@element-plus/icons-vue'
 import { ElUploadRequestOptions } from 'element-plus/es/components/upload/src/upload.type'
 import { http } from '@/plugins/axios'
 
-const imageUrl = ref('')
+const props = defineProps<{
+  modelValue: string | null
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', url: string): void
+}>()
+const imageUrl = ref(props.modelValue)
 
 const handleSuccess = (response: any, uploadFile: any) => {
   imageUrl.value = response.data.url
+  emit('update:modelValue', imageUrl.value!)
 }
 
 const request = async (options: ElUploadRequestOptions) => {
@@ -44,6 +52,7 @@ const request = async (options: ElUploadRequestOptions) => {
 .avatar-uploader .avatar {
   height: 178px;
   display: block;
+  @apply bg-gray-200;
 }
 </style>
 

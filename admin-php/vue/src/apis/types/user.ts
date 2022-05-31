@@ -25,6 +25,7 @@ export interface IUser {
   favorite_count: number
   avatar: string
   permissions: string[]
+  is_super_admin: boolean
 }
 
 export interface ILogin {

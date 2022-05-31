@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConfigRequest;
 use App\Http\Requests\StoreConfigRequest;
 use App\Http\Requests\UpdateConfigRequest;
 use App\Models\Config;
@@ -14,17 +15,18 @@ class ConfigController extends Controller
         $this->middleware(['auth:sanctum']);
     }
 
-    public function update(Request $request, string $name)
+    public function update(ConfigRequest $request, string $name)
     {
         $config = Config::where('name', $name)->firstOrNew();
         $config['name'] = $name;
-        $config['data'] = $request->data;
+        $config['data'] = $request->input();
         $config->save();
 
-        // Config::updateOrCreate([
-        //     'name' => $name
-        // ], ['data' => $request->data]);
-
         return $this->success(data: $config);
+    }
+
+    public function get(Request $request, string $module)
+    {
+        return $this->success(data: config($module));
     }
 }

@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import menu from '@/composables/useMenu'
 import TopMenu from './admin/topMenu.vue'
+import Copyright from './admin/copyright.vue'
 
 const route = useRoute()
 watch(
@@ -30,6 +31,7 @@ watch(
         </router-view>
       </div>
     </section>
+    <Copyright class="flex justify-center text-white font-bold shadow-sm" />
   </div>
 </template>
 

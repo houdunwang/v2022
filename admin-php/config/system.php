@@ -1,9 +1,9 @@
 <?php
-$xj = include __DIR__ . '/xj.php';
-
 return [
     'site' => [
+        "title" => "后盾人",
         "logo" => '',
+        "copyright" => '后盾人每晚八点直播 -  不见不散'
     ],
     'code' => [
         'expire' => env('CODE_EXPIRE_TIME', 10),

@@ -26,7 +26,7 @@
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 section {
   @apply mt-5;
   h5 {

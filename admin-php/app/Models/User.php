@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+
     ];
 
     /**
@@ -43,6 +44,12 @@ class User extends Authenticatable
         'real_name'
     ];
 
+    protected $appends = ['is_super_admin'];
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->id == 1;
+    }
 
     /**
      * The attributes that should be cast.

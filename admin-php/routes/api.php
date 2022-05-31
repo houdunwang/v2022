@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\InitController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\SiteController;
 
@@ -20,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('init', InitController::class);
 Route::post('register', RegisterController::class);
 Route::post('login', LoginController::class);
 Route::get('logout', LogoutController::class);
@@ -31,6 +33,7 @@ Route::post('code/exist_user', [CodeController::class, 'existUser']);
 Route::post('code/user/{type}', [CodeController::class, 'user']);
 
 Route::put('config/{name}', [ConfigController::class, 'update']);
+Route::get('config/{name}', [ConfigController::class, 'get']);
 
 Route::post('upload/avatar', [UploadController::class, 'avatar']);
 Route::post('upload/image', [UploadController::class, 'image']);
