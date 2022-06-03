@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import systemStore from '@/store/systemStore'
 import utils from '@/utils'
-import { is_super_admin } from '@/utils/helper'
+import { isSuperAdmin, logout } from '@/utils/helper'
+
 const store = systemStore()
 </script>
 
@@ -14,12 +15,12 @@ const store = systemStore()
           <icon-category-management theme="outline" />
           网站管理
         </router-link>
-        <router-link :to="{ name: 'system.index' }" v-if="is_super_admin()">
+        <router-link :to="{ name: 'system.index' }" v-if="isSuperAdmin()">
           <icon-system theme="outline" />
           系统设置
         </router-link>
         <router-link to="/">
-          <icon-power theme="outline" @click="utils.user.logout" />
+          <icon-power theme="outline" @click="logout" />
           退出登录
         </router-link>
       </div>

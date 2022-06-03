@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { apiForgetPassword } from '@/apis/userApi'
 import errorStore from '@/store/errorStore'
 import utils from '@/utils'
+import { loginAndRegisterCallback } from '@/utils/user'
 import Footer from './footer.vue'
 
 const form = reactive({
@@ -11,7 +13,8 @@ const form = reactive({
 })
 
 const onSubmit = async () => {
-  utils.user.forgetPassword(form)
+  const { data } = await apiForgetPassword(form)
+  loginAndRegisterCallback(data)
 }
 
 const error = errorStore()

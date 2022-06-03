@@ -15,7 +15,7 @@ return [
         'access_key_secret' => env('ALIYUN_ACCESS_KEY_SECRET'),
         'sms_sign_name' => env('ALIYUN_SMS_SING_NAME')
     ],
-    "upload" => [
+    "avatar" => [
         # 用户头像尺寸
         'avatar_crop_width' => env('AVATAR_CROP_WIDTH', 500),
         'avatar_crop_height' => env('AVATAR_CROP_HEIGHT', 100),

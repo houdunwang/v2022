@@ -1,21 +1,28 @@
-import { ILogin, ILoginForm, IRegisterResponse, IUser } from './types/user'
 import { http } from '@/plugins/axios'
+export function getUserList() {
+  return http.request<UserModel[], ResponsePageResult<UserModel>>({
+    url: 'user',
+  })
+}
 
-function info() {
-  return http.request<IUser>({
+export function info() {
+  return http.request<UserModel>({
     url: `user/info`,
   })
 }
 
-export function login(data: ILoginForm) {
-  return http.request<ILogin>({
+export function login(data: { account: string; password: string }) {
+  return http.request<{
+    user: UserModel
+    token: string
+  }>({
     url: `login`,
     method: 'post',
     data,
   })
 }
 
-export interface IRegisterForm {
+interface IRegisterForm {
   account: string
   password: string
   password_confirmation: string
@@ -23,7 +30,10 @@ export interface IRegisterForm {
 }
 
 export function apiRegister(data: IRegisterForm) {
-  return http.request<IRegisterResponse>({
+  return http.request<{
+    user: UserModel
+    token: string
+  }>({
     url: `register`,
     method: 'post',
     data,
@@ -31,7 +41,10 @@ export function apiRegister(data: IRegisterForm) {
 }
 
 export function apiForgetPassword(data: IRegisterForm) {
-  return http.request<IRegisterResponse>({
+  return http.request<{
+    user: UserModel
+    token: string
+  }>({
     url: `account/forget-password`,
     method: 'post',
     data,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { apiRegister } from '@/apis/userApi'
 import errorStore from '@/store/errorStore'
-import utils from '@/utils'
+import { loginAndRegisterCallback } from '@/utils/helper'
 import Footer from './footer.vue'
 
 const form = reactive({
@@ -11,7 +12,8 @@ const form = reactive({
 })
 
 const onSubmit = async () => {
-  utils.user.register(form)
+  const { data } = await apiRegister(form)
+  loginAndRegisterCallback(data)
 }
 
 const error = errorStore()

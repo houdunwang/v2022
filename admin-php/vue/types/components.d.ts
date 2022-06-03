@@ -7,13 +7,15 @@ declare module 'vue' {
     EditorMarkdown: typeof import('./../src/components/editor/markdown.vue')['default']
     EditorWangEditor: typeof import('./../src/components/editor/wangEditor.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCard: typeof import('element-plus/es')['ElCard']
+    ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElUpload: typeof import('element-plus/es')['ElUpload']
@@ -32,6 +34,7 @@ declare module 'vue' {
     SiteItem: typeof import('./../src/components/site/item.vue')['default']
     UploadSingleImage: typeof import('./../src/components/upload/singleImage.vue')['default']
     UserDrop: typeof import('./../src/components/user/drop.vue')['default']
+    UserList: typeof import('./../src/components/user/list.vue')['default']
   }
 }
 

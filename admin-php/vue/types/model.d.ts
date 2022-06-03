@@ -1,4 +1,4 @@
-export interface IUser {
+interface UserModel {
   id: number
   name: string
   sex: number
@@ -26,19 +26,4 @@ export interface IUser {
   avatar: string
   permissions: string[]
   is_super_admin: boolean
-}
-
-export interface ILogin {
-  user: IUser
-  token: string
-}
-
-export interface IRegisterResponse {
-  user: IUser
-  token: string
-}
-
-export interface ILoginForm {
-  account: string
-  password: string
 }

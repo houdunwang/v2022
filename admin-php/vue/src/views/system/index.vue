@@ -14,7 +14,15 @@
       </li>
     </ul>
   </section>
-
+  <section>
+    <h5>用户相关</h5>
+    <ul>
+      <li @click="$router.push({ name: 'user.index' })">
+        <icon-right-user theme="outline" />
+        用户列表
+      </li>
+    </ul>
+  </section>
   <section>
     <h5>系统管理</h5>
     <ul>

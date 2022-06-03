@@ -16,7 +16,8 @@ class ConfigRequest extends FormRequest
         return [
             'site.title' => ['required'],
             'site.copyright' => ['required'],
-            'site.logo' => ['required']
+            'site.logo' => ['required'],
+            'code.expire' => ['required', 'numeric']
         ];
     }
 
@@ -25,7 +26,8 @@ class ConfigRequest extends FormRequest
         return [
             'site.title' => '站点名称',
             'site.copyright' => '版权信息',
-            'site.logo' => '网站标志'
+            'site.logo' => '网站标志',
+            'code.expire' => '验证码有效期'
         ];
     }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import userStore from '@/store/userStore'
 import { RouteEnum } from '@/enum/RouteEnum'
-import utils from '@/utils'
+import { logout } from '@/utils/helper'
 
 const user = userStore()
 </script>
@@ -26,7 +26,7 @@ const user = userStore()
         <icon-home theme="outline" size="18" fill="#333" />
         <span class="text-xs text-gray-600 ml-2">网站首页</span>
       </div>
-      <div class="flex items-center cursor-pointer py-3" @click="utils.user.logout()">
+      <div class="flex items-center cursor-pointer py-3" @click="logout()">
         <icon-logout theme="outline" size="18" fill="#333" />
         <span class="text-xs text-gray-600 ml-2">退出登录</span>
       </div>

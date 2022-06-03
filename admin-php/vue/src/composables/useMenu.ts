@@ -1,10 +1,11 @@
 import store from '@/utils/store'
 import { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
-import { IMenu } from '#/menu'
+
 import { ref } from 'vue'
 import router from '@/router'
 import utils from '@/utils'
 import { CacheEnum } from '@/enum/CacheEnum'
+import { IMenu } from '#/router'
 
 class Menu {
   public menus = ref<IMenu[]>([])
