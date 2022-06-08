@@ -9,8 +9,7 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(3),
-            'address' => $this->faker->sentence()
+            'title' => $this->faker->word(),
         ];
     }
 }

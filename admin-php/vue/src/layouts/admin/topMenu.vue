@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import systemStore from '@/store/systemStore'
-import utils from '@/utils'
 import { isSuperAdmin, logout } from '@/utils/helper'
 
 const store = systemStore()
@@ -8,7 +7,7 @@ const store = systemStore()
 
 <template>
   <div class="topmenu">
-    <img :src="store.config.logo" alt="" />
+    <img :src="store.config.config.site.logo" alt="" />
     <section>
       <div class="">
         <router-link :to="{ name: 'site.index' }">

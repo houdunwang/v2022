@@ -27,3 +27,46 @@ interface UserModel {
   permissions: string[]
   is_super_admin: boolean
 }
+
+interface systemModel {
+  id: number
+  config: {
+    code: {
+      expire: string
+      length: number
+      timeout: number
+    }
+    site: {
+      logo: string
+      title: string
+      copyright: string
+    }
+    aliyun: {
+      access_key_id: string
+      sms_sign_name: string
+      access_key_secret: string
+    }
+    avatar: {
+      avatar_crop_width: string
+      avatar_crop_height: string
+    }
+  }
+  created_at: string
+  updated_at: string
+}
+
+interface SiteModel {
+  title: string
+  url: string
+  config: {
+    aliyun: {
+    access_key_id: string;
+    sms_sign_name: string;
+    access_key_secret: string;
+  };
+  site: {
+    email: string;
+    address: string;
+    copyright: string;
+  };
+}

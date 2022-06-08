@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\SystemController;
 use App\Http\Controllers\FansController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ForgetPasswordController;
@@ -32,8 +32,8 @@ Route::post('code/not_exist_user', [CodeController::class, 'notExistUser']);
 Route::post('code/exist_user', [CodeController::class, 'existUser']);
 Route::post('code/user/{type}', [CodeController::class, 'user']);
 
-Route::put('config/{name}', [ConfigController::class, 'update']);
-Route::get('config/{name}', [ConfigController::class, 'get']);
+Route::put('system', [SystemController::class, 'update']);
+Route::get('system', [SystemController::class, 'get']);
 
 Route::post('upload/avatar', [UploadController::class, 'avatar']);
 Route::post('upload/image', [UploadController::class, 'image']);

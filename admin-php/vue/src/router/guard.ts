@@ -9,9 +9,6 @@ class Guard {
   constructor(private router: Router) {}
 
   public async run() {
-    const storeSystem = systemStore()
-    await storeSystem.load()
-
     this.router.beforeEach(this.beforeEach.bind(this))
   }
 

@@ -1,7 +1,7 @@
 import { http } from '@/plugins/axios'
-export function getUserList() {
+export function getUserList(page = 1) {
   return http.request<UserModel[], ResponsePageResult<UserModel>>({
-    url: 'user',
+    url: `user?page=${page}`,
   })
 }
 
@@ -51,4 +51,12 @@ export function apiForgetPassword(data: IRegisterForm) {
   })
 }
 
-export default { info, login }
+export function findUser(id: string | string[]) {
+  return http
+    .request<UserModel>({
+      url: `user/${id}`,
+    })
+    .then((r) => r.data)
+}
+
+// export default { info, login }

@@ -17,12 +17,11 @@ class ConfigMiddleware
 
     protected function loadConfig(string $module, $config = [])
     {
-        $data = Config::where('name', $module)->firstOrFail()->data;
-        // dd($config);
-        foreach ($config as $key => $value) {
-            $config[$key] = ($data[$key] ?? []) + $value;
-        }
+        // $data = Config::where('name', $module)->firstOrFail()->data;
+        // foreach ($config as $key => $value) {
+        //     $config[$key] = ($data[$key] ?? []) + $value;
+        // }
 
-        config(['system' => $config]);
+        // config(['system' => $config]);
     }
 }

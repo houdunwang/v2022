@@ -36,5 +36,10 @@ export default {
       path: 'user',
       component: () => import('@/views/user/index.vue'),
     },
+    {
+      name: 'user.show',
+      path: 'user/:id',
+      component: () => import('@/views/user/show.vue'),
+    },
   ],
 } as RouteRecordRaw

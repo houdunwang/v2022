@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { apiGetSiteGet, apiSiteDelete, ISite } from '@/apis/apiSite'
+import { apiGetSiteGet, apiSiteDelete } from '@/apis/site'
 
-const sites = ref<ISite[]>()
+const sites = ref<SiteModel[]>()
 const load = async () => {
   sites.value = await apiGetSiteGet().then((r) => r.data)
 }

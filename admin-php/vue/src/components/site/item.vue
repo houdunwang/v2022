@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ISite } from '@/apis/apiSite'
+import { ISite } from '@/apis/site'
 import dayjs from 'dayjs'
 const props = defineProps<{
   site: ISite
@@ -28,7 +28,7 @@ const emit = defineEmits(['del'])
       <section>
         <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
         <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
-        <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
+        <router-link to="/"> <icon-home-two theme="outline" /> 管理员</router-link>
         <router-link :to="{ name: 'site.edit', params: { id: props.site.id } }">
           <icon-home-two theme="outline" /> 编辑站点
         </router-link>
@@ -42,8 +42,6 @@ const emit = defineEmits(['del'])
             </template>
           </el-popconfirm>
         </a>
-
-        <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
       </section>
     </footer>
   </div>

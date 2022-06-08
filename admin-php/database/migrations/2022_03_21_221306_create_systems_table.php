@@ -6,17 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('configs', function (Blueprint $table) {
+        Schema::create('systems', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->comment('模块标识');
-            $table->json('data')->comment('配置项内容');
+            $table->json('config')->comment('配置项内容');
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configs');
+        Schema::dropIfExists('systems');
     }
 };

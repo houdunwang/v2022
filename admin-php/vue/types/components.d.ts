@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     EditorMarkdown: typeof import('./../src/components/editor/markdown.vue')['default']
     EditorWangEditor: typeof import('./../src/components/editor/wangEditor.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -13,6 +14,7 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
@@ -31,10 +33,10 @@ declare module 'vue' {
     HdFullscreen: typeof import('./../src/components/hd/fullscreen.vue')['default']
     HdNotification: typeof import('./../src/components/hd/notification.vue')['default']
     HdTab: typeof import('./../src/components/hd/tab.vue')['default']
+    HdTableList: typeof import('./../src/components/hd/tableList.vue')['default']
     SiteItem: typeof import('./../src/components/site/item.vue')['default']
     UploadSingleImage: typeof import('./../src/components/upload/singleImage.vue')['default']
     UserDrop: typeof import('./../src/components/user/drop.vue')['default']
-    UserList: typeof import('./../src/components/user/list.vue')['default']
   }
 }
 

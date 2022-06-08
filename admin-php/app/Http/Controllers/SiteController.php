@@ -17,7 +17,7 @@ class SiteController extends Controller
 
     public function index()
     {
-        return $this->success('站点列表获取成功', data: SiteResource::collection(site::orderBy('id', 'desc')->get()));
+        return  SiteResource::collection(site::latest()->paginate());
     }
 
 

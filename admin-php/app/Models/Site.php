@@ -9,7 +9,9 @@ class Site extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'url', 'email', 'address'];
+    protected $fillable = ['title', 'url', 'config'];
+
+    protected $casts = ['config' => 'array'];
 
     protected $with = ['user'];
 

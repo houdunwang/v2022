@@ -11,7 +11,7 @@ class InitController extends Controller
     public function __invoke()
     {
         return $this->success(data: [
-            "config" => config('system.site')
+            // "config" => config('system.site')
         ]);
     }
 }

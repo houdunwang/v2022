@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title', 50)->unique()->comment('网站名称');
             $table->string('url', 100)->nullable()->comment('网址');
-            $table->string('address', 200)->nullable()->comment('地址');
-            $table->string('email', 50)->nullable()->comment('邮箱');
+            $table->json('config')->comment('站点配置项');
+            // $table->string('address', 200)->nullable()->comment('地址');
+            // $table->string('email', 50)->nullable()->comment('邮箱');
             $table->foreignId('user_id')->constrained()->comment('用户id');
             $table->timestamps();
         });

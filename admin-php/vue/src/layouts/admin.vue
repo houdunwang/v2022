@@ -7,6 +7,7 @@ import { watch } from 'vue'
 import menu from '@/composables/useMenu'
 import TopMenu from './admin/topMenu.vue'
 import Copyright from './admin/copyright.vue'
+import systemStore from '@/store/systemStore'
 
 const route = useRoute()
 watch(
@@ -16,6 +17,8 @@ watch(
   },
   { immediate: true },
 )
+
+await systemStore().load()
 </script>
 
 <template>
