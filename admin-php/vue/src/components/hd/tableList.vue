@@ -1,22 +1,41 @@
 <script setup lang="ts">
 import { TableButton, TableFieldType } from '@/config/table'
 import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
+
 const props = defineProps<{
   columns: TableFieldType[]
   button: TableButton[]
-  api: (page?: number) => Promise<ResponsePageResult<Record<string, any>>>
+  buttonWidth: number
+  api: (page?: number, params?: {}) => Promise<ResponsePageResult<Record<string, any>>>
 }>()
+
 const emit = defineEmits<{
   (e: 'action', mode: Record<string, any>, command: string): void
 }>()
-const response = ref(await props.api())
+const data = await props.api()
+const response = ref(data)
 
-const load = async (page: number) => {
-  response.value = await props.api(page)
+const load = async (page: number, params: {}) => {
+  response.value = await props.api(page, params)
+}
+
+const searchField = ref('')
+const searchWord = ref('')
+const search = () => {
+  load(1, { key: searchField.value, content: searchWord.value })
 }
 </script>
 
 <template>
+  <div class="flex bg-white border mb-2 p-2">
+    <el-select v-model="searchField" clearable filterable class="mr-1">
+      <el-option v-for="col in props.columns" :key="col.id" :label="col.label" :value="col.id"> </el-option>
+    </el-select>
+    <el-input v-model="searchWord" size="default" class="mr-1" @keyup.enter="search"></el-input>
+    <el-button type="primary" size="default" @click="search">搜索</el-button>
+  </div>
+
   <el-table :data="response.data" border stripe>
     <el-table-column
       v-for="col in props.columns"
@@ -36,7 +55,7 @@ const load = async (page: number) => {
       </template>
     </el-table-column>
 
-    <el-table-column :width="props.button.length * 80" #default="{ row }">
+    <el-table-column #default="{ row }" :width="props.buttonWidth">
       <el-button-group>
         <el-button
           :type="btn.type ?? 'default'"

@@ -14,6 +14,8 @@ export type TableButton = {
 export const UserTableField = [
   { id: 'id', label: 'ID', width: 50 },
   { id: 'name', label: '昵称' },
+  { id: 'home', label: '主页' },
+  { id: 'weibo', label: '微博' },
   { id: 'avatar', label: '头像', type: 'image' },
   { id: 'created_at', label: '创建时间', type: 'date' },
   { id: 'updated_at', label: '更新时间', type: 'date' },

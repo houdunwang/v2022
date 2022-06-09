@@ -26,5 +26,5 @@ const action = (model: any, command: string) => {
 
 <template>
   <hd-tab :tabs="tabs" />
-  <HdTableList :columns="UserTableField" :button="buttons" :api="getUserList" @action="action" />
+  <HdTableList :columns="UserTableField" :button="buttons" :api="getUserList" @action="action" :button-width="150" />
 </template>
