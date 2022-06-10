@@ -3,12 +3,18 @@ import { TableButton, TableFieldType } from '@/config/table'
 import dayjs from 'dayjs'
 import { ElMessage } from 'element-plus'
 
-const props = defineProps<{
-  columns: TableFieldType[]
-  button: TableButton[]
-  buttonWidth: number
-  api: (page?: number, params?: {}) => Promise<ResponsePageResult<Record<string, any>>>
-}>()
+const props = withDefaults(
+  defineProps<{
+    columns: TableFieldType[]
+    button?: TableButton[]
+    buttonWidth?: number
+    search?: boolean
+    api: (page?: number, params?: any) => Promise<ResponsePageResult<Record<string, any>>>
+  }>(),
+  {
+    search: false,
+  },
+)
 
 const emit = defineEmits<{
   (e: 'action', mode: Record<string, any>, command: string): void
@@ -20,7 +26,7 @@ const load = async (page: number, params: {}) => {
   response.value = await props.api(page, params)
 }
 
-const searchField = ref('')
+const searchField = ref('id')
 const searchWord = ref('')
 const search = () => {
   load(1, { key: searchField.value, content: searchWord.value })
@@ -28,7 +34,7 @@ const search = () => {
 </script>
 
 <template>
-  <div class="flex bg-white border mb-2 p-2">
+  <div class="flex bg-white border mb-2 p-2" v-if="props.search">
     <el-select v-model="searchField" clearable filterable class="mr-1">
       <el-option v-for="col in props.columns" :key="col.id" :label="col.label" :value="col.id"> </el-option>
     </el-select>

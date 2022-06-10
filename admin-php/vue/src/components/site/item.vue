@@ -27,8 +27,11 @@ const emit = defineEmits(['del'])
       </section>
       <section>
         <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
-        <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
-        <router-link to="/"> <icon-home-two theme="outline" /> 管理员</router-link>
+        <router-link to="/"> <icon-home-two theme="outline" /> 权限管理</router-link>
+        <router-link to="/"> <icon-home-two theme="outline" /> 角色设置</router-link>
+        <router-link :to="{ name: 'admin.index', params: { site: props.site.id } }">
+          <icon-home-two theme="outline" /> 管理员</router-link
+        >
         <router-link :to="{ name: 'site.edit', params: { id: props.site.id } }">
           <icon-home-two theme="outline" /> 编辑站点
         </router-link>

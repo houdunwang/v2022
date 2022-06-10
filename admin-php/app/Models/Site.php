@@ -19,4 +19,9 @@ class Site extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function admins()
+    {
+        return $this->belongsToMany(User::class, 'admins')->withTimestamps();
+    }
 }

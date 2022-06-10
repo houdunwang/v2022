@@ -26,14 +26,9 @@ onUnmounted(() => clearInterval(timeoutId))
         placeholder="请输入验证码"
         class="mr-2" />
 
-      <t-button
-        type="button"
-        size="large"
-        theme="default"
-        @click="sendCode(props.account, props.type)"
-        :disabled="time > 0">
+      <el-button :disabled="time > 0" type="primary" size="default" @click="sendCode(props.account, props.type)">
         {{ time > 0 ? `请${time}秒后发送` : '获取验证码' }}
-      </t-button>
+      </el-button>
     </div>
     <FormError name="code" />
   </div>

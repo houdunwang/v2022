@@ -6,8 +6,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     EditorMarkdown: typeof import('./../src/components/editor/markdown.vue')['default']
     EditorWangEditor: typeof import('./../src/components/editor/wangEditor.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
@@ -18,6 +23,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FormButton: typeof import('./../src/components/form/button.vue')['default']
     FormError: typeof import('./../src/components/form/error.vue')['default']
     FormFieldList: typeof import('./../src/components/form/fieldList.vue')['default']
@@ -34,6 +40,7 @@ declare module 'vue' {
     SiteItem: typeof import('./../src/components/site/item.vue')['default']
     UploadSingleImage: typeof import('./../src/components/upload/singleImage.vue')['default']
     UserDrop: typeof import('./../src/components/user/drop.vue')['default']
+    UserSelect: typeof import('./../src/components/user/select.vue')['default']
   }
 }
 

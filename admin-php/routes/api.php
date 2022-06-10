@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\InitController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiteController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -50,3 +51,4 @@ Route::get('follower/toggle/{user}', [FollowerController::class, 'toggle']);
 Route::get('fans/{user}', [FansController::class, 'index']);
 
 Route::apiResource('site', SiteController::class);
+Route::apiResource('site.admin', AdminController::class);
