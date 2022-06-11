@@ -28,16 +28,16 @@ const tabModel = ref('site')
     ]" />
   <el-tabs v-model="tabModel" type="border-card" tab-position="top" @tab-click="">
     <el-tab-pane label="网站配置" name="site">
-      <FormFieldList :model="model.config.site" @submit="onSubmit" :fields="systemField.site"> ></FormFieldList>
+      <FormFieldList :model="model.config.site" @submit="onSubmit" :fields="systemField.site"> </FormFieldList>
     </el-tab-pane>
     <el-tab-pane label="验证码" name="code">
-      <FormFieldList :model="model.config.code" @submit="onSubmit" :fields="systemField.code"> ></FormFieldList>
+      <FormFieldList :model="model.config.code" @submit="onSubmit" :fields="systemField.code"> </FormFieldList>
     </el-tab-pane>
     <el-tab-pane label="阿里云" name="aliyun">
-      <FormFieldList :model="model.config.aliyun" @submit="onSubmit" :fields="systemField.aliyun"> ></FormFieldList>
+      <FormFieldList :model="model.config.aliyun" @submit="onSubmit" :fields="systemField.aliyun"> </FormFieldList>
     </el-tab-pane>
     <el-tab-pane label="用户头像" name="avatar">
-      <FormFieldList :model="model.config.avatar" @submit="onSubmit" :fields="systemField.avatar"> ></FormFieldList>
+      <FormFieldList :model="model.config.avatar" @submit="onSubmit" :fields="systemField.avatar"> </FormFieldList>
     </el-tab-pane>
   </el-tabs>
 </template>

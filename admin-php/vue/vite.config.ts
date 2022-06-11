@@ -3,13 +3,20 @@ import alias from './vite/alias'
 import { parseEnv } from './vite/util'
 import setupPlugins from './vite/plugins'
 import { visualizer } from 'rollup-plugin-visualizer'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ command, mode }) => {
   const isBuild = command == 'build'
   const env = parseEnv(loadEnv(mode, process.cwd()))
 
   return {
-    plugins: [...setupPlugins(isBuild, env), visualizer()],
+    plugins: [
+      vue({
+        reactivityTransform: true,
+      }),
+      ...setupPlugins(isBuild, env),
+      visualizer(),
+    ],
     // base: isBuild ? '/dist' : '',
     resolve: {
       alias,

@@ -29,7 +29,7 @@ const emit = defineEmits<{
         </div>
       </template>
     </el-form-item>
-    <el-form-item>
+    <el-form-item v-if="!$slots.button">
       <slot name="button">
         <el-button type="primary" @click="emit('submit')">保存提交</el-button>
       </slot>

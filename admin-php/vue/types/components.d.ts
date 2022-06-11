@@ -40,6 +40,7 @@ declare module 'vue' {
     SiteItem: typeof import('./../src/components/site/item.vue')['default']
     UploadSingleImage: typeof import('./../src/components/upload/singleImage.vue')['default']
     UserDrop: typeof import('./../src/components/user/drop.vue')['default']
+    UserInfo: typeof import('./../src/components/user/info.vue')['default']
     UserSelect: typeof import('./../src/components/user/select.vue')['default']
   }
 }

@@ -61,7 +61,7 @@ const search = () => {
       </template>
     </el-table-column>
 
-    <el-table-column #default="{ row }" :width="props.buttonWidth">
+    <el-table-column #default="{ row }" :width="props.buttonWidth" v-if="props.button?.length">
       <el-button-group>
         <el-button
           :type="btn.type ?? 'default'"
@@ -71,6 +71,10 @@ const search = () => {
           {{ btn.title }}
         </el-button>
       </el-button-group>
+    </el-table-column>
+
+    <el-table-column #default="{ row }" :width="props.buttonWidth">
+      <slot name="button" :user="row" />
     </el-table-column>
   </el-table>
 

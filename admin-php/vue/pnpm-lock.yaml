@@ -14,7 +14,7 @@ specifiers:
   '@types/ws': ^8.5.3
   '@vee-validate/i18n': ^4.5.11
   '@vee-validate/rules': ^4.5.11
-  '@vitejs/plugin-vue': ^2.3.1
+  '@vitejs/plugin-vue': ^2.0.0
   '@wangeditor/editor': ^5.0.0
   '@wangeditor/editor-for-vue': ^5.1.10
   animate.css: ^4.1.1
@@ -1168,6 +1168,14 @@ packages:
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
+
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /gsap/3.10.4:
     resolution: {integrity: sha512-6QatdkKxXCMfvCW4rM++0RqyLQAzFX5nwl3yHS0XPgkZBkiSEY3VZVbMltrdtsbER/xZonLtyHt684wRp4erlQ==}
@@ -3444,7 +3452,7 @@ packages:
       rollup: mirrors.tencent.com/rollup/2.75.6
       sass: 1.52.3
     optionalDependencies:
-      fsevents: mirrors.tencent.com/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   mirrors.tencent.com/vue-tsc/0.29.8_typescript@4.7.3:

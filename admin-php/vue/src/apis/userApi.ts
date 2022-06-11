@@ -55,7 +55,7 @@ export function apiForgetPassword(data: IRegisterForm) {
   })
 }
 
-export function findUser(id: string | string[]) {
+export function findUser(id: number) {
   return http
     .request<UserModel>({
       url: `user/${id}`,
