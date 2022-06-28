@@ -34,7 +34,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
+        'addons' => [
+            'driver' => 'local',
+            'root' => base_path('addons'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -69,6 +72,7 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
+        public_path('addons') => base_path('addons'),
     ],
 
 ];

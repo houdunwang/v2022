@@ -4,11 +4,11 @@
   <section>
     <h5>模块管理</h5>
     <ul>
-      <li>
+      <li @click="$router.push({ name: 'module.index' })">
         <icon-category-management theme="outline" />
         模块列表
       </li>
-      <li>
+      <li @click="$router.push({ name: 'module.design' })">
         <icon-category-management theme="outline" />
         模块设计
       </li>

@@ -16,7 +16,7 @@ const action = (model: any, command: string) => {
 
 <template>
   <div class="">
-    <el-dialog title="选择用户" v-model="dialogState" width="95%">
+    <el-dialog title="选择用户" v-model="dialogState" width="95%" top="20px">
       <HdTableList
         :api="getUserList"
         :columns="UserTableField"

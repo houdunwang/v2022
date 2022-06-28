@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\PaginateConditionScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,6 +16,11 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $guard_name = ['sanctum'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new PaginateConditionScope);
+    }
 
     /**
      * The attributes that are mass assignable.

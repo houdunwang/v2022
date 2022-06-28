@@ -5,6 +5,7 @@ export type fieldType = {
   type?: 'input' | 'textarea' | 'radio' | 'image' | undefined
   placeholder?: string | undefined
   disabled?: boolean
+  value?: any
 }
 
 export const systemField = {
@@ -51,4 +52,16 @@ export const UserField = [
   { title: '头像', name: 'avatar', type: 'image', disabled: true },
   { title: '注册时间', name: 'created_at', disabled: true },
   { title: '更新时间', name: 'updated_at', disabled: true },
+] as fieldType[]
+
+export const ModuleForm = [
+  { title: '模块名称', name: 'title' },
+  { title: '模块标识', name: 'name' },
+  { title: '开发者', name: 'author', value: '后盾人' },
+  { title: '版本号', name: 'version', value: '1.0.0' },
+] as fieldType[]
+
+export const RoleForm = [
+  { title: '角色名称', name: 'title' },
+  { title: '角色标识', name: 'name' },
 ] as fieldType[]

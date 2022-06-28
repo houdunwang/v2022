@@ -23,16 +23,14 @@ await systemStore().load()
 
 <template>
   <div class="admin">
-    <section class>
+    <section>
       <Navbar />
       <TopMenu />
     </section>
-    <section class="">
-      <div class="m-3 p-3">
-        <router-view #default="{ Component, route }">
-          <component :is="Component" />
-        </router-view>
-      </div>
+    <section>
+      <router-view #default="{ Component, route }">
+        <component :is="Component" />
+      </router-view>
     </section>
     <Copyright class="flex justify-center text-white font-bold shadow-sm" />
   </div>
@@ -43,9 +41,9 @@ await systemStore().load()
   background-image: url('/images/admin.jpg');
   background-size: cover;
   min-height: 100vh;
-  @apply w-screen grid grid-rows-[auto_1fr] pb-32 z-50;
-  > :nth-child(2) {
-    @apply bg-gray-50 m-5 rounded-md;
+  @apply w-screen grid grid-rows-[1fr_auto_1fr] pb-32 z-50;
+  > section:nth-of-type(2) {
+    @apply bg-gray-50 rounded-md m-3 p-5 overflow-hidden;
   }
 }
 </style>

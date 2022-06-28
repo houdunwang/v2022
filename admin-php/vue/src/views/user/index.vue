@@ -6,9 +6,9 @@ import tabs from './tabs'
 
 <template>
   <hd-tab :tabs="tabs" />
-  <HdTableList :columns="UserTableField" :api="getUserList" :button-width="90">
-    <template #button="{ user }">
-      <UserInfo :id="user.id" />
+  <HdTableList :columns="UserTableField" :api="getUserList" :button-width="90" :search="true" search-field="name">
+    <template #button="{ model }">
+      <UserInfo :id="model.id" />
     </template>
   </HdTableList>
 </template>

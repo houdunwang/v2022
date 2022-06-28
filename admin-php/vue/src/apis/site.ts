@@ -36,3 +36,9 @@ export function apiSiteDelete(id: number) {
     method: 'DELETE',
   })
 }
+
+export function syncAllSiteData(id: number) {
+  return http.request({
+    url: `site/sync_local_module`,
+  })
+}

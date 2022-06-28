@@ -4,7 +4,6 @@ import store from '@/utils/store'
 import router from '@/router'
 import axios, { AxiosRequestConfig } from 'axios'
 import errorStore from '@/store/errorStore'
-// import { MessagePlugin } from 'tdesign-vue-next'
 import { ElMessage } from 'element-plus'
 
 export default class Axios {
@@ -48,12 +47,10 @@ export default class Axios {
   private interceptorsResponse() {
     this.instance.interceptors.response.use(
       (response) => {
-        // if (response.data?.message)
-        //   ElMessage({
-        //     type: 'success',
-        //     message: response.data?.message,
-        //     duration: 2000,
-        //   })
+        const {
+          data: { message },
+        } = response
+        if (message) ElMessage.success(message)
         return response
       },
       (error) => {

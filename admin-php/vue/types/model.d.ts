@@ -56,17 +56,45 @@ interface systemModel {
 }
 
 interface SiteModel {
+  id: number
   title: string
   url: string
+  created_at: string
   config: {
     aliyun: {
-    access_key_id: string;
-    sms_sign_name: string;
-    access_key_secret: string;
-  };
-  site: {
-    email: string;
-    address: string;
-    copyright: string;
-  };
+      access_key_id: string
+      sms_sign_name: string
+      access_key_secret: string
+    }
+    site: {
+      email: string
+      address: string
+      copyright: string
+    }
+  }
+  user: UserModel
+}
+
+interface ModuleModel {
+  id?: number
+  title: string
+  version: string
+  name: string
+  author: string
+  perview?: string
+  permissions: { title: string; items: { title: string; name: string }[] }[]
+}
+
+interface RoleModel {
+  id: number
+  created_at: string
+  guard_name: string
+  name: string
+  site_id: number
+  title: string
+  updated_at: string
+  permissions: {
+    title: string
+    name: string
+  }[]
 }

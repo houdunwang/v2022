@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use App\Models\Site;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -15,41 +16,42 @@ class RoleController extends Controller
         $this->middleware(['auth:sanctum']);
     }
 
-    public function index()
+    public function index(Site $site)
     {
-        return $this->success(data: RoleResource::collection(Role::all()));
+        $roles = $site->roles()->latest()->paginate(10000);
+        return RoleResource::collection($roles);
     }
 
-    public function store(StoreRoleRequest $request, Role $role)
+    public function store(StoreRoleRequest $request, Site $site, Role $role)
     {
         $role->name = $request->name;
         $role->title = $request->title;
-        $role->save();
-        return $this->success(data: new RoleResource($role));
+        $site->roles()->save($role);
+
+        return $this->success('角色添加成功');
     }
 
-    public function show(Role $role)
+    public function show(Site $site, Role $role)
     {
         return $this->success(data: new RoleResource($role));
     }
 
 
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(UpdateRoleRequest $request, Site $site, Role $role)
     {
         $role->fill($request->input())->save();
-        return $this->success(data: new RoleResource($role));
+        return $this->success('角色编辑成功');
     }
 
-    public function destroy(Role $role)
+    public function destroy(Site $site, Role $role)
     {
         $role->delete();
         return $this->success('删除成功');
     }
 
-    public function permission(Role $role, Request $request)
+    public function permission(Request $request, Site $site, Role $role)
     {
-        $permissions = $request->permissions;
-        $role->syncPermissions($permissions);
-        return $this->success('操作成功');
+        $role->syncPermissions($request->permissions);
+        return $this->success('权限设置成功');
     }
 }

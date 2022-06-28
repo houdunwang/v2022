@@ -34,4 +34,14 @@ const active = ref('name' + props.tabs.findIndex((tab) => tab.route?.name == rou
   </el-tabs>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+:deep(.el-tabs__item) {
+  @apply bg-white;
+}
+:deep(.el-tabs__nav-scroll) {
+  border-bottom: solid 1px #ddd;
+}
+:deep(.el-tabs__header) {
+  border-bottom: none !important;
+}
+</style>

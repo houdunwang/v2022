@@ -35,6 +35,7 @@ export default defineConfig(({ command, mode }) => {
     },
     server: {
       //   open: true,
+      port: 3001,
       proxy: {
         '/api': {
           target: env.VITE_MOCK_ENABLE ? '/' : env.VITE_API_URL,

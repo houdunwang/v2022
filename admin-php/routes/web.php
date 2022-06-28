@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Config;
+use App\Models\Site;
 use App\Models\User;
 use App\Notifications\EmailValidateCodeNotification;
 use Illuminate\Support\Facades\Notification;
@@ -22,5 +23,5 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    return captcha();
+    return app('permission')->syncSitePermissions(Site::find(1));
 });

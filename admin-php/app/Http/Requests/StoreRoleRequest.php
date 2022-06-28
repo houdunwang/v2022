@@ -26,8 +26,13 @@ class StoreRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:roles,name'],
-            'title' => ['required', Rule::unique('roles', 'title')],
+            'title' => ['required', Rule::unique('roles')->where('site_id', request('site.id'))],
+            'name' => ['required', 'regex:/^[a-z]+$/i',  Rule::unique('roles')->where('site_id', request('site.id'))],
         ];
+    }
+
+    public function attributes()
+    {
+        return ['title' => '角色名称', 'name' => '角色标识'];
     }
 }

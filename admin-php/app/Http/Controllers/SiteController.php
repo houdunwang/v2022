@@ -17,7 +17,7 @@ class SiteController extends Controller
 
     public function index()
     {
-        return  SiteResource::collection(site::latest()->paginate());
+        return SiteResource::collection(site::latest()->paginate());
     }
 
 
@@ -44,5 +44,12 @@ class SiteController extends Controller
     {
         $site->delete();
         return $this->success('站点删除成功');
+    }
+    public function syncAllSiteData()
+    {
+        app('module')->syncModule();
+
+        app('permission')->syncSitePermissions(Site::find(1));
+        return $this->success('所有站点数据初始成功');
     }
 }

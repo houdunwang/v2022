@@ -21,8 +21,14 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:roles,name,' . request('role.id')],
-            'title' => ['required', Rule::unique('roles', 'title')->ignore($this->route('role')->id)],
+            'name' => ['required', 'regex:/^[a-z]+$/i', $this->uniqueFilter('name')],
+            'title' => ['required', $this->uniqueFilter('title')]
         ];
+    }
+
+    protected function uniqueFilter($field)
+    {
+        return Rule::unique('roles', $field)->where('site_id', request('site.id'))
+            ->whereNotIn('id', [request('role.id')]);
     }
 }

@@ -27,3 +27,12 @@ export function removeAdmin(site: number, user_id: number) {
     method: 'DELETE',
   })
 }
+
+//设置管理员角色
+export function setAdminRole(sid: number, uid: number, rid: number) {
+  return http.request({
+    url: `site/${sid}/admin/${uid}/role`,
+    method: 'PUT',
+    data: { role: rid },
+  })
+}

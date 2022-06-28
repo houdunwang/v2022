@@ -21,9 +21,9 @@ export default {
       component: () => import('@/views/site/edit.vue'),
     },
     {
-      name: 'admin.index',
-      path: 'admin/:site',
-      component: () => import('@/views/admin/index.vue'),
+      name: 'site.config',
+      path: 'config/:id',
+      component: () => import('@/views/site/config.vue'),
     },
   ],
 } as RouteRecordRaw

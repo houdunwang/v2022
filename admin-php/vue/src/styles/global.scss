@@ -5,3 +5,14 @@
 .hd-error {
   @apply rounded-md bg-pink-500 text-white text-xs px-2 py-1 mt-2;
 }
+
+.el-dialog__body {
+  padding-top: 10px !important;
+}
+.el-dialog__header {
+  .el-dialog__title {
+    font-size: 1rem;
+    font-weight: bold;
+    @apply text-gray-600;
+  }
+}

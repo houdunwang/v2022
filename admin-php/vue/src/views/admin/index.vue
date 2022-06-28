@@ -1,43 +1,46 @@
 <script setup lang="ts">
-import { getAdminList, removeAdmin, syncAdmin } from '@/apis/admin'
-import { UserTableField } from '@/config/table'
+import { getAdminList, removeAdmin, syncAdmin, setAdminRole } from '@/apis/admin'
+import { AdminTableField } from '@/config/table'
 import { ElMessageBox } from 'element-plus'
-const route = useRoute()
-const site = route.params.site as unknown as number
+import Tab from './tab.vue'
+const { sid } = defineProps<{ sid: any }>()
+
 const getList = async (page = 1, params: any) => {
-  return await getAdminList(page, site, params)
+  return await getAdminList(page, sid, params)
 }
 const userTableList = ref(1)
 
 const select = async (user: UserModel) => {
-  await syncAdmin(site, user.id)
+  await syncAdmin(sid, user.id)
   userTableList.value++
 }
 
-const remove = async (user: any, command: string) => {
+const remove = async (user: UserModel) => {
   try {
     await ElMessageBox.confirm('确定删除吗')
-    await removeAdmin(site, user.id)
+    await removeAdmin(sid, user.id)
     userTableList.value++
+  } catch (error) {}
+}
+
+const setRole = async (role: RoleModel, admin: UserModel) => {
+  try {
+    await setAdminRole(sid, admin.id, role.id)
   } catch (error) {}
 }
 </script>
 
 <template>
-  <HdTab
-    :tabs="[
-      { label: '站点列表', route: { name: 'site.index' } },
-      { label: '管理员', route: { name: 'admin.index' }, current: true },
-    ]" />
+  <Tab :sid="sid" />
   <UserSelect class="mb-2" @select="select" />
-  <HdTableList
-    :key="userTableList"
-    :api="getList"
-    :columns="UserTableField"
-    :search="true"
-    :button="[{ title: '删除', command: 'remove', type: 'danger' }]"
-    :button-width="90"
-    @action="remove" />
+  <HdTableList :key="userTableList" :api="getList" :columns="AdminTableField" :search="true" :button-width="180">
+    <template #button="{ model }">
+      <el-button-group>
+        <el-button type="danger" size="default" @click="remove(model)">删除</el-button>
+        <RoleSelect :sid="sid" @select="setRole($event, model)" />
+      </el-button-group>
+    </template>
+  </HdTableList>
 </template>
 
 <style lang="scss"></style>

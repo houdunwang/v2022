@@ -21,9 +21,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::when(request('content'), function ($query, $content) {
-            $query->where(request('key'), $content);
-        })->paginate(10);
+        $users = User::paginate(10);
+
         return UserResource::collection($users);
     }
 
