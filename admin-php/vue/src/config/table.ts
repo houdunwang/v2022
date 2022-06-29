@@ -25,7 +25,7 @@ export const UserTableField = [
 export const AdminTableField = [
   { id: 'id', label: 'ID', width: 50 },
   { id: 'name', label: '昵称' },
-  { id: 'roles', label: '角色', type: 'tag', width: 100, tag_field: 'title' },
+  { id: 'roles', label: '角色', type: 'tag', tag_field: 'title' },
   { id: 'weibo', label: '微博' },
   { id: 'avatar', label: '头像', type: 'image', width: 100 },
   { id: 'created_at', label: '创建时间', type: 'date', width: 150 },

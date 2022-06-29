@@ -26,6 +26,7 @@ interface UserModel {
   avatar: string
   permissions: string[]
   is_super_admin: boolean
+  roles?: RoleModel[]
 }
 
 interface systemModel {

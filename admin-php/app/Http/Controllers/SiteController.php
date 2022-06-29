@@ -17,7 +17,11 @@ class SiteController extends Controller
 
     public function index()
     {
-        return SiteResource::collection(site::latest()->paginate());
+        $sites = site::when(!is_super_admin(), function ($query) {
+            $query->where('user_id', Auth::id());
+        })->latest()->paginate();
+
+        return SiteResource::collection($sites);
     }
 
 

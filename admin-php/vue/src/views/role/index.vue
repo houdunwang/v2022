@@ -33,8 +33,8 @@ const removeRole = async (model: RoleModel) => {
           type="success"
           size="default"
           @click="$router.push({ name: 'role.edit', params: { sid, id: model.id } })">
-          编辑</el-button
-        >
+          编辑
+        </el-button>
         <RolePermission :sid="sid" :rid="model.id" @change="tableKey++" />
       </el-button-group>
     </template>

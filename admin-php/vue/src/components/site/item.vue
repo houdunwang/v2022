@@ -23,7 +23,7 @@ const emit = defineEmits(['del'])
     </main>
     <footer>
       <section>
-        #1 创建时间 <icon-time theme="outline" /> {{ dayjs(site.created_at).format('YYYY-mm-DD mm:ss') }}
+        #{{ site.id }} 创建时间 <icon-time theme="outline" /> {{ dayjs(site.created_at).format('YYYY-mm-DD mm:ss') }}
       </section>
       <section>
         <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>

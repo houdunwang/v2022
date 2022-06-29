@@ -10,5 +10,11 @@ export default {
       props: true,
       component: () => import('@/views/admin/index.vue'),
     },
+    {
+      name: 'site.admin.role',
+      path: ':id/role',
+      props: true,
+      component: () => import('@/views/admin/role.vue'),
+    },
   ],
 } as RouteRecordRaw

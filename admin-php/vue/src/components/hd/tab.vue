@@ -19,13 +19,13 @@ const tabs = computed(() => {
 })
 
 const change = (pane: any) => {
-  const tab = props.tabs[pane['index']]
+  const tab = tabs.value[pane['index']]
 
   if (tab.event) tab.event()
   if (tab.route) router.push(tab.route)
 }
 
-const active = ref('name' + props.tabs.findIndex((tab) => tab.route?.name == route.name))
+const active = ref('name' + tabs.value.findIndex((tab) => tab.route?.name == route.name))
 </script>
 
 <template>

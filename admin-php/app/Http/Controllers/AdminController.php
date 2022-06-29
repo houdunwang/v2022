@@ -24,6 +24,11 @@ class AdminController extends Controller
         return $this->success();
     }
 
+    public function show(Request $request, Site $site, User $admin)
+    {
+        return $this->success(data: $admin->load('roles'));
+    }
+
     public function update(UpdateAdminRequest $request, Admin $siteAdmin)
     {
     }
@@ -36,7 +41,7 @@ class AdminController extends Controller
 
     public function setRole(Request $request, Site $site, User $admin)
     {
-        $admin->syncRoles($request->role);
+        $admin->syncRoles($request->roles);
         return $this->success('角色设置成功');
     }
 }

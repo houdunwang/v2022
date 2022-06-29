@@ -33,11 +33,17 @@ const setRole = async (role: RoleModel, admin: UserModel) => {
 <template>
   <Tab :sid="sid" />
   <UserSelect class="mb-2" @select="select" />
-  <HdTableList :key="userTableList" :api="getList" :columns="AdminTableField" :search="true" :button-width="180">
+  <HdTableList :key="userTableList" :api="getList" :columns="AdminTableField" :search="true" :button-width="150">
     <template #button="{ model }">
       <el-button-group>
         <el-button type="danger" size="default" @click="remove(model)">删除</el-button>
-        <RoleSelect :sid="sid" @select="setRole($event, model)" />
+        <el-button
+          type="primary"
+          size="default"
+          @click="$router.push({ name: 'site.admin.role', params: { sid, id: model.id } })">
+          角色
+        </el-button>
+        <!-- <RoleSelect :sid="sid" @select="setRole($event, model)" /> -->
       </el-button-group>
     </template>
   </HdTableList>
