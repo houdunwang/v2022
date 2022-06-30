@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Site;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class RoleController extends Controller
 
     public function index(Site $site)
     {
+        $this->authorize(Role::class);
         $roles = $site->roles()->latest()->paginate(10000);
         return RoleResource::collection($roles);
     }
@@ -36,7 +38,6 @@ class RoleController extends Controller
         return $this->success(data: new RoleResource($role));
     }
 
-
     public function update(UpdateRoleRequest $request, Site $site, Role $role)
     {
         $role->fill($request->input())->save();
@@ -51,7 +52,8 @@ class RoleController extends Controller
 
     public function permission(Request $request, Site $site, Role $role)
     {
-        $role->syncPermissions($request->permissions);
+        $ids = Permission::where('site_id', $site->id)->whereIn('name', $request->permissions)->pluck('id');
+        $role->syncPermissions($ids);
         return $this->success('权限设置成功');
     }
 }

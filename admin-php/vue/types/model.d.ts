@@ -61,6 +61,7 @@ interface SiteModel {
   title: string
   url: string
   created_at: string
+  user_id: number
   config: {
     aliyun: {
       access_key_id: string
@@ -86,6 +87,12 @@ interface ModuleModel {
   permissions: { title: string; items: { title: string; name: string }[] }[]
 }
 
+interface PermissionModel {
+  id: number
+  title: string
+  name: string
+  site_id: number
+}
 interface RoleModel {
   id: number
   created_at: string
@@ -94,8 +101,5 @@ interface RoleModel {
   site_id: number
   title: string
   updated_at: string
-  permissions: {
-    title: string
-    name: string
-  }[]
+  permissions: PermissionModel[]
 }

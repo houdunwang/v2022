@@ -1,10 +1,10 @@
 <?php
 return [
     [
-        "title" => "模块管理",
+        "title" => "角色管理",
         "items" => [
-            ["title" => "管理模块", "name" => 'managa-module'],
-            ["title" => "删除模块", "name" => 'remove-moudule'],
+            ["title" => "查看角色", "name" => 'show-role'],
+            ["title" => "删除角色", "name" => 'remove-role'],
         ]
     ],
     // [

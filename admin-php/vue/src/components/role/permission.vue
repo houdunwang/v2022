@@ -9,6 +9,7 @@ let dialog = $ref(false)
 const role = $ref(await roleFind(sid, rid))
 const modules = ref(await getSitePermissionTable(sid))
 const permissions = $ref(role.permissions.map((p) => p.name))
+
 const onSubmit = async () => {
   try {
     await setRolePermission(sid, rid, permissions)

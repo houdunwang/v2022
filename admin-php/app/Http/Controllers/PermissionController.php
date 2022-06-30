@@ -21,6 +21,7 @@ class PermissionController extends Controller
             app('permission')->getSiteSystemPermissions($site),
             ...app('permission')->getSiteModulePermissions($site)
         ];
+
         return $this->success(data: $permissions);
     }
     // public function index()

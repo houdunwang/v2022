@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { syncSiteModulePermission } from '@/apis/siteModule'
+import { access } from '@/utils/helper'
 import dayjs from 'dayjs'
 const { site } = defineProps<{
   site: SiteModel
@@ -31,7 +31,7 @@ const emit = defineEmits(['del'])
           <icon-blocks-and-arrows theme="outline" />
           站点模块
         </router-link>
-        <router-link :to="{ name: 'role.index', params: { sid: site.id } }">
+        <router-link :to="{ name: 'role.index', params: { sid: site.id } }" v-if="access(site, 'system-show-role')">
           <icon-home-two theme="outline" />
           角色设置
         </router-link>

@@ -10,9 +10,11 @@ export function getUserList(page = 1, params = {}) {
 }
 
 export function info() {
-  return http.request<UserModel>({
-    url: `user/info`,
-  })
+  return http
+    .request<UserModel>({
+      url: `user/info`,
+    })
+    .then((r) => r.data)
 }
 
 export function login(data: { account: string; password: string }) {

@@ -16,7 +16,8 @@ class UserController extends Controller
 
     public function info()
     {
-        return $this->success(data: new UserResource(Auth::user()));
+        $user = Auth::user()->load('roles.permissions');
+        return $this->success(data: new UserResource($user));
     }
 
     public function index()

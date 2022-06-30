@@ -17,11 +17,13 @@ class SiteController extends Controller
 
     public function index()
     {
-        $sites = site::when(!is_super_admin(), function ($query) {
-            $query->where('user_id', Auth::id());
-        })->latest()->paginate();
+        $sites = Site::latest();
+        if (!is_super_admin())
+            $sites->where('user_id', Auth::id())
+                ->orWhereRelation('admins', 'admins.user_id', Auth::id());
 
-        return SiteResource::collection($sites);
+
+        return SiteResource::collection($sites->paginate());
     }
 
 
@@ -49,11 +51,13 @@ class SiteController extends Controller
         $site->delete();
         return $this->success('站点删除成功');
     }
+
     public function syncAllSiteData()
     {
         app('module')->syncModule();
 
-        app('permission')->syncSitePermissions(Site::find(1));
+        Site::all()->each(fn ($site) => app('permission')->syncSitePermissions($site));
+
         return $this->success('所有站点数据初始成功');
     }
 }

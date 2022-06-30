@@ -1,6 +1,7 @@
 import { CacheEnum } from '@/enum/CacheEnum'
 import router from '@/router'
 import userStore from '@/store/userStore'
+import { use } from 'echarts'
 import store from './store'
 const storeUser = userStore()
 
@@ -31,4 +32,13 @@ export async function logout() {
 
   store.remove(CacheEnum.TOKEN_NAME)
   router.push({ name: 'home' })
+}
+
+export function access(site: SiteModel, name: string) {
+  const storeUser = userStore()
+  if (storeUser.info?.is_super_admin || site.user_id == storeUser.info?.id) return true
+
+  console.log(storeUser.permissions)
+  console.log(storeUser.checkPermission(site, name))
+  return storeUser.checkPermission(site, name)
 }
