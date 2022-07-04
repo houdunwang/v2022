@@ -34,7 +34,7 @@ export const systemField = {
 export const siteField = {
   base: [
     { title: '站点名称', name: 'title' },
-    { title: '网址', name: 'url' },
+    { title: '网址', name: 'url', type: 'password' },
   ],
   site: [
     { title: '地址', name: 'address' },

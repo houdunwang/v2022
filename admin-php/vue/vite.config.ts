@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode }) => {
       ...setupPlugins(isBuild, env),
       visualizer(),
     ],
-    // base: isBuild ? '/dist' : '',
+    base: isBuild ? '/system/' : '/',
     resolve: {
       alias,
     },

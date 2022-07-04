@@ -1,8 +1,12 @@
 import { http } from '@/plugins/axios'
 
-export function getSiteModuleList(sid: any, page = 1) {
+export function getSiteModuleList(sid: any, page = 1, params = {}) {
   return http.request<ModuleModel, ResponsePageResult<ModuleModel>>({
-    url: `/site/${sid}/module?page=${page}`,
+    url:
+      `/site/${sid}/module?page=${page}&` +
+      Object.entries(params)
+        .map((item) => item.join('='))
+        .join('&'),
   })
 }
 export function addSiteModule(sid: any, id: any) {

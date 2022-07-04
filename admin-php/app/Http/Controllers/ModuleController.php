@@ -13,7 +13,7 @@ class ModuleController extends Controller
 {
     public function index()
     {
-        $modules = Module::latest()->paginate();
+        $modules = Module::latest()->paginate(request('row', 10));
 
         return ModuleResource::collection($modules);
     }

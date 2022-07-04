@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 
-import { ElUploadRequestOptions } from 'element-plus/es/components/upload/src/upload.type'
+// import { ElUploadRequestOptions } from 'element-plus/es/components/upload/src/upload.type'
 import { http } from '@/plugins/axios'
 
 const props = defineProps<{
@@ -19,7 +19,7 @@ const handleSuccess = (response: any, uploadFile: any) => {
   emit('update:modelValue', imageUrl.value!)
 }
 
-const request = async (options: ElUploadRequestOptions) => {
+const request = async (options: any) => {
   const formData = new FormData()
   formData.append('file', options.file)
 

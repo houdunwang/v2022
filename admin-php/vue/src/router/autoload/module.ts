@@ -1,12 +1,12 @@
 import { RouteRecordRaw } from 'vue-router'
 export default function autoloadModuleRoutes() {
-    const modules = import.meta.globEager('../module/**/*.ts')
+  const modules = import.meta.globEager('../module/**/*.ts')
 
-    const routes = [] as RouteRecordRaw[]
+  const routes = [] as RouteRecordRaw[]
 
-    Object.keys(modules).forEach(key => {
-        routes.push(modules[key].default)
-    })
+  Object.keys(modules).forEach((key) => {
+    routes.push(modules[key].default)
+  })
 
-    return routes
+  return routes
 }

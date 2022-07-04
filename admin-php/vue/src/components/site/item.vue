@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { access } from '@/utils/helper'
 import dayjs from 'dayjs'
 const { site } = defineProps<{
   site: SiteModel
@@ -12,7 +11,7 @@ const emit = defineEmits(['del'])
   <div class="site-item">
     <header>
       <section class="">站长: {{ site.user.name }}</section>
-      <section>
+      <section @click="$router.push({ name: 'site.module.index', params: { sid: site.id } })" class="cursor-pointer">
         <icon-blocks-and-arrows theme="outline" class="mr-1" />
         扩展模块
       </section>
@@ -26,17 +25,13 @@ const emit = defineEmits(['del'])
         #{{ site.id }} 创建时间 <icon-time theme="outline" /> {{ dayjs(site.created_at).format('YYYY-mm-DD mm:ss') }}
       </section>
       <section>
-        <router-link to="/"> <icon-home-two theme="outline" /> 访问首页</router-link>
-        <router-link :to="{ name: 'site.module.index', params: { sid: site.id } }">
-          <icon-blocks-and-arrows theme="outline" />
-          站点模块
-        </router-link>
-        <router-link :to="{ name: 'role.index', params: { sid: site.id } }" v-if="access(site, 'system-show-role')">
-          <icon-home-two theme="outline" />
+        <a :href="site.url" target="_blank" v-if="site.url"> <icon-home-two theme="outline" /> 访问首页</a>
+        <router-link :to="{ name: 'role.index', params: { sid: site.id } }" v-access:system-show-role="site">
+          <icon-permissions theme="outline" />
           角色设置
         </router-link>
         <router-link :to="{ name: 'site.admin.index', params: { sid: site.id } }">
-          <icon-home-two theme="outline" />
+          <icon-all-application theme="outline" />
           管理员
         </router-link>
         <router-link :to="{ name: 'site.config', params: { id: site.id } }">

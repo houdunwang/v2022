@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getRoleList, delRole } from '@/apis/role'
 import { RoleTableField } from '@/config/table'
+import { ElMessageBox } from 'element-plus'
 import Tab from './tab.vue'
 const { sid } = defineProps<{ sid: any }>()
 

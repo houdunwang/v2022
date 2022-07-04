@@ -1,38 +1,16 @@
 <script setup lang="ts">
 import { apiSiteFind } from '@/apis/site'
-import { addSiteModule, getSiteModuleList } from '@/apis/siteModule'
-import { ModuleTableField } from '@/config/table'
-import { delSiteModule, setSiteDefaultModule } from '@/apis/siteModule'
-const { sid } = defineProps<{
-  sid: any
-}>()
-
+import { addSiteModule } from '@/apis/siteModule'
+import useSiteModule from '@/composables/useSiteModule'
+const { sid } = defineProps<{ sid: any }>()
 const site = await apiSiteFind(sid)
-let tableKey = $ref(0)
-
+const { modules, getModuleList, setDefaultModule, delModule } = useSiteModule()
+await getModuleList(sid)
 const selectModule = async (module: ModuleModel) => {
   try {
     await addSiteModule(site.id, module.id)
-    tableKey++
+    getModuleList(sid)
   } catch (error) {}
-}
-
-const getModules = async (page = 1) => {
-  return getSiteModuleList(sid, page)
-}
-
-const action = async (module: ModuleModel, command: string) => {
-  switch (command) {
-    case 'del':
-      try {
-        await delSiteModule(sid, module.id)
-        tableKey++
-      } catch (error) {}
-      break
-    case 'default':
-      await setSiteDefaultModule(sid, module.id)
-      break
-  }
 }
 </script>
 
@@ -44,16 +22,42 @@ const action = async (module: ModuleModel, command: string) => {
     ]" />
 
   <ModuleSelectModule @select="selectModule" class="mb-2" />
-  <HdTableList
-    :api="getModules"
-    :columns="ModuleTableField"
-    :key="tableKey"
-    :button="[
-      { title: '删除', command: 'del', type: 'danger' },
-      { title: '设为默认', command: 'default', type: 'success' },
-    ]"
-    @action="action">
-  </HdTableList>
+
+  <section class="module-list">
+    <el-card shadow="hover" :body-style="{ padding: '20px' }" v-for="module of modules.data" :key="module.id">
+      <div class="item">
+        <img :src="module.preview" class="object-cover w-[30%] rounded-lg" />
+        <h4>
+          {{ module.title }}
+          <el-tag type="success" size="small" effect="dark" v-if="site.module?.id == module.id">默认</el-tag>
+        </h4>
+        <el-button-group>
+          <el-button type="danger" size="default" @click="delModule(sid, module)">删除</el-button>
+          <el-button type="primary" size="default" @click="setDefaultModule(sid, module)">设为默认</el-button>
+        </el-button-group>
+      </div>
+    </el-card>
+  </section>
+
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    :total="modules?.meta.total"
+    :hide-on-single-page="true"
+    :page-size="modules.meta.per_page"
+    class="mt-3"
+    @current-change="getModuleList(sid, $event)" />
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+section.module-list {
+  @apply grid lg:grid-cols-6 gap-3;
+  .item {
+    @apply flex flex-col items-center justify-center;
+
+    h4 {
+      @apply my-3 font-bold;
+    }
+  }
+}
+</style>

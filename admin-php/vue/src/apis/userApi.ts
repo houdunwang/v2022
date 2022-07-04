@@ -57,12 +57,10 @@ export function apiForgetPassword(data: IRegisterForm) {
   })
 }
 
-export function findUser(id: number) {
+export function findUser(id: any) {
   return http
     .request<UserModel>({
       url: `user/${id}`,
     })
     .then((r) => r.data)
 }
-
-// export default { info, login }

@@ -6,9 +6,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default function autoImport(plugins: Plugin[]) {
   plugins.push(
     AutoImport({
-      resolvers: [
-        ElementPlusResolver(),
-      ],
+      resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router'],
       //为true时在项目根目录自动创建
       dts: 'types/auto-imports.d.ts',
@@ -16,6 +14,11 @@ export default function autoImport(plugins: Plugin[]) {
     Components({
       resolvers: [
         ElementPlusResolver(),
+        (componentName) => {
+          if (componentName.startsWith('Icon')) {
+            return { name: componentName.slice(4), from: '@icon-park/vue-next' }
+          }
+        },
       ],
       dirs: ['src/components'],
       //组件名称包含目录，防止同名组件冲突

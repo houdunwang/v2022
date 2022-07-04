@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { access } from '@/utils/helper'
+
 const route = useRoute()
 const router = useRouter()
 interface ITab {
@@ -6,6 +8,7 @@ interface ITab {
   route?: any
   event?: () => void
   current?: boolean
+  permission?: { name: string; site: SiteModel }
 }
 
 const props = defineProps<{
@@ -14,7 +17,9 @@ const props = defineProps<{
 
 const tabs = computed(() => {
   return props.tabs.filter((tab) => {
-    return tab.current ? tab.route?.name == route.name : true
+    const state = tab.current ? tab.route?.name == route.name : true
+
+    return tab.permission ? access(tab.permission.name, tab.permission.site) : state
   })
 })
 

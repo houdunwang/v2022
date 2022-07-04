@@ -1,9 +1,9 @@
 @extends('blog::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+<h1>Hello World</h1>
 
-    <p>
-        This view is loaded from module: {!! config('blog.name') !!}
-    </p>
+<p>
+    这是博客模块
+</p>
 @endsection

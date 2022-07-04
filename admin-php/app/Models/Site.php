@@ -13,7 +13,7 @@ class Site extends Model
 
     protected $casts = ['config' => 'array'];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'module'];
 
     public function user()
     {
@@ -28,6 +28,11 @@ class Site extends Model
     public function modules()
     {
         return $this->belongsToMany(Module::class, 'site_modules')->withTimestamps();
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
     }
 
     public function permissions()

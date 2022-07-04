@@ -1,12 +1,11 @@
 import { CacheEnum } from '@/enum/CacheEnum'
 import router from '@/router'
 import userStore from '@/store/userStore'
-import { use } from 'echarts'
 import store from './store'
-const storeUser = userStore()
 
 //超级管理员
 export function isSuperAdmin() {
+  const storeUser = userStore()
   return Boolean(storeUser.info?.is_super_admin)
 }
 
@@ -34,7 +33,7 @@ export async function logout() {
   router.push({ name: 'home' })
 }
 
-export function access(site: SiteModel, name: string) {
+export function access(name: string, site: SiteModel) {
   const storeUser = userStore()
   if (storeUser.info?.is_super_admin || site.user_id == storeUser.info?.id) return true
 

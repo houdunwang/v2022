@@ -15,11 +15,11 @@ class RoleController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:sanctum']);
+        $this->authorizeResource(Role::class, 'role');
     }
 
     public function index(Site $site)
     {
-        $this->authorize(Role::class);
         $roles = $site->roles()->latest()->paginate(10000);
         return RoleResource::collection($roles);
     }

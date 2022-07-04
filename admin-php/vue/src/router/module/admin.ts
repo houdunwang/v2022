@@ -1,8 +1,9 @@
 import { RouteRecordRaw } from 'vue-router'
+
 export default {
   name: 'admin',
-  path: '/admin',
-  redirect: '/site',
+  path: '/system/admin',
+  redirect: { name: 'site.index' },
   component: () => import('@/layouts/admin.vue'),
   meta: { auth: true },
   children: [

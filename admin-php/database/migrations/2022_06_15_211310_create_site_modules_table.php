@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('site_id')->constrained()->onDelete('cascade');
             $table->foreignId('module_id')->constrained()->onDelete('cascade');
-            $table->boolean('is_default')->default(false)->comment('默认模块');
+            // $table->boolean('is_default')->default(false)->comment('默认模块');
             $table->timestamps();
         });
     }

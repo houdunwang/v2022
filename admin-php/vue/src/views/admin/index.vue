@@ -25,7 +25,7 @@ const remove = async (user: UserModel) => {
 
 const setRole = async (role: RoleModel, admin: UserModel) => {
   try {
-    await setAdminRole(sid, admin.id, role.id)
+    await setAdminRole(sid, admin.id, [role.id])
   } catch (error) {}
 }
 </script>

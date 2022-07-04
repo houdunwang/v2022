@@ -15,7 +15,7 @@
       "@/*": ["./src/*"],
       "#/*": ["./types/*"]
     },
-    "types": ["element-plus/global", "echarts", "lodash"]
+    "types": ["element-plus/global", "echarts", "lodash", "web-bluetooth"]
   },
   "include": [
     "src/**/*.ts",

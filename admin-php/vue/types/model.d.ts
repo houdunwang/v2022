@@ -75,6 +75,7 @@ interface SiteModel {
     }
   }
   user: UserModel
+  module?: ModuleModel
 }
 
 interface ModuleModel {
@@ -83,7 +84,7 @@ interface ModuleModel {
   version: string
   name: string
   author: string
-  perview?: string
+  preview?: string
   permissions: { title: string; items: { title: string; name: string }[] }[]
 }
 
@@ -93,6 +94,7 @@ interface PermissionModel {
   name: string
   site_id: number
 }
+
 interface RoleModel {
   id: number
   created_at: string

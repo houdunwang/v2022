@@ -22,7 +22,7 @@ export function apiGetSiteGet() {
   })
 }
 
-export function apiSiteFind(id: string | string[]) {
+export function apiSiteFind(id: any) {
   return http
     .request<SiteModel>({
       url: `site/${id}`,
@@ -37,7 +37,7 @@ export function apiSiteDelete(id: number) {
   })
 }
 
-export function syncAllSiteData(id: number) {
+export function syncAllSiteData() {
   return http.request({
     url: `site/sync_local_module`,
   })

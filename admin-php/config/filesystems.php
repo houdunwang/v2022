@@ -73,6 +73,7 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
         public_path('addons') => base_path('addons'),
+        public_path('system') => base_path('vue/dist'),
     ],
 
 ];
