@@ -1,46 +1,42 @@
 import { http } from '@/plugins/axios'
 
-//管理员列表
-export function getAdminList(page = 1, site: number, params = {}) {
+export function getAdminList(site: any, page = 1, params = {}) {
   return http.request<UserModel, ResponsePageResult<UserModel>>({
     url:
       `site/${site}/admin?page=${page}&` +
       Object.entries(params)
-        .map((item) => item.join('='))
+        .map(([k, v]) => `${k}=${v}`)
         .join('&'),
   })
 }
 
-//同步管理
-export function syncAdmin(site: number, user_id: number) {
+export async function syncSiteAdmin(siteId: number, user_id: number) {
   return http.request({
-    url: `site/${site}/admin `,
+    url: `site/${siteId}/admin`,
     method: 'POST',
-    data: { user: user_id },
+    data: { user_id },
   })
 }
 
-//删除管理员
-export function removeAdmin(site: number, user_id: number) {
+export async function removeSiteAdmin(siteId: number, userId: number) {
   return http.request({
-    url: `site/${site}/admin/${user_id}`,
+    url: `site/${siteId}/admin/${userId}`,
     method: 'DELETE',
   })
 }
-//获取管理员
-export function adminFind(site: number, id: number) {
+
+export async function adminFind(sid: any, id: any) {
   return http
     .request<UserModel>({
-      url: `site/${site}/admin/${id}`,
+      url: `site/${sid}/admin/${id}`,
     })
     .then((r) => r.data)
 }
 
-//设置管理员角色
-export function setAdminRole(sid: number, uid: number, roles: number[]) {
+export async function syncAdminRole(sid: number, aid: number, roles: number[]) {
   return http.request({
-    url: `site/${sid}/admin/${uid}/role`,
-    method: 'PUT',
+    url: `site/${sid}/admin/${aid}/role`,
+    method: 'POST',
     data: { roles },
   })
 }

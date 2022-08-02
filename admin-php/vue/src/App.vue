@@ -2,8 +2,9 @@
 import { ElLoading } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 const loadingInstance = ElLoading.service({
-  background: 'rgba(0, 0, 0, 0.6)',
+  background: 'rgba(255,255,255,.5)',
 })
+
 const resolve = () => {
   loadingInstance.close()
 }

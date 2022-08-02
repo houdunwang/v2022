@@ -1,4 +1,7 @@
-interface UserModel {
+//用户模型
+type UserModel = {
+  avatar: string
+  permissions: string[]
   id: number
   name: string
   sex: number
@@ -23,85 +26,122 @@ interface UserModel {
   credit6?: any
   favour_count: number
   favorite_count: number
-  avatar: string
-  permissions: string[]
   is_super_admin: boolean
-  roles?: RoleModel[]
+  roles: RoleModel[]
 }
 
-interface systemModel {
+//角色模型
+type RoleModel = {
   id: number
+  name: string
+  site_id: number
+  guard_name: string
+  created_at: string
+  updated_at: string
+  permissions: PermissionModel[]
+}
+
+//权限模型
+type PermissionModel = {
+  id: number
+  title: string
+  name: string
+  site_id: number
+  module: string
+  guard_name: string
+  created_at: string
+  updated_at: string
+}
+//模块模型
+type ModuleModel = {
+  id: number
+  title: string
+  name: string
+  version: string
+  author: string
+  preview: string
+  admin: boolean
+  front: boolean
+  config: {
+    name: string
+    version: string
+    title: string
+    author: string
+    admin: boolean
+    front: boolean
+  }
+  permissions: {
+    title: string
+    items: {
+      title: string
+      name: string
+    }[]
+  }[]
+  pivot: {
+    is_default: boolean
+  }
+}
+
+//站点模型
+type SiteModel = {
+  id: number
+  title: string
+  url: string
+  tel: string
+  email: string
+  address: string
+  wechat: string
+  qq: string
+  icp: string
+  copyright: string
+  logo: string
+  description: string
+  keywords: string
+  config?: any
+  user_id: number
+  created_at: string
+  updated_at: string
+  module_id: number
+  master: UserModel
+  module: ModuleModel
+}
+
+//系统模型
+type SystemModel = {
+  id: number
+  title: string
+  url?: any
+  tel?: any
+  email?: any
+  address?: any
+  wechat?: any
+  qq?: any
+  icp?: any
+  copyright?: any
+  logo?: any
+  icon?: any
+  description?: any
+  keywords?: any
+  created_at: string
+  updated_at: string
   config: {
     code: {
       expire: string
       length: number
       timeout: number
     }
-    site: {
-      logo: string
-      title: string
-      copyright: string
-    }
     aliyun: {
-      access_key_id: string
+      access_key_id?: any
       sms_sign_name: string
-      access_key_secret: string
+      access_key_secret?: any
     }
     avatar: {
-      avatar_crop_width: string
-      avatar_crop_height: string
+      width: string
+      height: string
+    }
+    upload: {
+      size: number
+      mimes: string
     }
   }
-  created_at: string
-  updated_at: string
-}
-
-interface SiteModel {
-  id: number
-  title: string
-  url: string
-  created_at: string
-  user_id: number
-  config: {
-    aliyun: {
-      access_key_id: string
-      sms_sign_name: string
-      access_key_secret: string
-    }
-    site: {
-      email: string
-      address: string
-      copyright: string
-    }
-  }
-  user: UserModel
-  module?: ModuleModel
-}
-
-interface ModuleModel {
-  id?: number
-  title: string
-  version: string
-  name: string
-  author: string
-  preview?: string
-  permissions: { title: string; items: { title: string; name: string }[] }[]
-}
-
-interface PermissionModel {
-  id: number
-  title: string
-  name: string
-  site_id: number
-}
-
-interface RoleModel {
-  id: number
-  created_at: string
-  guard_name: string
-  name: string
-  site_id: number
-  title: string
-  updated_at: string
-  permissions: PermissionModel[]
 }

@@ -12,9 +12,10 @@ class LogoutController extends Controller
         $this->middleware(['auth:sanctum']);
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         Auth::user()->tokens()->delete();
+
         return $this->success();
     }
 }

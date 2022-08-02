@@ -25,7 +25,7 @@ class UploadAvatarRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => ['required', 'image', 'dimensions:min_width=500,min_height=500']
+            'file' => ['required', 'image', 'dimensions:min_width=300,min_height=300']
         ];
     }
 }

@@ -3,57 +3,52 @@
 namespace Tests\Feature\Role;
 
 use App\Models\Role;
+use App\Models\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Str;
 use Tests\TestCase;
 
 class StoreRoleTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->signIn();
-    }
     /**
      * 字段不能为空
      * @test
      */
-    public function roleFieldCannotBeEmpty()
+    public function fieldCannotBeEmpty()
     {
-        $response = $this->postJson('/api/role');
+        $response = $this->postJson("/api/site/{$this->site->id}/role");
 
-        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
+        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'description']);
     }
 
     /**
-     * 角色字段不能重复
+     * 不能添加已经存在的字段
      * @test
      */
-    public function roleFieldCannotBeRepeated()
+    public function dontAddExistingFields()
     {
-        $role = create(Role::class);
-
-        $response = $this->postJson('/api/role', [
+        $role = create(Role::class, null, ['site_id' => $this->site->id]);
+        $response = $this->postJson("/api/site/{$this->site->id}/role", [
             'name' => $role->name,
-            'title' => $role->title,
         ]);
 
-        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
+        $response->assertStatus(422)->assertJsonValidationErrors(['name']);
     }
 
     /**
      * 成功添加角色
      * @test
      */
-    public function addingRolesSuccessfully()
+    public function addRoleSuccess()
     {
-        $response = $this->postJson('/api/role', [
-            'name' => $this->faker()->word(),
-            'title' => $this->faker()->word(),
+        $response = $this->postJson("/api/site/{$this->site->id}/role", [
+            'name' => $this->faker()->title(),
+            'description' => $this->faker()->title()
         ]);
 
-        $response->assertSuccessful()->assertJson(['data' => []]);
+        $response->assertSuccessful()->assertJson(['status' => 'success']);
     }
 }

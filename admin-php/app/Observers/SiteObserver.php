@@ -23,25 +23,11 @@ class SiteObserver
     {
     }
 
-    /**
-     * Handle the Site "restored" event.
-     *
-     * @param  \App\Models\Site  $site
-     * @return void
-     */
     public function restored(Site $site)
     {
-        //
     }
 
-    /**
-     * Handle the Site "force deleted" event.
-     *
-     * @param  \App\Models\Site  $site
-     * @return void
-     */
     public function forceDeleted(Site $site)
     {
-        //
     }
 }

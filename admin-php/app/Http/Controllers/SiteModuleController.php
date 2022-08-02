@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSiteModuleRequest;
-use App\Http\Requests\UpdateSiteModuleRequest;
 use App\Http\Resources\ModuleResource;
 use App\Models\Module;
 use App\Models\Site;
 use App\Models\SiteModule;
+use Illuminate\Http\Request;
 
+//站点模块
 class SiteModuleController extends Controller
 {
     public function __construct()
@@ -18,31 +18,36 @@ class SiteModuleController extends Controller
 
     public function index(Site $site)
     {
-        $modules = $site->modules()->latest()->paginate(request('row', 10));
-
+        $this->authorize('viewAny', SiteModule::class);
+        $modules = $site->modules()->latest()->paginate();
         return ModuleResource::collection($modules);
     }
 
-    public function store(StoreSiteModuleRequest $request, Site $site)
+    public function store(Request $request, Site $site)
     {
-        $site->modules()->syncWithoutDetaching([$request->module]);
-        return $this->success('站点模块设置成功');
+        $this->authorize('create', SiteModule::class);
+
+        $site->modules()->syncWithoutDetaching($request->input('mid'));
+        app('permission')->syncAllSitePermissions($site);
+
+        return $this->success('模块添加成功');
     }
 
     public function destroy(Site $site, Module $module)
     {
-        $site->modules()->detach($module);
+        $this->authorize('delete', SiteModule::class);
 
-        return $this->success('站点模块删除成功');
+        $site->permissions()->where('module_id', $module->id)->delete();
+        SiteModule::where('site_id', $site->id)->where('module_id', $module->id)->delete();
+        return $this->success('模块删除成功');
     }
 
-    public function setSiteDefaultModule(Site $site, Module $module)
+    //设置站点默认模块
+    public function setDefaultModule(Site $site, Module $module)
     {
-        $site->module_id = $module->id;
+        $this->authorize('update', SiteModule::class);
+        $site->module_id = $site->module_id == $module->id ? null : $module->id;
         $site->save();
-        // $site->modules()->update(['is_default' => false]);
-
-        // $site->modules()->updateExistingPivot($module->id, ['is_default' => true]);
 
         return $this->success('默认模块设置成功');
     }

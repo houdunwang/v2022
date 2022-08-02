@@ -159,6 +159,6 @@ return [
         'year'                  => '年',
         'code' => '验证码',
         'account' => '帐号',
-        'captcha_code' => '验证码'
+        'captcha_code' => '验证码',
     ],
 ];

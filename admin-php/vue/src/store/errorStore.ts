@@ -3,21 +3,19 @@ import { defineStore } from 'pinia'
 export default defineStore('errorStore', {
   state: () => {
     return {
-      errors: {} as Record<string, string>,
+      errors: {} as Record<string, any>,
     }
   },
   getters: {
     getError(state) {
-      return (name: string) => {
-        return state.errors[name]
-      }
+      return (name: string) => state.errors[name]
     },
     hasError(state) {
       return Object.keys(state.errors).length > 0
     },
   },
   actions: {
-    resetErrors() {
+    resetError() {
       this.errors = {}
     },
     setErrors(errors: Record<string, string[]>) {
@@ -26,7 +24,9 @@ export default defineStore('errorStore', {
       })
     },
     clearError(name: string) {
-      if (this.errors[name]) delete this.errors[name]
+      if (this.errors[name]) {
+        delete this.errors[name]
+      }
     },
   },
 })

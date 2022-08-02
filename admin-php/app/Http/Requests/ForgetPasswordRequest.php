@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use App\Rules\ValidateCodeRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * 找回密码
+ * @package App\Http\Requests
+ */
 class ForgetPasswordRequest extends FormRequest
 {
     public function rules()
@@ -21,7 +25,6 @@ class ForgetPasswordRequest extends FormRequest
             return app()->environment() == 'production' || request('code');
         });
     }
-
 
     protected function accountRule()
     {

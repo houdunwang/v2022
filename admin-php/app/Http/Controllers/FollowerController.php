@@ -11,19 +11,23 @@ class FollowerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->only(['toggle']);
+        $this->middleware(['auth:sanctum']);
     }
 
+    // 关注列表
     public function index(User $user)
     {
-        $followers = $user->followers;
-        return $this->success(data: UserResource::collection($followers));
+        return UserResource::collection($user->followers);
     }
 
+    /**
+     * 关注或取关用户
+     * @param User $user
+     * @return array
+     */
     public function toggle(User $user)
     {
-        Auth::user()->followers()->toggle($user);
-
-        return $this->success(data: Auth::user()->isFollower($user));
+        Auth::user()->followers()->toggle($user->id);
+        return $this->success(data: ['isFollower' => Auth::user()->isFollower($user)]);
     }
 }

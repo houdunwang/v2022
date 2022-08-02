@@ -1,11 +1,16 @@
 import { Plugin } from 'vite'
 import autoImport from './autoImport'
-import { setupMockPlugin } from './mock'
+import setupMockPlugin from './mock'
+import setupVisualizer from './visualizer'
+import setupVue from './vue'
+
+const plugins: Plugin[] = []
+
 export default function setupPlugins(isBuild: boolean, env: ImportMetaEnv) {
-  const plugins: Plugin[] = []
-  if (env.VITE_MOCK_ENABLE) {
-    plugins.push(setupMockPlugin(isBuild))
-  }
-  autoImport(plugins)
+  setupVue(plugins, isBuild, env)
+  setupVisualizer(plugins, isBuild, env)
+  setupMockPlugin(plugins, isBuild, env)
+  autoImport(plugins, isBuild, env)
+
   return plugins
 }

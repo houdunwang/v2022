@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -11,17 +12,16 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        User::factory(10)->create();
-        User::factory(2)->has(Site::factory())->create();
+        User::factory(2)->has(Site::factory()->has(Role::factory()))->create();
+        User::factory(50)->create();
 
-        $user  = User::find(1);
+        $user  = User::first();
         $user->name = '向军大叔';
         $user->email = '2300071698@qq.com';
+        $user->mobile = env('MOBILE');
         $user->save();
 
-
         $user  = User::find(2);
-        $user->name = '后盾人';
         $user->email = 'houdunren@qq.com';
         $user->save();
     }

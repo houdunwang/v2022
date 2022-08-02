@@ -3,47 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Site;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Site;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum']);
+        $this->authorizeResource(Admin::class, 'admin');
+    }
+
     public function index(Site $site)
     {
-        $admins = $site->admins()->with(['roles' => function ($query) use ($site) {
+        $admins = $site->admins()->queryCondition()->with(['roles' => function ($query) use ($site) {
             $query->where('site_id', $site->id);
         }])->paginate();
+
         return UserResource::collection($admins);
     }
 
-    public function store(StoreAdminRequest $request, Site $site)
+    public function show(Site $site, Admin $admin)
     {
-        $site->admins()->syncWithoutDetaching([$request->user]);
+        return $this->success(data: new UserResource($admin->user->load('roles')));
+    }
+
+    public function store(Site $site, StoreAdminRequest $request)
+    {
+        $site->admins()->syncWithoutDetaching([$request->user_id]);
         return $this->success();
     }
 
-    public function show(Request $request, Site $site, User $admin)
+    public function destroy(Site $site, Admin $admin)
     {
-        return $this->success(data: $admin->load('roles'));
-    }
+        $site->admins()->detach($admin->user);
 
-    public function update(UpdateAdminRequest $request, Admin $siteAdmin)
-    {
-    }
-
-    public function destroy(Site $site, User $admin)
-    {
-        $site->admins()->detach($admin);
         return $this->success('管理员删除成功');
     }
 
-    public function setRole(Request $request, Site $site, User $admin)
+    //设置管理员角色
+    public function syncAdminRole(Request $request, Site $site, Admin $admin)
     {
-        $admin->syncRoles($request->roles);
+        $admin->user->syncRoles($request->roles);
+
         return $this->success('角色设置成功');
     }
 }

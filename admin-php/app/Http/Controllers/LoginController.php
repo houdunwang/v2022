@@ -6,11 +6,8 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Validator;
 
 class LoginController extends Controller
 {
@@ -26,7 +23,7 @@ class LoginController extends Controller
 
         return $this->success(data: [
             'user' => new UserResource($user),
-            'token' =>  $user->createToken('auth')->plainTextToken
+            'token' =>  $user->createToken('auth')->plainTextToken,
         ]);
     }
 }

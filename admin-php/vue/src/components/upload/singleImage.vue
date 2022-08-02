@@ -1,50 +1,35 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
-
-// import { ElUploadRequestOptions } from 'element-plus/es/components/upload/src/upload.type'
-import { http } from '@/plugins/axios'
+import { uploadImage } from '@/apis/upload'
 
 const props = defineProps<{
   modelValue: string | null
 }>()
+const imageUrl = ref(props.modelValue)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', url: string): void
 }>()
-const imageUrl = ref(props.modelValue)
-
-const handleSuccess = (response: any, uploadFile: any) => {
-  imageUrl.value = response.data.url
-  emit('update:modelValue', imageUrl.value!)
-}
 
 const request = async (options: any) => {
-  const formData = new FormData()
-  formData.append('file', options.file)
+  const form = new FormData()
+  form.append('file', options.file)
 
-  return http.request<{ url: string }>({
-    method: 'POST',
-    url: 'upload/image',
-    data: formData,
-  })
+  const { data } = await uploadImage(form)
+  imageUrl.value = data.url
+  emit('update:modelValue', imageUrl.value!)
 }
 </script>
 
 <template>
   <div class="">
-    <el-upload
-      class="avatar-uploader"
-      action=""
-      :http-request="request"
-      :show-file-list="false"
-      :on-success="handleSuccess">
+    <el-upload action="" class="avatar-uploader" :http-request="request" :show-file-list="false">
       <img v-if="imageUrl" :src="imageUrl" class="avatar" />
       <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
     </el-upload>
-    <div class="">
-      <FormError name="file" />
-    </div>
+
+    <FormError name="file" />
   </div>
 </template>
 
@@ -58,8 +43,7 @@ const request = async (options: any) => {
 
 <style>
 .avatar-uploader .el-upload {
-  border: solid 1px #ddd !important;
-  /* border: 1px dashed var(--el-border-color); */
+  @apply border;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
@@ -74,8 +58,8 @@ const request = async (options: any) => {
 .el-icon.avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
+  min-width: 80px;
+  height: 50px;
   text-align: center;
 }
 </style>

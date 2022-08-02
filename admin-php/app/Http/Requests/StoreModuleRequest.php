@@ -8,7 +8,7 @@ class StoreModuleRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return is_super_admin();
     }
 
     public function rules()
@@ -16,13 +16,13 @@ class StoreModuleRequest extends FormRequest
         return [
             'title' => ['required'],
             'name' => ['required'],
-            'version' => ['required'],
             'author' => ['required'],
+            'version' => ['required'],
         ];
     }
 
     public function attributes()
     {
-        return ['title' => '模块名称', 'name' => '模块标识', 'version' => '版本号', 'author' => '作者'];
+        return ['title' => '模块名称', 'name' => '模块标识', 'author' => '模块作者'];
     }
 }

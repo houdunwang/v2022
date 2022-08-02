@@ -2,39 +2,37 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * 验证码规则
+ * @package App\Rules
+ */
 class ValidateCodeRule implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        //
     }
 
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * 确定验证规则是否通过
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
+     * @throws BindingResolutionException
      */
     public function passes($attribute, $value)
     {
-        return request('account') && app('code')->check(request('account'), $value);
+        return request('account') && $value && app('code')->check(request('account'), $value);
     }
 
     /**
-     * Get the validation error message.
-     *
+     * 验证失败消息
      * @return string
      */
     public function message()
     {
-        return '验证码输入错误';
+        return  '验证码输入错误';
     }
 }

@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { apiSiteAdd } from '@/apis/site'
-import { siteField } from '@/config/form'
-import router from '@/router'
+import { siteForm } from '@/config/form'
+import Tab from './components/tab.vue'
 
-const onSubmit = async (model: SiteModel) => {
-  await apiSiteAdd(model)
-  router.push({ name: 'site.index' })
-}
+const { add } = useSite()
 </script>
 
 <template>
-  <HdTab
-    :tabs="[
-      { label: '站点列表', route: { name: 'site.index' } },
-      { label: '修改站点', route: { name: 'site.edit' }, current: true },
-    ]" />
-  <FormFieldList @submit="onSubmit" :fields="siteField.base"> ></FormFieldList>
+  <Tab />
+  <FormFieldList :fields="siteForm.base" @submit="add" />
 </template>

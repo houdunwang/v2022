@@ -10,24 +10,17 @@ export function getModuleList(page = 1, params = {}) {
   })
 }
 
-export function addModule(data: ModuleModel) {
+export function delModule(moduleId: number) {
   return http.request({
-    url: 'module',
-    method: 'POST',
-    data,
-  })
-}
-
-export function delModule(data: ModuleModel) {
-  return http.request({
-    url: `module/${data.id}`,
+    url: `module/${moduleId}`,
     method: 'DELETE',
-    data,
   })
 }
 
-export function syncLocalModule() {
+export function addModule(module: ModuleModel) {
   return http.request({
-    url: `module/sync_local_module`,
+    url: `module`,
+    data: module,
+    method: 'POST',
   })
 }

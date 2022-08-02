@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { fieldType } from '@/config/form'
 import _ from 'lodash'
-
-const { model: PropModel, fields } = defineProps<{
+const {
+  fields,
+  model: PropsModel,
+  showButton = true,
+} = defineProps<{
+  fields: FormFieldType[]
   model?: any
-  fields: fieldType[]
+  showButton?: boolean
 }>()
 
 const model = $ref(
-  PropModel ||
+  PropsModel ||
     _.zipObject(
       fields.map((f) => f.name),
-      fields.map((f) => f.value),
+      fields.map((f) => f.value ?? ''),
     ),
 )
 
@@ -21,33 +24,50 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <el-form :model="model" label-width="80px" size="large">
-    <el-form-item :label="field.title" v-for="field of fields">
-      <template v-if="field.type == 'image'">
-        <div class="" v-if="field.disabled">
-          <el-avatar shape="square" :size="100" fit="cover" :src="model[field.name]" />
-        </div>
-        <div class="" v-else>
-          <UploadSingleImage v-model="model[field.name]" />
-          <FormError :name="field.error_name || field.name" />
-        </div>
-      </template>
-      <template v-else>
-        <el-input
-          v-model="model[field.name]"
-          :type="field.type ?? 'input'"
-          :placeholder="field.placeholder"
-          :disabled="field.disabled"
-          @keyup.enter="emit('submit', model)"></el-input>
-        <FormError :name="field.error_name || field.name" />
-      </template>
-    </el-form-item>
-    <el-form-item v-if="!$slots.button">
-      <slot name="button">
-        <el-button type="primary" @click="emit('submit', model)">保存提交</el-button>
-      </slot>
-    </el-form-item>
-  </el-form>
-</template>
+  <el-card shadow="hover" :body-style="{ padding: '20px' }">
+    <el-form :model="model" label-width="100px" :inline="false" size="large">
+      <el-form-item :label="f.title" v-for="f of fields">
+        <template v-if="f.type == 'image'">
+          <div class="flex flex-col">
+            <UploadSingleImage v-model="model[f.name]" />
+            <FormError :name="f.error_name || f.name" />
+          </div>
+        </template>
+        <template v-else-if="f.type == 'radio'">
+          <el-radio-group v-model="model[f.name]" class="ml-4" :disabled="f.disabled">
+            <el-radio :label="val[1]" size="large" v-for="val in f.options"> {{ val[0] }} </el-radio>
+          </el-radio-group>
+        </template>
+        <template v-else-if="f.type == 'preview'">
+          <div class="flex flex-col">
+            <el-image
+              preview-teleported
+              :hide-on-click-modal="true"
+              :preview-src-list="[model[f.name]!]"
+              :src="model[f.name]"
+              fit="cover"
+              class="w-[200px] rounded-sm" />
+          </div>
+        </template>
+        <template v-else-if="f.type == 'wangeditor'">
+          <EditorWangEditor v-model="model[f.name]" />
+        </template>
+        <template v-else>
+          <el-input
+            @keyup.enter="emit('submit', model)"
+            v-model="model[f.name]"
+            :type="f.type ?? 'input'"
+            :placeholder="f.placeholder"
+            :readonly="f.readonly"
+            :disabled="f.disabled" />
 
-<style lang="scss"></style>
+          <FormError :name="f.error_name || f.name" />
+        </template>
+      </el-form-item>
+      <el-form-item>
+        <slot name="button" v-if="$slots.button" />
+        <el-button type="primary" @click="emit('submit', model)" v-else>保存提交</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
+</template>

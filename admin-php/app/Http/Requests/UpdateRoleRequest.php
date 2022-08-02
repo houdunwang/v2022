@@ -8,11 +8,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateRoleRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return Auth::check();
@@ -21,14 +16,22 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'regex:/^[a-z]+$/i', $this->uniqueFilter('name')],
-            'title' => ['required', $this->uniqueFilter('title')]
+            'description' => ['required', 'max:100'],
+            'name' => ['required',  'max:20', $this->unique('name')],
         ];
     }
 
-    protected function uniqueFilter($field)
+    protected function unique($field)
     {
-        return Rule::unique('roles', $field)->where('site_id', request('site.id'))
-            ->whereNotIn('id', [request('role.id')]);
+        return Rule::unique('roles', $field)->where(function ($query) {
+            $query->where('site_id', request('site.id'))->when(request('role.id'), function ($query, $id) {
+                $query->where('id', '!=', $id);
+            });
+        });
+    }
+
+    public function attributes()
+    {
+        return ['description' => '角色描述', 'name' => '角色描述'];
     }
 }

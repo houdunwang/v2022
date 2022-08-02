@@ -10,15 +10,16 @@ class UpdateSiteRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'between:3,50', Rule::unique('sites', 'title')->ignore($this->site->id)],
-            'url' => ['nullable', 'url'],
-            'email' => ['nullable', 'email'],
-            'address' => ['nullable', 'between:3,100'],
+            'title' => ['required', 'max:100', 'min:2', Rule::unique('sites')->ignore(request('id'))],
         ];
     }
 
     public function attributes()
     {
-        return ['title' => '网站名称', 'url' => '网址'];
+        return [
+            'title' => '站点名称',
+            'keyword' => '网站关键字',
+            'description' => '站点描述'
+        ];
     }
 }

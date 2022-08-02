@@ -3,59 +3,60 @@
 namespace Tests\Feature\Role;
 
 use App\Models\Role;
+use App\Models\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Str;
 use Tests\TestCase;
 
 class UpdateRoleTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->signIn();
-    }
     /**
      * 字段不能为空
      * @test
      */
-    public function updateRoleFieldCannotBeEmpty()
+    public function roleFieldCannotBeEmpty()
     {
-        $role = create(Role::class);
-        $response = $this->putJson("/api/role/{$role['id']}");
+        $role = create(Role::class, null, ['site_id' => $this->site->id]);
 
-        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
+        $response = $this->putJson("/api/site/{$this->site->id}/role/{$role['id']}");
+
+        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'description']);
     }
 
     /**
-     * 角色字段不能重复
+     * 不能添加已经存在的字段
      * @test
      */
-    public function updateRoleFieldCannotBeRepeated()
+    public function dontUpdateExistingRoleFields()
     {
-        $role1 = create(Role::class);
-        $role2 = create(Role::class);
-
-        $response = $this->putJson("/api/role/{$role2['id']}", [
+        $role1 = create(Role::class, null, ['site_id' => $this->site->id]);
+        $role2 = create(Role::class, null, ['site_id' => $this->site->id]);
+        $response = $this->putJson("/api/site/{$this->site->id}/role/{$role2['id']}", [
             'name' => $role1->name,
-            'title' => $role1->title,
+            'description' => $role1->description
         ]);
 
-        $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
+        $response->assertStatus(422)->assertJsonValidationErrors(['name']);
     }
 
     /**
-     * 更新添加角色
+     * 更新站点角色
      * @test
      */
-    public function updateRolesSuccessfully()
+    public function updateSiteRole()
     {
-        $role = create(Role::class);
+        $role = create(Role::class, null, [
+            'name' => $this->faker()->title(),
+            'description' => $this->faker()->title(),
+            'site_id' => $this->site->id, 'name' => $this->faker()->word()
+        ]);
 
-        $response = $this->putJson("/api/role/{$role['id']}", [
-            'name' => $role->name,
-            'title' => $this->faker()->word(),
+        $response = $this->putJson("/api/site/{$this->site['id']}/role/{$role['id']}", [
+            'name' => $this->faker()->title(),
+            'description' => $this->faker()->title(),
         ]);
 
         $response->assertSuccessful()->assertJson(['data' => []]);

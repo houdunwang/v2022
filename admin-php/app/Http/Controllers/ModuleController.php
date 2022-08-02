@@ -9,80 +9,36 @@ use App\Models\Module;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
+//系统模块管理
 class ModuleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum']);
+        $this->authorizeResource(Module::class, 'module');
+    }
+
+    //模块列表
     public function index()
     {
-        $modules = Module::latest()->paginate(request('row', 10));
-
+        $modules = Module::latest()->paginate();
         return ModuleResource::collection($modules);
     }
 
+    //设计模块
     public function store(StoreModuleRequest $request)
     {
-        $config = $request->input();
-        $config['name'] = ucfirst($config['name']);
-        Artisan::call("module:make " . ucfirst($request->name));
+        $config =  ['name' => ucfirst($request->name), "version" => "1.0"] + $request->input();
+        app('module')->initModuleData($config['name'], $config);
 
-        file_put_contents(
-            base_path('addons/' . $config['name'] . '/Config/config.php'),
-            "<?php return " . var_export($config, true) . ';'
-        );
-
-        copy(public_path('static/preview.jpeg'), base_path('addons/' . $config['name'] . '/preview.jpeg'));
-
-
-        return $this->success();
+        return $this->success('模块创建成功', data: Module::latest()->first());
     }
 
-
-    public function show(Module $module)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Module $module)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateModuleRequest  $request
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateModuleRequest $request, Module $module)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
+    //删除模块
     public function destroy(Module $module)
     {
-        Artisan::call('module:migrate-reset ' . $module->name);
+        app('module')->delete($module);
 
-        Storage::disk('addons')->deleteDirectory($module->name);
-
-        $module->delete();
         return $this->success('模块删除成功');
     }
-
-    // public function syncLocalModule()
-    // {
-    //     app('module')->syncModule();
-    //     return $this->success('模型同步成功');
-    // }
 }

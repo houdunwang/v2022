@@ -1,28 +1,27 @@
 <script setup lang="ts">
-import { findUser } from '@/apis/userApi'
-import { UserField } from '@/config/form'
-const { id, dialogWidth = '60%' } = defineProps<{
-  id?: number
-  dialogWidth?: string
-}>()
-let dialogState = $ref(false)
-let user = $ref<UserModel>()
+import { userForm } from '@/config/form'
 
-const loadUser = async () => {
-  user = await findUser(id!)
-  dialogState = true
-}
+const { user } = defineProps<{
+  user?: UserModel
+}>()
+
+let dialog = ref(false)
 </script>
 
 <template>
-  <Teleport to="body">
-    <el-dialog title="用户信息" v-model="dialogState" :width="dialogWidth">
-      <FormFieldList :fields="UserField" :model="user">
-        <template #button />
-      </FormFieldList>
-    </el-dialog>
-  </Teleport>
-  <el-button type="primary" size="default" @click="loadUser">查看</el-button>
+  <teleport to="body">
+    <div class="">
+      <el-dialog v-model="dialog" title="用户资料" custom-class="dialog" top="20px">
+        <FormFieldList :model="user" :fields="userForm" :show-button="false" />
+      </el-dialog>
+    </div>
+  </teleport>
+
+  <el-button type="primary" size="default" @click="dialog = true">显示</el-button>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+:deep(.dialog) {
+  @apply w-11/12 md:w-[1000px];
+}
+</style>

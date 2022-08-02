@@ -1,30 +1,31 @@
-interface ResponseResult<T> {
-  code: number
-  message: string
-  status: 'success' | 'error'
-  data: T
+interface FormFieldType {
+  title: string
+  name: string
+  error_name?: string
+  type?: 'input' | 'textarea' | 'image' | 'preview' | 'radio' | 'wangeditor' | 'markdown'
+  options?: Record<keyof any, any>
+  readonly?: boolean
+  disabled?: boolean
+  placeholder?: string
+  value?: any
 }
 
-interface ResponsePageResult<T> {
-  data: T[]
-  links: {
-    first: string
-    last: string
-    prev?: any
-    next: string
-  }
-  meta: {
-    current_page: number
-    from: number
-    last_page: number
-    links: {
-      url?: string
-      label: string
-      active: boolean
-    }[]
-    path: string
-    per_page: number
-    to: number
-    total: number
-  }
+interface TableColumnsType {
+  prop: string
+  label: string
+  width?: number
+  align?: 'left' | 'center' | 'right'
+  type?: 'image' | 'date' | 'input' | 'radio' | 'tag'
+  options: any
+  search?: boolean
+  fixed?: boolean
+  tag_field?: string
+}
+
+interface TableButton {
+  title: string
+  type?: 'primary' | 'success' | 'info' | 'warning' | 'danger'
+  permission?: string
+  action?: (model: any) => void
+  component?: any
 }

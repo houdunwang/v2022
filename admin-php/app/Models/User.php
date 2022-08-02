@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ScopeTrait;
 use App\Models\Scopes\PaginateConditionScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,89 +13,57 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, ScopeTrait;
 
     protected $guard_name = ['sanctum'];
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new PaginateConditionScope);
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
-
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
-        'openid',
         'unionid',
+        'openid',
         'miniapp_openid',
         'mobile',
-        'email',
-        'real_name'
+        'avatar'
     ];
 
-    protected $appends = ['is_super_admin'];
+    protected $appends = [
+        'is_super_admin'
+    ];
+
+    // protected $with = ['roles.permissions'];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     public function getIsSuperAdminAttribute()
     {
         return $this->id == 1;
     }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * 关注列表
-     * @return BelongsToMany
-     */
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
     }
 
-    /**
-     * 是否关注用户
-     * @param User $user
-     * @return bool
-     */
     public function isFollower(User $user)
     {
         return $this->followers()->where('follower_id', $user->id)->exists();
     }
 
-
-    /**
-     * 粉丝列表
-     * @return BelongsToMany
-     */
     public function fans()
     {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id')->withTimestamps();
     }
 
-    public function site()
+    public function sites()
     {
         return $this->hasMany(Site::class);
     }

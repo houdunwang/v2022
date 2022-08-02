@@ -16,7 +16,7 @@ class CodeRequest extends FormRequest
     protected function accountRule()
     {
         if (filter_var(request('account'), FILTER_VALIDATE_EMAIL)) {
-            return 'required|email';
+            return ['required', 'email'];
         }
 
         return ['required', 'regex:/^\d{11}$/'];

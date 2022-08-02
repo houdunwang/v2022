@@ -1,16 +1,10 @@
 import { http } from '@/plugins/axios'
-export function getSystem() {
-  return http
-    .request<systemModel>({
-      url: `system`,
-    })
-    .then((r) => r.data)
+
+export async function getSystem() {
+  const { data } = await http.request<SystemModel>({ url: 'system' })
+  return data
 }
 
-export function updateSystem(data: any) {
-  return http.request<any>({
-    url: `system`,
-    method: 'PUT',
-    data,
-  })
+export function updateSystem(data: SystemModel) {
+  return http.request<SystemModel>({ url: 'system/1', method: 'PUT', data })
 }

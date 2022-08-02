@@ -12,8 +12,9 @@ class UploadService
     public function avatar(UploadedFile $file)
     {
         $path = $file->store("images/avatars" . DIRECTORY_SEPARATOR . date('Ym'));
+
         Image::load(Storage::path($path))
-            ->crop(Manipulations::CROP_CENTER, config('system.avatar.avatar_crop_width'), config('system.avatar.avatar_crop_height'))
+            ->crop(Manipulations::CROP_CENTER, config('system.avatar.width'), config('system.avatar.height'))
             ->save();
 
         return [
@@ -22,9 +23,9 @@ class UploadService
         ];
     }
 
-    public function file(UploadedFile $file)
+    public function image(UploadedFile $file)
     {
-        $path = $file->store("images" . DIRECTORY_SEPARATOR . date('Ym'));
+        $path = $file->store("images/avatars" . DIRECTORY_SEPARATOR . date('Ym'));
 
         return [
             'path' => $path,

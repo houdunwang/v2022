@@ -29,14 +29,13 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
         'addons' => [
             'driver' => 'local',
-            'root' => base_path('addons'),
+            'root' => base_path('addons')
         ],
         'public' => [
             'driver' => 'local',
@@ -44,7 +43,6 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -73,7 +71,7 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
         public_path('addons') => base_path('addons'),
-        public_path('system') => base_path('vue/dist'),
+        public_path('core') => base_path('dist'),
     ],
 
 ];

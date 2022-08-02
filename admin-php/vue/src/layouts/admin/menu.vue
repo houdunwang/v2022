@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import menuService from '@/composables/useMenu'
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
 import { RouteEnum } from '@/enum/RouteEnum'
-import * as icons from '@icon-park/vue-next'
-const route = useRoute()
+const { routes, show, go } = useMenu()
 
-watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
+onMounted(() => {
+  document.documentElement.addEventListener('click', (e) => {
+    if (document.documentElement.clientWidth < 640) show.value = false
+  })
+})
 </script>
 
 <template>
-  <div class="admin-menu z-50" :class="{ close: menuService.close.value }">
-    <div class="menu w-[200px] bg-gray-800">
+  <div class="admin-menu">
+    <div class="menu" :class="{ hidden: !show }">
       <div class="logo cursor-pointer">
-        <icon-home
+        <icon-application-one
           theme="outline"
           size="18"
           fill="#dcdcdc"
@@ -23,155 +23,55 @@ watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
       </div>
       <!-- 菜单 -->
       <div class="container">
-        <dl v-for="(menu, index) of menuService.menus.value" :key="index">
-          <dt @click="menuService.toggleParentMenu(menu)">
+        <dl v-for="(route, index) of routes" :key="index">
+          <dt>
             <section>
-              <component :is="icons[menu.icon!]" size="18" fill="#dcdcdc" class="mr-2" />
-              <span class="text-md">{{ menu.title }}</span>
-            </section>
-            <section>
-              <icon-up
-                theme="filled"
-                size="24"
-                fill="#555"
-                strokeLinejoin="bevel"
-                strokeLinecap="butt"
-                :class="{ 'rotate-180': menu.isClick }"
-                class="duration-300" />
-              <!-- <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': menu.isClick }"></i> -->
+              <component :is="route.meta.menu?.icon" size="15" fill="#dcdcdc" class="mr-2" />
+              <span class="text-md">{{ route.meta.menu?.title }}</span>
             </section>
           </dt>
-          <dd :class="!menu.isClick || menuService.close.value ? 'hidden' : 'block'">
+          <dd>
             <div
-              :class="{ active: cmenu.isClick }"
-              v-for="(cmenu, key) of menu.children"
+              v-for="(r, key) of route.children"
               :key="key"
-              @click="$router.push({ name: cmenu.route })">
-              {{ cmenu?.title }}
+              @click="go(r)"
+              :class="{ active: $route.name == r.name }"
+              v-show="r.meta?.menu">
+              {{ r.meta?.menu?.title }}
             </div>
           </dd>
         </dl>
       </div>
     </div>
-    <div class="bg block md:hidden" @click="menuService.toggleState"></div>
+    <div class="bg block md:hidden"></div>
   </div>
 </template>
 <style lang="scss">
 .admin-menu {
-  @apply z-20;
-
+  @apply z-10 bg-gray-800 h-full absolute md:relative overflow-auto;
   .menu {
-    @apply h-full;
-
+    @apply z-30 w-[200px];
     .logo {
       @apply text-gray-300 flex items-center p-4;
     }
-
     .container {
       dl {
         @apply text-gray-300 text-sm relative p-4;
-
         dt {
-          @apply text-sm flex justify-between cursor-pointer items-center;
-
+          @apply text-sm flex justify-between cursor-pointer items-center opacity-80;
           section {
-            @apply flex items-center;
-
-            i {
-              @apply mr-2 text-sm;
-            }
+            @apply flex items-center duration-500;
           }
         }
-
         dd {
           div {
-            @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500 bg-gray-700;
-
+            @apply opacity-80 text-xs py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500 hover:opacity-100 bg-gray-700;
             &.active {
-              @apply bg-violet-700;
+              @apply bg-violet-700 opacity-100;
             }
           }
         }
       }
-    }
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .admin-menu {
-    &.close {
-      .menu {
-        width: auto;
-
-        .logo {
-          @apply mr-0 justify-center;
-
-          i {
-            @apply mr-0;
-          }
-
-          span {
-            @apply hidden;
-            &.i-icon {
-              @apply mr-0 block;
-            }
-          }
-        }
-
-        .container {
-          dl {
-            &:hover {
-              dd {
-                @apply block absolute left-full top-[0px] w-[200px] bg-gray-700 px-2;
-              }
-            }
-            dt {
-              @apply flex justify-center;
-
-              section {
-                i {
-                  @apply mr-0;
-                }
-
-                span {
-                  @apply hidden;
-                  &.i-icon {
-                    @apply mr-0 block;
-                  }
-                }
-
-                &:nth-of-type(2) {
-                  @apply hidden;
-                }
-              }
-            }
-            dd {
-              padding: 0 !important;
-              div {
-                @apply m-0 rounded-none;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and(max-width:768px) {
-  .admin-menu {
-    @apply h-screen w-[200px] absolute left-0 top-0 z-50;
-
-    .menu {
-      @apply h-full z-50 absolute;
-    }
-
-    .bg {
-      @apply bg-gray-100 z-40 opacity-75 w-screen h-screen absolute left-0 top-0;
-    }
-
-    &.close {
-      @apply hidden;
     }
   }
 }

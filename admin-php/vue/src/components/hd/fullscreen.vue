@@ -11,8 +11,10 @@ document.addEventListener('fullscreenchange', (e) => {
 </script>
 
 <template>
-  <icon-off-screen theme="outline" size="24" @click="fullScreen" class="mr-5" v-if="isFullScreen" />
-  <icon-full-screen-one theme="outline" size="24" @click="fullScreen" class="mr-5" v-else />
+  <div class="flex items-center cursor-pointer">
+    <icon-off-screen theme="outline" size="18" @click="fullScreen" v-if="isFullScreen" />
+    <icon-full-screen-one theme="outline" size="18" @click="fullScreen" v-else />
+  </div>
 </template>
 
 <style lang="scss"></style>

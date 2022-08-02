@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('unionid')->nullable()->comment('微信开放平台unionid');
             $table->string('openid')->nullable()->comment('微信openid');
             $table->string('miniapp_openid')->nullable()->comment('微信小程序openid');
-            $table->string('name')->nullable()->comment('昵称');
+            $table->string('name', 50)->nullable()->comment('昵称');
             $table->tinyInteger('sex')->default(1)->comment('性别');
-            $table->string('email')->nullable()->unique();
-            $table->string('mobile')->nullable()->unique();
-            $table->string('real_name', 20)->nullable()->comment('真实姓名');
+            $table->string('email', 100)->nullable()->unique();
+            $table->string('mobile', 20)->nullable()->unique();
+            $table->string('real_name', 50)->nullable()->comment('真实姓名');
             $table->string('password')->nullable()->comment('密码');
             $table->string('home')->nullable()->comment('个人网站');
             $table->string('avatar')->nullable()->comment('头像');

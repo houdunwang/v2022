@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import router from '@/router/register'
 import { ref } from 'vue'
-const content = ref('<p>后盾人</p>')
+const content = ref('后盾人')
 </script>
 
 <template>

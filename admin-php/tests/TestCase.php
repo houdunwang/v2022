@@ -2,21 +2,27 @@
 
 namespace Tests;
 
+use App\Models\Site;
 use App\Models\User;
+use Auth;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, RefreshDatabase, WithFaker;
 
     protected $user;
+    protected $site;
+    protected $seed = true;
 
-    // protected $seed = true;
-
-    // protected function setUp(): void
-    // {
-    //     parent::setUp();
-    // }
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->signIn(User::find(1));
+        $this->site = Site::find(1);
+    }
 
     protected function signIn(User $user = null)
     {
@@ -25,5 +31,10 @@ abstract class TestCase extends BaseTestCase
 
         $this->user = $user;
         return $this;
+    }
+
+    protected function logout()
+    {
+        Auth::logout();
     }
 }

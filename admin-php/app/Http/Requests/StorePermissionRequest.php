@@ -7,15 +7,11 @@ use Illuminate\Validation\Rule;
 
 class StorePermissionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return auth()->check();
     }
+
     public function rules()
     {
         return [

@@ -1,23 +1,28 @@
 import { http } from '@/plugins/axios'
 
-export function getRoleList(sid: any) {
+export function getRoleList(siteId: number, page = 1, params = {}) {
   return http.request<RoleModel, ResponsePageResult<RoleModel>>({
-    url: `site/${sid}/role`,
+    url:
+      `/site/${siteId}/role?page=${page}&` +
+      Object.entries(params)
+        .map((e) => e.join('='))
+        .join('&'),
+    method: 'get',
   })
 }
 
-export function roleFind(sid: any, id: number) {
-  return http
-    .request<RoleModel>({
-      url: `site/${sid}/role/${id}`,
-    })
-    .then((r) => r.data)
-}
-export function addRole(sid: any, role: RoleModel) {
+export function addRole(siteId: number, data: any) {
   return http.request({
-    url: `site/${sid}/role`,
+    url: `site/${siteId}/role`,
     method: 'POST',
-    data: role,
+    data,
+  })
+}
+
+export function delRole(sid: number, rid: number) {
+  return http.request({
+    url: `site/${sid}/role/${rid}`,
+    method: 'DELETE',
   })
 }
 
@@ -29,17 +34,6 @@ export function updateRole(sid: any, role: RoleModel) {
   })
 }
 
-export function delRole(sid: any, id: number) {
-  return http.request({
-    url: `site/${sid}/role/${id}`,
-    method: 'DELETE',
-  })
-}
-
-export function setRolePermission(sid: any, rid: number, permissions: string[]) {
-  return http.request({
-    url: `site/${sid}/role/${rid}/permission`,
-    method: 'PUT',
-    data: { permissions },
-  })
+export function roleFind(sid: any, rid: any) {
+  return http.request<RoleModel>({ url: `site/${sid}/role/${rid}` }).then((r) => r.data)
 }

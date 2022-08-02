@@ -1,51 +1,71 @@
 <script setup lang="ts">
+import { isSuperAdmin } from '@/utils/helper'
 import dayjs from 'dayjs'
-const { site } = defineProps<{
-  site: SiteModel
-}>()
 
 const emit = defineEmits(['del'])
+const props = defineProps<{ site: SiteModel }>()
 </script>
 
 <template>
-  <div class="site-item">
+  <div class="site">
     <header>
-      <section class="">站长: {{ site.user.name }}</section>
-      <section @click="$router.push({ name: 'site.module.index', params: { sid: site.id } })" class="cursor-pointer">
-        <icon-blocks-and-arrows theme="outline" class="mr-1" />
+      <section>
+        <div class="">
+          站长: <span>{{ site.master.name }}</span>
+        </div>
+        <div
+          class="ml-2 text-gray-600 font-normal cursor-pointer"
+          v-if="site.module"
+          @click="$router.push({ name: 'site.module.index', query: { sid: props.site.id } })">
+          <el-tag type="success" size="small" effect="dark">{{ site.module.title }}</el-tag>
+        </div>
+      </section>
+      <section
+        class="cursor-pointer"
+        @click="$router.push({ name: 'site.module.index', query: { sid: props.site.id } })">
+        <icon-config theme="outline" fill="#333" strokeLinejoin="bevel" strokeLinecap="butt" class="mr-1" />
         扩展模块
       </section>
     </header>
     <main>
-      <icon-category-management theme="outline" />
-      <h2>{{ site.title }}</h2>
+      <el-image :src="props.site.logo" fit="cover" :lazy="true" class="w-10 rounded-md" v-if="props.site.logo" />
+      <icon-connection-point theme="filled" :strokeWidth="2" v-else />
+      <span class="truncate w-60 overflow-hidden block"> {{ props.site.title }} </span>
     </main>
-    <footer>
-      <section>
-        #{{ site.id }} 创建时间 <icon-time theme="outline" /> {{ dayjs(site.created_at).format('YYYY-mm-DD mm:ss') }}
+    <footer class="">
+      <section class="flex font-bold">
+        #{{ props.site.id }} 创建时间
+        <span class="flex justify-center items-center ml-1">
+          <icon-time theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" class="mr-1" />
+          {{ dayjs(props.site.created_at).format('YYYY-MM-DD HH:mm') }}
+        </span>
       </section>
-      <section>
-        <a :href="site.url" target="_blank" v-if="site.url"> <icon-home-two theme="outline" /> 访问首页</a>
-        <router-link :to="{ name: 'role.index', params: { sid: site.id } }" v-access:system-show-role="site">
-          <icon-permissions theme="outline" />
-          角色设置
+
+      <section class="footer-menu">
+        <a :href="site.url" v-if="site.url" target="_blank">
+          <icon-home theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" />
+          访问首页
+        </a>
+        <router-link :to="{ name: 'role.index', query: { sid: site.id } }" v-access:role-list="site">
+          <icon-permissions theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" />
+          角色管理
         </router-link>
-        <router-link :to="{ name: 'site.admin.index', params: { sid: site.id } }">
-          <icon-all-application theme="outline" />
-          管理员
+        <router-link :to="{ name: 'site.admin.index', query: { sid: site.id } }" v-access:admin-list="site">
+          <icon-avatar theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" />
+          管理员设置
         </router-link>
-        <router-link :to="{ name: 'site.config', params: { id: site.id } }">
-          <icon-setting theme="outline" /> 站点配置
+        <router-link :to="{ name: 'site.config', query: { sid: site.id } }" v-access:site-config="site">
+          <icon-config theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" /> 站点配置
         </router-link>
-        <router-link :to="{ name: 'site.edit', params: { id: site.id } }">
-          <icon-home-two theme="outline" /> 编辑站点
+        <router-link :to="{ name: 'site.edit', query: { sid: site.id } }" v-access:site-edit="site">
+          <icon-editor theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" />
+          编辑站点
         </router-link>
-        <a href="javascript:void(0)">
+        <a href="javascript:void(0)" v-if="isSuperAdmin()">
           <el-popconfirm title="确定删除站点吗?" @confirm="emit('del', site.id)">
             <template #reference>
-              <div class="flex justify-center items-center">
-                <icon-delete theme="outline" />
-                删除
+              <div class="flex items-center justify-center">
+                <icon-delete theme="outline" strokeLinejoin="bevel" strokeLinecap="butt" /> 删除
               </div>
             </template>
           </el-popconfirm>
@@ -56,37 +76,37 @@ const emit = defineEmits(['del'])
 </template>
 
 <style lang="scss" scoped>
-.site-item {
-  @apply border text-gray-700 hover:shadow-lg duration-300 rounded-lg;
+.site {
+  @apply bg-gray-50 shadow-sm border hover:shadow-lg rounded-md duration-300;
+  a:hover {
+    @apply text-sky-700;
+  }
   header {
-    @apply py-3 px-5 border-b flex justify-between items-center shadow-sm text-sm font-bold text-gray-700;
-    > :nth-of-type(2) {
-      @apply flex justify-center items-center;
+    @apply shadow-sm border-b px-5 py-3 flex items-center justify-between text-gray-600 text-sm font-bold;
+    :first-child {
+      @apply font-bold flex;
+    }
+    :nth-child(2) {
+      @apply flex items-center;
     }
   }
   main {
-    @apply py-8 px-5 flex items-center;
-    span {
-      @apply text-5xl mr-2;
+    @apply flex  items-center px-5 py-8 text-gray-600;
+    :first-of-type {
+      @apply mr-2 text-3xl text-gray-600;
     }
-    h2 {
-      @apply text-lg;
+    span {
+      @apply text-2xl font-light;
     }
   }
   footer {
-    @apply border-t flex justify-between items-center py-3 px-5 text-xs;
-    > section:nth-of-type(1) {
-      @apply hidden lg:flex items-center;
-      span {
-        @apply mx-1;
-      }
-    }
-    > section:nth-child(2) {
-      @apply flex items-center text-gray-700 flex-wrap;
+    @apply py-3 px-5 font-bold text-xs opacity-90 flex md:flex-row flex-col md:justify-between md:items-center text-gray-600 border-t;
+    :nth-of-type(2) {
+      @apply flex flex-wrap;
       a {
-        @apply flex items-center justify-center ml-2;
-        span {
-          @apply mr-1;
+        @apply flex justify-center items-center mr-2 cursor-pointer;
+        :first-child {
+          @apply mr-[2px];
         }
       }
     }

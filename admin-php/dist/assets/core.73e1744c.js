@@ -1,0 +1,1 @@
+import{h as t,r as e}from"./index.645abaa1.js";function o(r){return t.request({url:"/core/update",method:"get"})}async function s(){const r=e.currentRoute.value.query.sid;return(await t.request({url:"/core/current_site"+(r?`?sid=${r}`:"")})).data}export{o as a,s as c};

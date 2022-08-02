@@ -1,29 +1,25 @@
-import { ConfigEnv, defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import alias from './vite/alias'
 import { parseEnv } from './vite/util'
 import setupPlugins from './vite/plugins'
-import { visualizer } from 'rollup-plugin-visualizer'
-import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig(({ command, mode }) => {
   const isBuild = command == 'build'
   const env = parseEnv(loadEnv(mode, process.cwd()))
 
   return {
-    plugins: [
-      vue({
-        reactivityTransform: true,
-      }),
-      ...setupPlugins(isBuild, env),
-      visualizer(),
-    ],
-    base: isBuild ? '/system/' : '/',
+    plugins: [...setupPlugins(isBuild, env), vueJsx({})],
+    //静态文件 url 前缀
+    base: isBuild ? '/core/' : '/',
     resolve: {
       alias,
     },
     build: {
+      //编译文件生成目录
+      outDir: '../dist',
+      emptyOutDir: true,
       rollupOptions: {
-        emptyOutDir: true,
         output: {
           manualChunks(id: string) {
             if (id.includes('node_modules')) {
@@ -34,16 +30,14 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     server: {
-      //   open: true,
-      port: 3001,
+      host: true,
       proxy: {
         '/api': {
-          target: env.VITE_MOCK_ENABLE ? '/' : env.VITE_API_URL,
+          target: env.VITE_API_URL,
           changeOrigin: true,
-          // rewrite: (path: string) => path.replace(/^\/api/, ''),
         },
         '/captcha/api/math': {
-          target: env.VITE_MOCK_ENABLE ? '/' : env.VITE_API_URL,
+          target: env.VITE_API_URL,
           changeOrigin: true,
         },
       },

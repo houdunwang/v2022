@@ -1,30 +1,21 @@
-import { CacheEnum } from '../enum/CacheEnum'
-import { info } from '@/apis/userApi'
-import store from '@/utils/store'
 import { defineStore } from 'pinia'
+import { currentUserInfo } from '@/apis/user'
 
 export default defineStore('userStore', {
   state: () => {
     return {
-      info: {} as null | UserModel,
+      info: {} as UserModel,
       permissions: [] as PermissionModel[],
     }
   },
   actions: {
-    checkPermission(site: SiteModel, name: string) {
-      return Boolean(this.permissions.find((p) => p.site_id == site.id && p.name == name))
-    },
     async getUserInfo() {
-      if (store.get(CacheEnum.TOKEN_NAME)) {
-        this.info = await info()
+      this.info = await currentUserInfo()
 
-        this.info.roles?.map((role: RoleModel) => {
-          this.permissions = [...this.permissions, ...role.permissions]
-        })
-      }
-    },
-    resetInfo() {
-      this.info = null
+      this.permissions = this.info.roles.reduce((permissions: PermissionModel[], role: RoleModel) => {
+        permissions.push(...role.permissions)
+        return permissions
+      }, [])
     },
   },
 })

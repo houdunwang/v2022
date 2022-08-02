@@ -1,0 +1,1 @@
+import{_ as t}from"./_plugin-vue_export-helper.cdc0426e.js";import{o,c as n,E as _}from"./@vue.93d749de.js";const s={},c={class:"hd-button"};function r(e,d){return o(),n("button",c,[_(e.$slots,"default",{},void 0,!0)])}const u=t(s,[["render",r],["__scopeId","data-v-5501f6fd"]]);export{u as _};

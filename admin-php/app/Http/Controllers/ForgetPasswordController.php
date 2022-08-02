@@ -7,6 +7,10 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * 找回密码
+ * @package App\Http\Controllers
+ */
 class ForgetPasswordController extends Controller
 {
     public function __invoke(ForgetPasswordRequest $request)

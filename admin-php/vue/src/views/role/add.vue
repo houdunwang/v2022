@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import Tab from './tab.vue'
-import { RoleForm } from '@/config/form'
-import { addRole } from '@/apis/role'
-const router = useRouter()
+import { roleForm } from '@/config/form'
+import TabVue from './tab.vue'
 
-const { sid } = defineProps<{ sid: any }>()
-
-const onSubmit = async (model: RoleModel) => {
-  try {
-    await addRole(sid, model)
-    router.push({ name: 'role.index', params: { sid } })
-  } catch (error) {}
-}
+const { site, currentSite } = useSite()
+const { add } = useRole()
+await currentSite()
 </script>
 
 <template>
-  <Tab :sid="sid" />
-  <FormFieldList :fields="RoleForm" @submit="onSubmit" />
+  <TabVue :site="site" />
+  <FormFieldList :fields="roleForm" @submit="add" />
 </template>
-
-<style lang="scss"></style>

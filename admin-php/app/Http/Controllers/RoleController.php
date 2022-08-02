@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
-use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RoleController extends Controller
 {
@@ -20,17 +20,16 @@ class RoleController extends Controller
 
     public function index(Site $site)
     {
-        $roles = $site->roles()->latest()->paginate(10000);
+        $roles = Role::queryCondition()->latest()->paginate(100);
         return RoleResource::collection($roles);
     }
 
     public function store(StoreRoleRequest $request, Site $site, Role $role)
     {
-        $role->name = $request->name;
-        $role->title = $request->title;
-        $site->roles()->save($role);
+        $this->authorize('create', Role::class);
+        $role->fill($request->input() + ['site_id' => $site->id, 'guard_name' => 'sanctum'])->save();
 
-        return $this->success('角色添加成功');
+        return $this->success('角色添加成功', data: $role);
     }
 
     public function show(Site $site, Role $role)
@@ -40,20 +39,15 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request, Site $site, Role $role)
     {
+        $this->authorize('update', $role);
         $role->fill($request->input())->save();
-        return $this->success('角色编辑成功');
+        return $this->success('角色更新成功');
     }
 
     public function destroy(Site $site, Role $role)
     {
+        $this->authorize('delete', $role);
         $role->delete();
-        return $this->success('删除成功');
-    }
-
-    public function permission(Request $request, Site $site, Role $role)
-    {
-        $ids = Permission::where('site_id', $site->id)->whereIn('name', $request->permissions)->pluck('id');
-        $role->syncPermissions($ids);
-        return $this->success('权限设置成功');
+        return $this->success(message: '删除成功');
     }
 }

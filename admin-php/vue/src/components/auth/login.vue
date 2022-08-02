@@ -1,42 +1,51 @@
 <script setup lang="ts">
-import { login } from '@/apis/userApi'
+import { login } from '@/apis/auth'
 import useCaptcha from '@/composables/useCaptcha'
 import errorStore from '@/store/errorStore'
-import { loginAndRegisterCallback } from '@/utils/helper'
+import env from '@/utils/env'
+import { loginCallback, request } from '@/utils/helper'
 import Footer from './footer.vue'
 
 const form = reactive({ account: '2300071698@qq.com', password: 'admin888', captcha_code: '', captcha_key: '' })
+const storeError = errorStore()
+const { loadCaptcha } = useCaptcha()
 
-const onSubmit = async () => {
-  useCaptcha().loadCaptcha()
+const onSubmit = request(async () => {
+  if (!env.VITE_MOCK_ENABLE) loadCaptcha()
+
   const { data } = await login(form)
-  loginAndRegisterCallback(data)
-}
-const error = errorStore()
+  loginCallback(data.token)
+})
 </script>
 
 <template>
   <form class @submit.prevent="onSubmit">
     <div
-      class="w-[720px] translate-y-32 md:translate-y-0 bg-white md:grid grid-cols-2 rounded-md shadow-md overflow-hidden">
+      class="w-[720px] translate-y-32 md:translate-y-0 bg-gray-50 md:grid grid-cols-2 rounded-md shadow-md overflow-hidden">
       <div class="p-6 flex flex-col justify-between">
         <div>
-          <h2 class="text-center text-gray-700 text-lg mt-3">会员登录</h2>
+          <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
           <div class="mt-8">
-            <FormInput
-              v-model="form.account"
-              type="password"
-              v-clearError="'account'"
-              placeholder="请输入邮箱或手机号" />
+            <FormInputComponent type="password" v-model="form.account" placeholder="请输入邮箱或手机号" />
             <FormError name="account" />
 
-            <FormInput v-model="form.password" class="mt-3" type="password" placeholder="请输入密码" />
+            <FormInputComponent
+              v-model="form.password"
+              class="mt-3"
+              type="password"
+              placeholder="请输入登录密码"
+              v-clearError="'password'" />
             <FormError name="password" />
 
-            <HdCaptcha class="mt-2" v-model:captcha_key="form.captcha_key" v-model:captcha_code="form.captcha_code" />
+            <HdCaptcha
+              v-model:captcha_code="form.captcha_code"
+              v-model:captcha_key="form.captcha_key"
+              v-if="!env.VITE_MOCK_ENABLE"
+              class="mt-2" />
           </div>
 
-          <FormButton class="w-full primary" :disabled="error.hasError">登录</FormButton>
+          <FormButtonComponent class="w-full mt-3 primary">登录</FormButtonComponent>
+
           <div class="flex justify-center mt-3">
             <icon-wechat
               theme="outline"
@@ -54,7 +63,7 @@ const error = errorStore()
   </form>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 form {
   @apply bg-slate-300 h-screen flex justify-center items-start md:items-center p-5;
 }

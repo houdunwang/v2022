@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { getUserList } from '@/apis/userApi'
-import { UserTableField } from '@/config/table'
-import tabs from './tabs'
+import { userTableColumns } from '@/config/table'
+const { load, users } = useUser()
+await load()
+
+const tabs = [
+  { label: '系统管理', route: { name: 'system.index' } },
+  { label: '用户列表', route: { name: 'user.index' }, current: true },
+]
 </script>
 
 <template>
-  <hd-tab :tabs="tabs" />
-  <HdTableList :columns="UserTableField" :api="getUserList" :button-width="90" :search="true" search-field="name">
+  <HdTab :tabs="tabs" />
+  <HdTableComponent :data="users?.data" :columns="userTableColumns" :button-width="100">
     <template #button="{ model }">
-      <UserInfo :id="model.id" />
+      <UserInfo :user="model" />
     </template>
-  </HdTableList>
+  </HdTableComponent>
+  <HdPagination :total="users?.meta.total" :size="users?.meta.per_page" @change="load" />
 </template>

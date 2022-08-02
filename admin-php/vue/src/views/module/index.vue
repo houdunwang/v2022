@@ -1,28 +1,21 @@
 <script setup lang="ts">
-import { delModule, getModuleList } from '@/apis/module'
-import { ModuleTableField } from '@/config/table'
-import { ElMessageBox } from 'element-plus'
-
-let tableKey = $ref(0)
-const del = async (module: ModuleModel) => {
-  await ElMessageBox.confirm('确定删除吗')
-  await delModule(module)
-  tableKey++
-}
+import { moduleTableColumns } from '@/config/table'
+import Tab from './tab.vue'
+const { load, modules, del } = useModule()
+await load()
 </script>
+
 <template>
-  <HdTab
-    :tabs="[
-      { label: '系统管理', route: { name: 'system.index' } },
-      { label: '模块列表', route: { name: 'module.index' } },
-      { label: '设计模块', route: { name: 'module.design' } },
-    ]" />
+  <Tab />
+  <el-alert title="如果模块文件过多，可能会删除失败，请刷新页面重试" show-icon type="warning" effect="light" />
 
-  <HdTableList :api="getModuleList" :columns="ModuleTableField" :button-width="100" :search="true" :key="tableKey">
+  <HdTableComponent :data="modules?.data" :columns="moduleTableColumns" :button-width="100">
     <template #button="{ model }">
-      <el-button type="danger" size="default" @click="del(model)">删除</el-button>
+      <el-button-group>
+        <el-button type="danger" size="default" @click="del(model.id)">删除</el-button>
+      </el-button-group>
     </template>
-  </HdTableList>
-</template>
+  </HdTableComponent>
 
-<style lang="scss"></style>
+  <HdPagination :total="modules?.meta.total" :size="modules?.meta.per_page" />
+</template>

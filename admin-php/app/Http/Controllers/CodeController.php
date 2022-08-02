@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CodeExistUserRequest;
-use App\Http\Requests\CodeNotExistUserRequest;
 use App\Http\Requests\CodeRequest;
-use App\Http\Requests\ValidateCodeRequest;
-use App\Models\User;
-use App\Notifications\EmailValidateCodeNotification;
+use App\Http\Requests\CodeSendToExistUserRequest;
+use App\Http\Requests\CodeSendToNotExistUserRequest;
 use App\Services\CodeService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CodeController extends Controller
 {
@@ -24,36 +16,31 @@ class CodeController extends Controller
         $this->middleware(['auth:sanctum'])->only(['user']);
     }
 
+    // 任意帐号发送验证码
     public function send(CodeRequest $request, CodeService $codeService)
     {
-        $codeService->send($request->account);
-        return $this->success('验证码发送成功');
+        $code = $codeService->send($request->account);
+        return $this->success('验证码发送成功', $code);
     }
 
-    public function user(string $type, CodeService $codeService)
+    // 已经注册用户发送验证码
+    public function currentUser(string $type, CodeService $codeService)
     {
-        $codeService->send(Auth::user()[$type == 'email' ? 'email' : 'mobile']);
-        return $this->success('验证码发送成功');
+        $code = $codeService->send(Auth::user()[$type == 'mobile' ? 'mobile' : 'email']);
+        return $this->success('验证码发送成功',  $code);
     }
 
-    /**
-     * 不存在的用户发送验证码
-     * @param CodeNotExistUserRequest $request
-     * @param CodeService $codeService
-     * @return JsonResponse
-     * @throws HttpException
-     * @throws NotFoundHttpException
-     * @throws BindingResolutionException
-     */
-    public function notExistUser(CodeNotExistUserRequest $request, CodeService $codeService)
+    // 不存在用户发送验证码
+    public function notExistUser(CodeSendToNotExistUserRequest $request, CodeService $codeService)
     {
-        $codeService->send($request->account);
-        return $this->success('验证码发送成功');
+        $code = $codeService->send($request->account);
+        return $this->success('验证码发送成功', $code);
     }
 
-    public function existUser(CodeExistUserRequest $request, CodeService $codeService)
+    // 已存在用户发送验证码
+    public function existUser(CodeSendToExistUserRequest $request, CodeService $codeService)
     {
-        $codeService->send($request->account);
-        return $this->success('验证码发送成功');
+        $code = $codeService->send($request->account);
+        return $this->success('验证码发送成功', $code);
     }
 }

@@ -1,34 +1,33 @@
 <script setup lang="ts">
-import { getModuleList } from '@/apis/module'
-import { ModuleTableField } from '@/config/table'
+import { moduleTableColumns } from '@/config/table'
 
-const emit = defineEmits<{
-  (e: 'select', module: ModuleModel): void
-}>()
+const emit = defineEmits<{ (e: 'select', module: any): void }>()
+const { load, modules } = useModule()
+await Promise.all([load()])
 
-const dialogState = ref(false)
+let dialog = ref(false)
 
-const action = (model: any, command: string) => {
-  const module = model as ModuleModel
-  emit('select', module)
-  dialogState.value = false
+const select = (model: any) => {
+  emit('select', model)
+  dialog.value = false
 }
 </script>
 
 <template>
   <div class="">
-    <el-dialog title="选择模块" v-model="dialogState" width="95%" top="20px">
-      <HdTableList
-        :api="getModuleList"
-        :columns="ModuleTableField"
-        :search="true"
-        :button="[{ command: 'select', title: '选择', type: 'default' }]"
-        @action="action"
-        :button-width="90" />
+    <el-dialog title="选择模块" v-model="dialog" custom-class="dialog">
+      <HdTableComponent :data="modules?.data" :columns="moduleTableColumns">
+        <template #button="{ model }">
+          <el-button type="primary" size="default" @click="select(model)">选择模块</el-button>
+        </template>
+      </HdTableComponent>
     </el-dialog>
-
-    <el-button type="primary" size="default" @click="dialogState = true">选择模块</el-button>
+    <el-button type="primary" size="default" @click="dialog = true">选择模块</el-button>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+:deep(.dialog) {
+  @apply w-[95%] md:w-[1000px];
+}
+</style>

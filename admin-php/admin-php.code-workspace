@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "addons/Blog"
+		},
+		{
+			"path": "addons/Blog/front"
+		}
+	],
+	"settings": {}
+}

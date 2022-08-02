@@ -1,24 +1,15 @@
 <script setup lang="ts">
-import Tab from './tab.vue'
-import { RoleForm } from '@/config/form'
-import { addRole, updateRole, roleFind } from '@/apis/role'
-const router = useRouter()
+import { roleForm } from '@/config/form'
+import TabVue from './tab.vue'
 
-const { sid, id } = defineProps<{ sid: any; id: any }>()
-
-const role = await roleFind(sid, id)
-
-const onSubmit = async (model: RoleModel) => {
-  try {
-    await updateRole(sid, role)
-    router.push({ name: 'role.index', params: { sid } })
-  } catch (error) {}
-}
+const { site, currentSite } = useSite()
+const { current, role, update } = useRole()
+await Promise.all([current(), currentSite()])
 </script>
 
 <template>
-  <Tab :sid="sid" />
-  <FormFieldList :fields="RoleForm" @submit="onSubmit" :model="role" />
-</template>
+  <TabVue :site="site" :role="role" />
+  <el-alert title="修改角色标识将影响后台程序逻辑，请慎重操作" show-icon type="warning" effect="light" />
 
-<style lang="scss"></style>
+  <FormFieldList :fields="roleForm" :model="role" @submit="update" />
+</template>
