@@ -1,29 +1,31 @@
+import { ConfigService } from './config.service'
+import { AppService } from './app.service'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { DbService } from './db.service'
+import { HdModule } from './hd/hd.module'
+import { TestModule } from './test/test.module'
 
 @Module({
-  imports: [],
+  imports: [HdModule, TestModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    ConfigService,
+    {
+      provide: 'DbService',
+      inject: ['ConfigService'],
+      useFactory(configService) {
+        return new DbService(configService)
+      },
+    },
+  ],
 })
 export class AppModule {}
 
-// function a(){}
-// a.prototype._module={
+// const providers = [
 //   {
-//     imports: [],
-//     controllers: [AppController],
-//     providers: [AppService],
-//   }
-// }
-
-// const modules = []
-// modules.push(a)
-// new a()
-// class B{
-//   protected a(){}
-// }
-// class A extends B{
-
-// }
+//     provide: HdService,
+//     useClass: HdService,
+//   },
+// ]

@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common'
+import { DbService } from './db.service'
+import { Controller, Get, Inject } from '@nestjs/common'
 import { AppService } from './app.service'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject('DbService')
+    private readonly dbService: DbService,
+  ) {}
 
   @Get()
   getHello(): string {
-    return this.appService.findOne()
+    return this.dbService.connect()
   }
 }
