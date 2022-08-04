@@ -15,8 +15,13 @@ import { TestModule } from './test/test.module'
     {
       provide: 'DbService',
       inject: ['ConfigService'],
-      useFactory(configService) {
-        return new DbService(configService)
+      useFactory: async (configService) => {
+        return new Promise((r) => {
+          setTimeout(() => {
+            r('后盾人')
+          }, 3000)
+        })
+        // return new DbService(configService)
       },
     },
   ],
