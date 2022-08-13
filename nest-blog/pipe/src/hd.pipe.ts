@@ -1,7 +1,5 @@
 import {
   ArgumentMetadata,
-  BadRequestException,
-  HttpCode,
   HttpException,
   HttpStatus,
   Injectable,
@@ -18,7 +16,7 @@ export class HdPipe implements PipeTransform {
 
     if (errors.length) {
       const messages = errors.map((error) => ({
-        name: error.property,
+        filed: error.property,
         message: Object.values(error.constraints).map((v) => v),
       }));
       throw new HttpException(messages, HttpStatus.UNPROCESSABLE_ENTITY);

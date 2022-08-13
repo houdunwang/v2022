@@ -1,11 +1,11 @@
 import {
   Body,
   Controller,
-  DefaultValuePipe,
   Get,
   Param,
   ParseIntPipe,
   Post,
+  UsePipes,
 } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { AppService } from './app.service';
@@ -26,11 +26,10 @@ export class AppController {
         id,
       },
     });
-    return id;
   }
 
   @Post('store')
-  async add(@Body(HdPipe) dto: CreateArticleDto) {
+  async add(@Body() dto: CreateArticleDto) {
     const article = await this.prisma.article.create({
       data: {
         title: dto.title,
