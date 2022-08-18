@@ -15,8 +15,8 @@
 | 目录      | 说明     | 使用技术                                                     |
 | --------- | -------- | ------------------------------------------------------------ |
 | tank      | 坦克游戏 | ES6、Typescript、Canvas 、OOP                                |
-| admin-php | 系统平台 | Laravel、Vue、Typescript、Pinia、Axios、MockJs、<br />ElementUI、TailwindCss、Vue-router、Vite |
-| nest-blog | 新手入门 | NestJs、Prisma、Typescript、Mysql、Vue3、<br />Vue-router、Axios、TailwindCss |
+| admin-php | 系统平台 | Laravel、Vue、Typescript、Pinia、Axios、MockJs、ElementUI、TailwindCss、Vue-router、Vite |
+| nest-blog | 新手入门 | NestJs、Prisma、Typescript、Mysql、Vue3、Vue-router、Axios、TailwindCss |
 
 
 
