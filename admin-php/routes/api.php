@@ -73,7 +73,6 @@ Route::apiResource('site.role.permission', RolePermissionController::class);
 Route::apiResource('site.admin', AdminController::class);
 Route::post('site/{site}/admin/{admin}/role', [AdminController::class, 'syncAdminRole']);
 
-
 //安装
-Route::post('install/test', [InstallController::class, 'test']);
-Route::get('install/migrate', [InstallController::class, 'migrate']);
+Route::post('install/test', [InstallController::class,'testLink']);
+Route::get('install/migrate', [InstallController::class,'migrate']);

@@ -38,11 +38,9 @@ const onSubmit = async () => {
           </el-form-item>
           <el-form-item label="主机">
             <el-input v-model="form.database.host"></el-input>
-            <FormError name="database.host" />
           </el-form-item>
           <el-form-item label="数据库">
             <el-input v-model="form.database.database"></el-input>
-            <FormError name="database.database" />
           </el-form-item>
           <el-form-item label="用户名">
             <el-input v-model="form.database.username"></el-input>

@@ -48,5 +48,14 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(100)->by($request->user()?->id ?: $request->ip());
         });
+
+        //安装检测
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $installRoute = preg_match('/install|api/i', $_SERVER['REQUEST_URI']);
+            if (!is_file(base_path('install_lock.html')) && !$installRoute) {
+                header('location:/install');
+                die;
+            }
+        }
     }
 }

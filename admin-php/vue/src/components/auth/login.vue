@@ -7,6 +7,7 @@ import { loginCallback, request } from '@/utils/helper'
 import Footer from './footer.vue'
 
 const form = reactive({ account: '2300071698@qq.com', password: 'admin888', captcha_code: '', captcha_key: '' })
+
 const storeError = errorStore()
 const { loadCaptcha } = useCaptcha()
 
@@ -26,7 +27,7 @@ const onSubmit = request(async () => {
         <div>
           <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
           <div class="mt-8">
-            <FormInputComponent type="password" v-model="form.account" placeholder="请输入邮箱或手机号" />
+            <FormInputComponent v-model="form.account" placeholder="请输入邮箱或手机号" />
             <FormError name="account" />
 
             <FormInputComponent

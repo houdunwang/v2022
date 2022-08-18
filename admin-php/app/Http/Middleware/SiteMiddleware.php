@@ -30,9 +30,8 @@ class SiteMiddleware
     {
         if (!site()) return;
 
-        $site = site();
         foreach (config('site') as $name => $value)
             foreach ($value as $key => $item)
-                config(["site.{$name}.{$key}" => $site['config'][$name][$key] ?? $item]);
+                config(["site.{$name}.{$key}" => $this->site['config'][$name][$key] ?? $item]);
     }
 }

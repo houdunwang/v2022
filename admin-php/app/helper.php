@@ -25,8 +25,8 @@ function site(Site $site = null): ?Site
 {
     static $cache = null;
 
-    if ($site) $cache  = $site;
-    return $cache;
+    if ($site) $cache  = $cache;
+    return $site;
 }
 
 //是否是超级管理员

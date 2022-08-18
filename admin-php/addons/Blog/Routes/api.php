@@ -1,6 +1,9 @@
 <?php
 
-use Addons\Blog\Controllers\ArticleController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Addons\Blog\Controllers\ArticleController;
 
-Route::apiResource('site/{site}/blog/article', ArticleController::class);
+Route::prefix('Blog')->group(function () {
+    Route::apiResource('site.article', ArticleController::class);
+});

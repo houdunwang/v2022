@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
     $site = Site::where('url', $request->host())->first();
+
     if ($site && $site->module) {
         $moduleHtml = public_path("addons/{$site->module->name}/dist/index.html");
         if (is_file($moduleHtml)) return file_get_contents($moduleHtml);

@@ -16,7 +16,7 @@ const migrate = async () => {
     <Step :step="3" class="w-full" />
     <section>
       <div class="">
-        <img src="/images/xj9.png" class="rounded-full w-32 h-32 object-cover" />
+        <img src="/images/xj9.png" class="w-full rounded-full w-32 h-32 object-cover" />
         <nav class="flex flex-row mt-5">
           <el-button type="info" @click="$router.go(-1)">上一步</el-button>
           <el-button type="success" size="default" @click="migrate"> 开始导入初始数据 </el-button>
