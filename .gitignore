@@ -19,3 +19,4 @@ bin-release/
 node_modules
 dist
 .DS_Store
+uploads
