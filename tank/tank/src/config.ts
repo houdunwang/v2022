@@ -35,7 +35,7 @@ export default {
     num: 10,
   },
   tank: {
-    num: 2,
+    num: 30,
   },
   images: {
     straw,
