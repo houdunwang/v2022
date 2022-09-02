@@ -8,13 +8,22 @@ datasource db {
 }
 
 model user {
-  id       Int    @id @default(autoincrement()) @db.UnsignedInt
-  name     String @unique
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  name     String  @unique
   password String
+  role     String?
+}
+
+model category {
+  id       Int       @id @default(autoincrement()) @db.UnsignedInt
+  title    String
+  articles article[]
 }
 
 model article {
-  id      Int    @id @default(autoincrement()) @db.UnsignedInt
-  title   String
-  content String @db.Text
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  title      String
+  content    String   @db.Text
+  category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int      @db.UnsignedInt
 }

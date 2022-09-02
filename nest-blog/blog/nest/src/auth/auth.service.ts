@@ -1,10 +1,10 @@
-import { PrismaService } from './../prisma/prisma.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
-import RegisterDto from './dto/register.dto';
-import { hash, verify } from 'argon2';
-import { user } from '@prisma/client';
-import { JwtService } from '@nestjs/jwt';
-import LoginDto from './dto/login.dto';
+import { PrismaService } from './../prisma/prisma.service'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import RegisterDto from './dto/register.dto'
+import { hash, verify } from 'argon2'
+import { user } from '@prisma/client'
+import { JwtService } from '@nestjs/jwt'
+import LoginDto from './dto/login.dto'
 
 @Injectable()
 export class AuthService {
@@ -16,8 +16,8 @@ export class AuthService {
         name: dto.name,
         password: await hash(dto.password),
       },
-    });
-    return this.token(user);
+    })
+    return this.token(user)
   }
 
   async login(dto: LoginDto) {
@@ -25,12 +25,12 @@ export class AuthService {
       where: {
         name: dto.name,
       },
-    });
+    })
 
     if (!(await verify(user.password, dto.password))) {
-      throw new BadRequestException('密码输入错误');
+      throw new BadRequestException('密码输入错误')
     }
-    return this.token(user);
+    return this.token(user)
   }
 
   private async token({ id, name }) {
@@ -39,6 +39,6 @@ export class AuthService {
         name,
         sub: id,
       }),
-    };
+    }
   }
 }
