@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ArticleList: typeof import('./../src/components/articleList.vue')['default']
     EditorMarkdown: typeof import('./../src/components/editor/markdown.vue')['default']
     EditorWangEditor: typeof import('./../src/components/editor/wangEditor.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']

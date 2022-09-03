@@ -26,4 +26,6 @@ model article {
   content    String   @db.Text
   category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int      @db.UnsignedInt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

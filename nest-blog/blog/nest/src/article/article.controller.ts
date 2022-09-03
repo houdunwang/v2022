@@ -1,8 +1,20 @@
-import { DefaultValuePipe, Query, SetMetadata, UseGuards } from '@nestjs/common'
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  SerializeOptions,
+  UseInterceptors,
+} from '@nestjs/common'
 import { ArticleService } from './article.service'
 import { CreateArticleDto } from './dto/create-article.dto'
 import { UpdateArticleDto } from './dto/update-article.dto'
+import { Article } from './entities/article.entitiy'
 
 @Controller('article')
 export class ArticleController {
@@ -14,13 +26,14 @@ export class ArticleController {
   }
 
   @Get()
-  findAll(@Query() args = {}) {
+  async findAll(@Query() args = {}) {
     return this.articleService.findAll(args)
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.articleService.findOne(+id)
+  async findOne(@Param('id') id: string) {
+    const article = await this.articleService.findOne(+id)
+    return new Article(article)
   }
 
   @Patch(':id')
