@@ -1,14 +1,16 @@
-import { SmsService } from './sms/sms.service'
-import { Controller, Get } from '@nestjs/common'
-import { AppService } from './app.service'
+import { app } from '@/config/app'
+import { Controller, Get, Inject } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
+import { CodeService } from './aliyun/code.service'
+import { success } from './helper'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private smsService: SmsService) {}
+  constructor(private codeService: CodeService, @Inject(app.KEY) private appConfig: ConfigType<typeof app>) {}
 
   @Get()
   async getHello() {
-    await this.smsService.code(process.env.MOBILE)
-    return this.appService.getHello()
+    await this.codeService.code(this.appConfig.mobile)
+    return success('短信发送成功')
   }
 }

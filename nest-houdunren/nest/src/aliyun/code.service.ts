@@ -1,13 +1,18 @@
-import { ForbiddenException, Injectable } from '@nestjs/common'
 import Dysmsapi20170525, * as $Dysmsapi20170525 from '@alicloud/dysmsapi20170525'
 import * as $OpenApi from '@alicloud/openapi-client'
 import * as $Util from '@alicloud/tea-util'
-import { ConfigService } from '../config/config.service'
+import { BadRequestException, CACHE_MANAGER, ForbiddenException, Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
+import { aliyun } from '@/config/aliyun'
+import { Cache } from 'cache-manager'
 
 @Injectable()
-//短信服务
-export class SmsService {
-  constructor(private configService: ConfigService) {}
+//验证服务
+export class CodeService {
+  constructor(
+    @Inject(aliyun.KEY) private aliyunConfig: ConfigType<typeof aliyun>,
+    @Inject(CACHE_MANAGER) private cacheService: Cache,
+  ) {}
   /**
    * 使用AK&SK初始化账号Client
    * @param accessKeyId
@@ -18,9 +23,9 @@ export class SmsService {
   createClient(): Dysmsapi20170525 {
     const config = new $OpenApi.Config({
       // 您的 AccessKey ID
-      accessKeyId: this.configService.aliyun.access_key,
+      accessKeyId: this.aliyunConfig.access_key,
       // 您的 AccessKey Secret
-      accessKeySecret: this.configService.aliyun.access_secret,
+      accessKeySecret: this.aliyunConfig.access_secret,
     })
     // 访问的域名
     config.endpoint = `dysmsapi.aliyuncs.com`
@@ -58,11 +63,15 @@ export class SmsService {
    * @param phoneNumbers 手机号
    * @returns
    */
-  async code(phoneNumbers: any): Promise<void> {
-    return this.send(this.configService.aliyun.sms_sign, this.configService.aliyun.sms_code_template, phoneNumbers, {
-      code: this.createCode(),
-      product: this.configService.aliyun.sms_sign,
+  async code(phoneNumbers: any) {
+    const code = this.createCode()
+    await this.send(this.aliyunConfig.sms_sign, this.aliyunConfig.sms_code_template, phoneNumbers, {
+      code,
+      product: this.aliyunConfig.sms_sign,
     })
+
+    await this.cacheService.set(phoneNumbers, code, { ttl: 600 })
+    return code
   }
 
   /**
@@ -74,4 +83,12 @@ export class SmsService {
     const code = Math.ceil(Math.random() * 8888) + 1000
     return code
   }
+
+  async check(data: { mobile: string; code: string }) {
+    const code = await this.cacheService.get(data.mobile)
+    console.log(data, code)
+    // if (!code || code != data.code) throw new ForbiddenException('验证码输入错误')
+  }
+
+  //linux mac yum apt yay pacman brew  wsl2 redis
 }

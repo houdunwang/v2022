@@ -6,6 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model user {
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  mobile   String  @db.Char(20)
+  password String
+  avatar   String?
+  github   String?
+  wakatime String?
+  wechat   String?
+  gitee    String?
+  qq       String?
 }
