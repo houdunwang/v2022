@@ -70,7 +70,7 @@ export class CodeService {
       product: this.aliyunConfig.sms_sign,
     })
 
-    await this.cacheService.set(phoneNumbers, code, { ttl: 600 })
+    await this.cacheService.set('H' + phoneNumbers, code, { ttl: 600 })
     return code
   }
 
@@ -85,10 +85,7 @@ export class CodeService {
   }
 
   async check(data: { mobile: string; code: string }) {
-    const code = await this.cacheService.get(data.mobile)
-    console.log(data, code)
-    // if (!code || code != data.code) throw new ForbiddenException('验证码输入错误')
+    const code = await this.cacheService.get('H' + data.mobile)
+    if (!code || code != data.code) throw new ForbiddenException('验证码输入错误')
   }
-
-  //linux mac yum apt yay pacman brew  wsl2 redis
 }

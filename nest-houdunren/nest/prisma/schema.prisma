@@ -10,9 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id       Int     @id @default(autoincrement()) @db.UnsignedInt
-  mobile   String  @db.Char(20)
+  mobile   String  @unique @db.Char(20)
   password String
   avatar   String?
   github   String?
@@ -20,4 +20,16 @@ model user {
   wechat   String?
   gitee    String?
   qq       String?
+}
+
+model Lesson {
+  id          Int     @id @default(autoincrement()) @db.UnsignedInt
+  title       String
+  price       Decimal @db.Decimal(8, 2)
+  description String
+  preview     String
+  download    String?
+  click       Int?    @db.UnsignedMediumInt
+  status      Boolean
+  video_num   Int?    @db.UnsignedMediumInt
 }

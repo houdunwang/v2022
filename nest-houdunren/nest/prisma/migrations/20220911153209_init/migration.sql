@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `user` (
+CREATE TABLE `User` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `mobile` CHAR(20) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
@@ -10,5 +10,6 @@ CREATE TABLE `user` (
     `gitee` VARCHAR(191) NULL,
     `qq` VARCHAR(191) NULL,
 
+    UNIQUE INDEX `User_mobile_key`(`mobile`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

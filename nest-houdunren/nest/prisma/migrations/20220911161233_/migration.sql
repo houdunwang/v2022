@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `Lesson` MODIFY `click` MEDIUMINT UNSIGNED NULL,
+    MODIFY `video_num` MEDIUMINT UNSIGNED NULL;
