@@ -11,25 +11,59 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement()) @db.UnsignedInt
-  mobile   String  @unique @db.Char(20)
-  password String
-  avatar   String?
-  github   String?
-  wakatime String?
-  wechat   String?
-  gitee    String?
-  qq       String?
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  mobile    String   @unique @db.Char(20)
+  password  String
+  avatar    String?
+  github    String?
+  wakatime  String?
+  wechat    String?
+  gitee     String?
+  qq        String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model System {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  title       String
+  description String
+  preview     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lessons     Lesson[]
+}
+
+model Tag {
+  id        Int         @id @default(autoincrement()) @db.UnsignedInt
+  title     String
+  LessonTag LessonTag[]
 }
 
 model Lesson {
-  id          Int     @id @default(autoincrement()) @db.UnsignedInt
+  id          Int         @id @default(autoincrement()) @db.UnsignedInt
   title       String
-  price       Decimal @db.Decimal(8, 2)
+  price       Decimal     @db.Decimal(8, 2)
   description String
   preview     String
   download    String?
-  click       Int?    @db.UnsignedMediumInt
+  click       Int?        @db.UnsignedMediumInt
   status      Boolean
-  video_num   Int?    @db.UnsignedMediumInt
+  videoNum    Int?        @db.UnsignedMediumInt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  System      System?     @relation(fields: [systemId], references: [id])
+  systemId    Int?        @db.UnsignedInt
+  LessonTag   LessonTag[]
+}
+
+model LessonTag {
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     Int      @db.UnsignedInt
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId  Int      @db.UnsignedInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([tagId, lessonId])
 }

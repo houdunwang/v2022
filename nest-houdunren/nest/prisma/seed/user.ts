@@ -11,7 +11,7 @@ export default async () => {
     },
   })
   create(10, async (prisma: PrismaClient) => {
-    await prisma.user.create({
+    return prisma.user.create({
       data: {
         mobile: String(Random.integer(11111111111, 19999999999)),
         password: await hash('admin888'),

@@ -1,10 +1,11 @@
-import { paginate } from './../helper'
-import { ConfigType } from '@nestjs/config'
-import { PrismaService } from './../prisma/prisma.service'
+import { app } from '@/config/app'
 import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
+import _ from 'lodash'
+import { paginate } from './../helper'
+import { PrismaService } from './../prisma/prisma.service'
 import { CreateLessonDto } from './dto/create-lesson.dto'
 import { UpdateLessonDto } from './dto/update-lesson.dto'
-import { app } from '@/config/app'
 
 @Injectable()
 export class LessonService {
@@ -12,7 +13,14 @@ export class LessonService {
 
   create(createLessonDto: CreateLessonDto) {
     return this.prisma.lesson.create({
-      data: createLessonDto,
+      data: {
+        ..._.omit(createLessonDto, ['tagId']),
+        LessonTag: {
+          createMany: {
+            data: createLessonDto.tagId.map((tagId) => ({ tagId })),
+          },
+        },
+      },
     })
   }
 
@@ -38,7 +46,15 @@ export class LessonService {
   update(id: number, updateLessonDto: UpdateLessonDto) {
     return this.prisma.lesson.update({
       where: { id },
-      data: updateLessonDto,
+      data: {
+        ..._.omit(updateLessonDto, ['tagId']),
+        LessonTag: {
+          deleteMany: { lessonId: updateLessonDto.id },
+          createMany: {
+            data: updateLessonDto.tagId.map((tagId) => ({ tagId })),
+          },
+        },
+      },
     })
   }
 

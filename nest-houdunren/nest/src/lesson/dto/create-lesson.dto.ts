@@ -23,4 +23,13 @@ export class CreateLessonDto {
 
   @Type(() => Boolean)
   status: boolean
+
+  @ValidateIf((o) => o.systemId)
+  @Type(() => Number)
+  @IsInt()
+  systemId: number
+
+  @ValidateIf((o) => o.tagId)
+  @Type(() => Number)
+  tagId: number[]
 }
