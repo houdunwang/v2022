@@ -26,15 +26,15 @@ export class LessonService {
 
   async findAll(page: number) {
     const data = await this.prisma.lesson.findMany({
-      skip: (page - 1) * this.appConfig.page_row,
-      take: this.appConfig.page_row,
+      skip: (page - 1) * this.appConfig.lesson_page_row,
+      take: this.appConfig.lesson_page_row,
     })
 
     const total = await this.prisma.lesson.count()
     return paginate({
       data,
       page,
-      row: this.appConfig.page_row,
+      row: this.appConfig.lesson_page_row,
       total,
     })
   }

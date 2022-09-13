@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module'
 import { LessonModule } from './lesson/lesson.module';
 import { SystemModule } from './system/system.module';
 import { TagModule } from './tag/tag.module';
+import { TopicModule } from './topic/topic.module';
 import * as redisStore from 'cache-manager-redis-store'
 
 @Module({
@@ -25,6 +26,7 @@ import * as redisStore from 'cache-manager-redis-store'
     LessonModule,
     SystemModule,
     TagModule,
+    TopicModule,
   ],
   controllers: [AppController],
   providers: [],

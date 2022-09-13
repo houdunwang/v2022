@@ -22,6 +22,7 @@ model User {
   qq        String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Topic     Topic[]
 }
 
 model System {
@@ -38,6 +39,7 @@ model Tag {
   id        Int         @id @default(autoincrement()) @db.UnsignedInt
   title     String
   LessonTag LessonTag[]
+  TopicTag  TopicTag[]
 }
 
 model Lesson {
@@ -66,4 +68,26 @@ model LessonTag {
   updatedAt DateTime @updatedAt
 
   @@id([tagId, lessonId])
+}
+
+model Topic {
+  id        Int        @id @default(autoincrement()) @db.UnsignedInt
+  title     String
+  content   String     @db.Text
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  TopicTag  TopicTag[]
+  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int        @db.UnsignedInt
+}
+
+model TopicTag {
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     Int      @db.UnsignedInt
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId   Int      @db.UnsignedInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([tagId, topicId])
 }
