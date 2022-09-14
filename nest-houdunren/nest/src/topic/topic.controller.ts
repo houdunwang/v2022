@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
-import { TopicService } from './topic.service'
+import { Auth } from '@/auth/decorator/auth.decorator'
+import { CurrentUser } from '@/auth/decorator/user.decorator'
+import { Policy } from '@/casl/policy.decortor'
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { User } from '@prisma/client'
 import { CreateTopicDto } from './dto/create-topic.dto'
 import { UpdateTopicDto } from './dto/update-topic.dto'
-import { Auth } from '@/auth/decorator/auth.decorator'
-import { User } from '@/auth/decorator/user.decorator'
-import { User as UserModel } from '@prisma/client'
+import { TopicService } from './topic.service'
 
 @Controller('topic')
 export class TopicController {
@@ -12,7 +13,7 @@ export class TopicController {
 
   @Post()
   @Auth()
-  create(@Body() createTopicDto: CreateTopicDto, @User() user: UserModel) {
+  create(@Body() createTopicDto: CreateTopicDto, @CurrentUser() user: User) {
     return this.topicService.create(createTopicDto, user)
   }
 
@@ -27,12 +28,13 @@ export class TopicController {
   }
 
   @Patch(':id')
-  @Auth()
-  update(@Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
+  @Policy({ action: 'update', type: 'Topic' })
+  async update(@Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
     return this.topicService.update(+id, updateTopicDto)
   }
 
   @Delete(':id')
+  @Policy({ action: 'delete', type: 'Topic' })
   remove(@Param('id') id: string) {
     return this.topicService.remove(+id)
   }

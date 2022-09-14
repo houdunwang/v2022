@@ -5,6 +5,8 @@ specifiers:
   '@alicloud/openapi-client': ^0.4.1
   '@alicloud/tea-typescript': ^1.7.5
   '@alicloud/tea-util': ^1.4.4
+  '@casl/ability': ^6.1.1
+  '@casl/prisma': ^1.1.0
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
   '@nestjs/config': ^2.2.0
@@ -67,6 +69,8 @@ dependencies:
   '@alicloud/openapi-client': 0.4.1
   '@alicloud/tea-typescript': 1.7.5
   '@alicloud/tea-util': 1.4.4
+  '@casl/ability': 6.1.1
+  '@casl/prisma': 1.1.0_fpjmo5ohcswuuix3urasjhdsuu
   '@nestjs/common': 9.0.11_mgy7w2bm3yhmntrbe3boyroj6m
   '@nestjs/config': 2.2.0_3mdbamkp7cmelffjfexsjo7tau
   '@nestjs/core': 9.0.11_psficsz3mqirqwo2ujbfhdr2aa
@@ -583,6 +587,24 @@ packages:
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@casl/ability/6.1.1:
+    resolution: {integrity: sha512-PGh/KKYQ69SZ+TPLzjtAzdudDPzPAtPOTyozRgJ9du1VEUkS9yk0jckK8yj9CauBBnJ3hP1OMLaBPjhYbRZ4gw==}
+    dependencies:
+      '@ucast/mongo2js': 1.3.3
+    dev: false
+
+  /@casl/prisma/1.1.0_fpjmo5ohcswuuix3urasjhdsuu:
+    resolution: {integrity: sha512-sXTsjmEIvFUykY+JQd+q3rjFM9PLV9LYLskHa7Fk+YQMJslEYyL0PYjEuUZrQGw6BUd+e7foLpFj8Acro3cyhQ==}
+    peerDependencies:
+      '@casl/ability': ^5.3.0 || ^6.0.0
+      '@prisma/client': ^2.14.0 || ^3.0.0 || ^4.0.0
+    dependencies:
+      '@casl/ability': 6.1.1
+      '@prisma/client': 4.3.1_prisma@4.3.1
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
+    dev: false
 
   /@colors/colors/1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -1648,6 +1670,30 @@ packages:
       '@typescript-eslint/types': 5.36.2
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@ucast/core/1.10.1:
+    resolution: {integrity: sha512-sXKbvQiagjFh2JCpaHUa64P4UdJbOxYeC5xiZFn8y6iYdb0WkismduE+RmiJrIjw/eLDYmIEXiQeIYYowmkcAw==}
+    dev: false
+
+  /@ucast/js/3.0.2:
+    resolution: {integrity: sha512-zxNkdIPVvqJjHI7D/iK8Aai1+59yqU+N7bpHFodVmiTN7ukeNiGGpNmmSjQgsUw7eNcEBnPrZHNzp5UBxwmaPw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo/2.4.2:
+    resolution: {integrity: sha512-/zH1TdBJlYGKKD+Wh0oyD+aBvDSWrwHcD8b4tUL9UgHLhzHtkEnMVFuxbw3SRIRsAa01wmy06+LWt+WoZdj1Bw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo2js/1.3.3:
+    resolution: {integrity: sha512-sBPtMUYg+hRnYeVYKL+ATm8FaRPdlU9PijMhGYKgsPGjV9J4Ks41ytIjGayvKUnBOEhiCaKUUnY4qPeifdqATw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
+      '@ucast/mongo': 2.4.2
+    dev: false
 
   /@webassemblyjs/ast/1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}

@@ -2,6 +2,7 @@ import { app } from '@/config/app'
 import { Inject, Injectable } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
 import _ from 'lodash'
+import video from 'prisma/seed/video'
 import { paginate } from './../helper'
 import { PrismaService } from './../prisma/prisma.service'
 import { CreateLessonDto } from './dto/create-lesson.dto'
@@ -14,10 +15,15 @@ export class LessonService {
   create(createLessonDto: CreateLessonDto) {
     return this.prisma.lesson.create({
       data: {
-        ..._.omit(createLessonDto, ['tagId']),
+        ..._.omit(createLessonDto, ['tagId', 'videos']),
         LessonTag: {
           createMany: {
             data: createLessonDto.tagId.map((tagId) => ({ tagId })),
+          },
+        },
+        videos: {
+          createMany: {
+            data: createLessonDto.videos,
           },
         },
       },
@@ -40,18 +46,24 @@ export class LessonService {
   }
 
   findOne(id: number) {
-    return this.prisma.lesson.findUnique({ where: { id } })
+    return this.prisma.lesson.findUnique({ where: { id }, include: { videos: true } })
   }
 
   update(id: number, updateLessonDto: UpdateLessonDto) {
     return this.prisma.lesson.update({
       where: { id },
       data: {
-        ..._.omit(updateLessonDto, ['tagId']),
+        ..._.omit(updateLessonDto, ['tagId', 'videos']),
         LessonTag: {
           deleteMany: { lessonId: updateLessonDto.id },
           createMany: {
             data: updateLessonDto.tagId.map((tagId) => ({ tagId })),
+          },
+        },
+        videos: {
+          deleteMany: { lessonId: updateLessonDto.id },
+          createMany: {
+            data: updateLessonDto.videos.map((video) => ({ ...video, id: video.id ? +video.id : undefined })),
           },
         },
       },

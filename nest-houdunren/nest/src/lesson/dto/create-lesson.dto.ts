@@ -1,5 +1,5 @@
-import { Transform, Type } from 'class-transformer'
-import { IsInt, IsNotEmpty, IsString, Length, ValidateIf } from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsInt, IsNotEmpty, IsOptional, IsString, Length, ValidateIf } from 'class-validator'
 
 export class CreateLessonDto {
   @IsNotEmpty()
@@ -32,4 +32,7 @@ export class CreateLessonDto {
   @ValidateIf((o) => o.tagId)
   @Type(() => Number)
   tagId: number[]
+
+  @IsOptional()
+  videos: { title: string; path: string; id?: number }[]
 }

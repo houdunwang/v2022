@@ -1,14 +1,12 @@
-import { FindPasswordDto } from './dto/find-password.dto'
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
+import { User } from '@prisma/client'
 import { AuthService } from './auth.service'
+import { Auth } from './decorator/auth.decorator'
+import { CurrentUser } from './decorator/user.decorator'
+import { FindPasswordDto } from './dto/find-password.dto'
 import { LoginDto } from './dto/login.dto'
 import { RegisterDto } from './dto/register.dto'
 import { ResetPasswordDto } from './dto/reset-password.dto'
-import { AuthGuard } from '@nestjs/passport'
-import { Request } from 'express'
-import { User } from './decorator/user.decorator'
-import { User as UserModel } from '@prisma/client'
-import { Auth } from './decorator/auth.decorator'
 
 @Controller('auth')
 export class AuthController {
@@ -30,7 +28,7 @@ export class AuthController {
 
   @Post('reset-password')
   @Auth()
-  resetPassword(@Body() dto: ResetPasswordDto, @User() user: UserModel) {
+  resetPassword(@Body() dto: ResetPasswordDto, @CurrentUser() user: User) {
     return this.authService.resetPassword(dto, user)
   }
 }

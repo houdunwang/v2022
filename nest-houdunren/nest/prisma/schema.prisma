@@ -57,6 +57,7 @@ model Lesson {
   System      System?     @relation(fields: [systemId], references: [id])
   systemId    Int?        @db.UnsignedInt
   LessonTag   LessonTag[]
+  videos      Video[]
 }
 
 model LessonTag {
@@ -90,4 +91,12 @@ model TopicTag {
   updatedAt DateTime @updatedAt
 
   @@id([tagId, topicId])
+}
+
+model Video {
+  id       Int    @id @default(autoincrement()) @db.UnsignedInt
+  title    String
+  path     String
+  Lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId Int    @db.UnsignedInt
 }

@@ -28,6 +28,8 @@
     "@alicloud/openapi-client": "^0.4.1",
     "@alicloud/tea-typescript": "^1.7.5",
     "@alicloud/tea-util": "^1.4.4",
+    "@casl/ability": "^6.1.1",
+    "@casl/prisma": "^1.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

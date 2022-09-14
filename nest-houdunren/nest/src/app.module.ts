@@ -5,10 +5,12 @@ import { AppController } from './app.controller'
 import { AuthModule } from './auth/auth.module'
 import configs from './config/index'
 import { PrismaModule } from './prisma/prisma.module'
-import { LessonModule } from './lesson/lesson.module';
-import { SystemModule } from './system/system.module';
-import { TagModule } from './tag/tag.module';
-import { TopicModule } from './topic/topic.module';
+import { LessonModule } from './lesson/lesson.module'
+import { SystemModule } from './system/system.module'
+import { TagModule } from './tag/tag.module'
+import { TopicModule } from './topic/topic.module'
+import { CaslModule } from './casl/casl.module'
+import { VideoModule } from './video/video.module';
 import * as redisStore from 'cache-manager-redis-store'
 
 @Module({
@@ -27,6 +29,8 @@ import * as redisStore from 'cache-manager-redis-store'
     SystemModule,
     TagModule,
     TopicModule,
+    CaslModule,
+    VideoModule,
   ],
   controllers: [AppController],
   providers: [],

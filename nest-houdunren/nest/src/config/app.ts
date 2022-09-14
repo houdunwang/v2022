@@ -8,4 +8,5 @@ export const app = registerAs('app', () => ({
   //课程每页显示数量
   lesson_page_row: 10,
   topic_page_row: 10,
+  video_page_row: 10,
 }))
