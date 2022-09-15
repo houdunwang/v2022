@@ -11,8 +11,8 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement()) @db.UnsignedInt
-  mobile    String   @unique @db.Char(20)
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  mobile    String    @unique @db.Char(20)
   password  String
   avatar    String?
   github    String?
@@ -20,9 +20,10 @@ model User {
   wechat    String?
   gitee     String?
   qq        String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   Topic     Topic[]
+  comments  Comment[]
 }
 
 model System {
@@ -80,6 +81,7 @@ model Topic {
   TopicTag  TopicTag[]
   User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int        @db.UnsignedInt
+  comments  Comment[]
 }
 
 model TopicTag {
@@ -94,9 +96,23 @@ model TopicTag {
 }
 
 model Video {
-  id       Int    @id @default(autoincrement()) @db.UnsignedInt
+  id       Int       @id @default(autoincrement()) @db.UnsignedInt
   title    String
   path     String
-  Lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  lessonId Int    @db.UnsignedInt
+  Lesson   Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId Int       @db.UnsignedInt
+  comments Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?     @db.UnsignedInt
+  Topic     Topic?   @relation(fields: [topicId], references: [id])
+  topicId   Int?     @db.UnsignedInt
+  Video     Video?   @relation(fields: [videoId], references: [id])
+  videoId   Int?     @db.UnsignedInt
 }

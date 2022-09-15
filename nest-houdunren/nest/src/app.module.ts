@@ -10,8 +10,13 @@ import { SystemModule } from './system/system.module'
 import { TagModule } from './tag/tag.module'
 import { TopicModule } from './topic/topic.module'
 import { CaslModule } from './casl/casl.module'
-import { VideoModule } from './video/video.module';
+import { VideoModule } from './video/video.module'
+import { CommentModule } from './comment/comment.module'
 import * as redisStore from 'cache-manager-redis-store'
+import { MulterModule } from '@nestjs/platform-express'
+import { diskStorage } from 'multer'
+import { extname } from 'path'
+import { UploadModule } from './upload/upload.module'
 
 @Module({
   imports: [
@@ -31,6 +36,9 @@ import * as redisStore from 'cache-manager-redis-store'
     TopicModule,
     CaslModule,
     VideoModule,
+    CommentModule,
+
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [],

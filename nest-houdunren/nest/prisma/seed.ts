@@ -1,3 +1,4 @@
+import comment from './seed/comment'
 import lesson from './seed/lesson'
 import system from './seed/system'
 import tag from './seed/tag'
@@ -11,6 +12,7 @@ async function run() {
   await lesson()
   await topic()
   await video()
+  await comment()
 }
 
 run()
