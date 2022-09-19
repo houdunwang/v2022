@@ -1,7 +1,7 @@
-import { TransformInterceptor } from './transform-interceptor'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { AppModule } from './app.module'
+import { TransformInterceptor } from './transform-interceptor'
 import ValidatePipe from './validate/validate.pipe'
 
 async function bootstrap() {
@@ -10,6 +10,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api')
   app.useGlobalInterceptors(new TransformInterceptor())
   app.useStaticAssets('uploads', { prefix: '/uploads' })
+  app.useStaticAssets('assets', { prefix: '/assets' })
 
   await app.listen(3000)
 }

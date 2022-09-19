@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post } from '@nestjs/common'
 import { User } from '@prisma/client'
 import { AuthService } from './auth.service'
 import { Auth } from './decorator/auth.decorator'
@@ -30,5 +30,11 @@ export class AuthController {
   @Auth()
   resetPassword(@Body() dto: ResetPasswordDto, @CurrentUser() user: User) {
     return this.authService.resetPassword(dto, user)
+  }
+
+  @Get('current')
+  @Auth()
+  currentUser(@CurrentUser() user: User) {
+    return user
   }
 }

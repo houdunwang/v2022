@@ -20,6 +20,9 @@ export class TopicService {
     const data = await this.prisma.topic.findMany({
       skip: (page - 1) * this.appConfig.topic_page_row,
       take: this.appConfig.topic_page_row,
+      include: {
+        User: true,
+      },
     })
 
     const total = await this.prisma.topic.count({})

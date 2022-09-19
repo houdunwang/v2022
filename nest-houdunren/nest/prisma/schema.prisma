@@ -13,6 +13,7 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement()) @db.UnsignedInt
   mobile    String    @unique @db.Char(20)
+  name      String?
   password  String
   avatar    String?
   github    String?

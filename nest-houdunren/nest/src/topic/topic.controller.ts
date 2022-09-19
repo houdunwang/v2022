@@ -19,6 +19,7 @@ export class TopicController {
 
   @Get()
   findAll() {
+    return {}
     return this.topicService.findAll()
   }
 

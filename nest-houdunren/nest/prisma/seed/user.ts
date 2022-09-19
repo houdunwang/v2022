@@ -8,12 +8,15 @@ export default async () => {
     data: {
       mobile: process.env.MOBILE,
       password: await hash('admin888'),
+      name: '向军大叔',
+      avatar: 'http://localhost:3000/assets/xj.jpg',
     },
   })
-  create(10, async (prisma: PrismaClient) => {
+  await create(10, async (prisma: PrismaClient) => {
     return prisma.user.create({
       data: {
         mobile: String(Random.integer(11111111111, 19999999999)),
+        name: Random.cname(),
         password: await hash('admin888'),
         avatar: Random.image('300x300'),
         github: Random.url(),
