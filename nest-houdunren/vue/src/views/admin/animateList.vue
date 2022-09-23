@@ -1,13 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <HdAnimateList tag="ul" :duration="2" :delay="0.1">
-      <li v-for="(num, index) of 10" :data-index="index">
-        {{ num }}
-      </li>
-    </HdAnimateList>
-  </div>
+  <HdAnimateList tag="ul" :duration="2" :delay="0.1">
+    <li v-for="(num, index) of 10" :data-index="index">
+      {{ num }}
+    </li>
+  </HdAnimateList>
 </template>
 
 <style lang="scss" scoped>

@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import Navbar from './front/navbar.vue'
 import userStore from '@/store/userStore'
-const store = userStore()
-await store.getUser()
+import TopMenu from './front/top-menu.vue'
+
+const { getCurrentUser } = userStore()
+await getCurrentUser()
 </script>
 
 <template>
-  <navbar />
-  <router-view #default="{ Component }">
-    <div class="container">
-      <component :is="Component" />
+  <main>
+    <div class="front">
+      <TopMenu />
     </div>
-  </router-view>
+    <router-view #default="{ Component }">
+      <div class="w-[1200px] m-auto mt-5 mb-20">
+        <component :is="Component" />
+      </div>
+    </router-view>
+  </main>
 </template>
-
 <style lang="scss" scoped>
-.container {
-  @apply w-[1200px] m-auto;
+.front {
+  @apply border-t-4 border-t-orange-600 bg-white py-3 border-b border-b-gray-200 shadow-sm;
 }
 </style>

@@ -1,10 +1,10 @@
 //用户模型
 type UserModel = {
   id: number
-  name: string
   mobile: string
+  name: string
   password: string
-  avatar?: any
+  avatar: string
   github?: any
   wakatime?: any
   wechat?: any
@@ -21,4 +21,36 @@ type TopicModel = {
   createdAt: string
   updatedAt: string
   userId: number
+}
+
+type SystemModel = {
+  id: number
+  title: string
+  description: string
+  preview: string
+  createdAt: string
+  updatedAt: string
+}
+
+type LessonModel = {
+  id: number
+  title: string
+  price: string
+  description: string
+  preview: string
+  download?: any
+  click: number
+  status: boolean
+  videoNum?: any
+  createdAt: string
+  updatedAt: string
+  systemId: number
+  videos: any[]
+}
+
+type VideoModel = {
+  id: number
+  title: string
+  path: string
+  lessonId: number
 }

@@ -27,6 +27,7 @@
     "echarts": "^5.3.3",
     "element-plus": "^2.2.17",
     "gsap": "^3.11.1",
+    "highlight.js": "^11.6.0",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
     "node-sass": "^7.0.3",
@@ -43,17 +44,20 @@
     "vue-router": "^4.1.5",
     "vuepress.css": "link:@kangc/v-md-editor/lib/theme/style/vuepress.css",
     "vuepress.js": "link:@kangc/v-md-editor/lib/theme/vuepress.js",
+    "xgplayer": "^2.32.0",
     "yup": "^0.32.11",
     "zh-cn": "link:dayjs/locale/zh-cn",
     "zh_CN.json": "link:@vee-validate/i18n/dist/locale/zh_CN.json"
   },
   "devDependencies": {
+    "@types/highlight.js": "^10.1.0",
     "@vitejs/plugin-vue": "^3.1.0",
     "autoprefixer": "^10.4.11",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
+    "vite-plugin-prismjs": "^0.0.8",
     "vue-tsc": "^0.40.4"
   }
 }

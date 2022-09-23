@@ -1,3 +1,4 @@
+import { url } from '@/helper'
 import { Controller, Post, UploadedFile } from '@nestjs/common'
 import { Image } from './upload'
 
@@ -6,6 +7,6 @@ export class UploadController {
   @Post('image')
   @Image()
   image(@UploadedFile() file: Express.Multer.File) {
-    return file
+    return { url: url(file.path) }
   }
 }

@@ -1,8 +1,10 @@
 import { Random } from 'mockjs'
 
 export const user = {
-  id: Random.id(),
-  mobile: Random.integer(10000),
+  id: Random.integer(1, 1000),
+  name: Random.cname(),
+  password: 'admin888',
+  mobile: Random.integer(10000) as unknown as string,
   avatar: '/images/xj.jpg',
   nickname: '向军大叔',
   sex: Random.range(1, 2, 1)[0],
@@ -14,4 +16,6 @@ export const user = {
   github: null,
   qq: null,
   wakatime: null,
-}
+  createdAt: new Date().toString(),
+  updatedAt: new Date().toString(),
+} as UserModel

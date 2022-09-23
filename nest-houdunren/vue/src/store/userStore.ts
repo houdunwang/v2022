@@ -1,15 +1,20 @@
-import { CacheKey } from './../enum/CacheKey'
-import { currentUserInfo } from '@/apis/user'
-import storage from '@/utils/storage'
+import useStorage from '@/composables/system/useStorage'
+import { http } from '@/plugins/axios'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { CacheKey } from '@/enum/CacheKey'
 
 export default defineStore('userStore', () => {
   const user = ref<UserModel>()
-
-  const getUser = async () => {
-    if (storage.get(CacheKey.TOKEN_NAME)) user.value = await currentUserInfo()
+  const storage = useStorage()
+  const getCurrentUser = async () => {
+    if (storage.get(CacheKey.TOKEN_NAME)) {
+      const res = await http.request<UserModel>({
+        url: `auth/current`,
+      })
+      user.value = res.data
+    }
   }
 
-  return { user, getUser }
+  return { user, getCurrentUser }
 })

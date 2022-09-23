@@ -1,7 +1,7 @@
+import { TransformInterceptor } from './transform-interceptor'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { AppModule } from './app.module'
-import { TransformInterceptor } from './transform-interceptor'
 import ValidatePipe from './validate/validate.pipe'
 
 async function bootstrap() {
@@ -14,4 +14,5 @@ async function bootstrap() {
 
   await app.listen(3000)
 }
+
 bootstrap()

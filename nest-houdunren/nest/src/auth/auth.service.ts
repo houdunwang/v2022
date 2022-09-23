@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common'
+import { url } from '@/helper'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { User } from '@prisma/client'
 import { hash } from 'argon2'
@@ -18,6 +19,8 @@ export class AuthService {
     const user = await this.prisma.user.create({
       data: {
         mobile: dto.mobile,
+        avatar: url('assets/user/文件14.jpg'),
+        name: '盾友',
         password: await hash(dto.password),
       },
     })
@@ -36,10 +39,14 @@ export class AuthService {
   async findPassword(dto: FindPasswordDto) {
     await this.codeService.check(dto)
 
-    return this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { mobile: dto.mobile },
       data: { password: await hash(dto.password) },
     })
+
+    if (!user) new HttpException({ mobile: '帐号不存在' }, HttpStatus.BAD_REQUEST)
+
+    return this.token(user)
   }
   async token({ id }) {
     return {

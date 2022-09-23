@@ -11,8 +11,8 @@ interface ApiPage<T> {
   data: T[]
   meta: {
     current_page: number
-    page_row: number
     row: number
     total: number
+    page_row: number
   }
 }

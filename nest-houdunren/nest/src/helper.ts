@@ -13,3 +13,7 @@ export const paginate = (data: { page: number; total: number; row: number; data:
     data: data.data,
   }
 }
+
+export const url = (url: string) => {
+  return process.env.URL + '/' + url
+}

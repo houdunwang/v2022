@@ -7,8 +7,8 @@ export default async () => {
   await prisma.user.create({
     data: {
       mobile: process.env.MOBILE,
-      password: await hash('admin888'),
       name: '向军大叔',
+      password: await hash('admin888'),
       avatar: 'http://localhost:3000/assets/xj.jpg',
     },
   })
@@ -18,7 +18,7 @@ export default async () => {
         mobile: String(Random.integer(11111111111, 19999999999)),
         name: Random.cname(),
         password: await hash('admin888'),
-        avatar: Random.image('300x300'),
+        avatar: `http://localhost:3000/assets/user/文件${Random.integer(1, 20)}.jpg`,
         github: Random.url(),
       },
     })

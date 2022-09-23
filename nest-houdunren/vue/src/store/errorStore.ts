@@ -8,9 +8,7 @@ export default defineStore('errorStore', {
   },
   getters: {
     getError(state) {
-      return (name: string) => {
-        return state.errors[name]
-      }
+      return (name: string) => state.errors[name]
     },
     hasError(state) {
       return Object.keys(state.errors).length > 0
@@ -20,8 +18,9 @@ export default defineStore('errorStore', {
     resetError() {
       this.errors = {}
     },
-    setErrors(errors: Record<string, string[]>[]) {
-      errors.forEach((error: any) => {
+    setErrors(errors: Record<string, string>[]) {
+      // console.log(errors)
+      errors.forEach((error) => {
         this.errors[error.field] = error.message
       })
     },

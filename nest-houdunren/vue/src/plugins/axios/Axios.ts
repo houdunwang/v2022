@@ -2,11 +2,11 @@ import { HttpStatus } from '@/enum/HttpStatus'
 import { RouteName } from '@/enum/RouteName'
 import router from '@/router'
 import errorStore from '@/store/errorStore'
-import storage from '@/utils/storage'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
 import { CacheKey } from '@/enum/CacheKey'
-
+import useStorage from '@/composables/system/useStorage'
+const storage = useStorage()
 export default class Axios {
   private instance
   private loading: any
@@ -78,8 +78,7 @@ export default class Axios {
             router.push({ name: RouteName.LOGIN })
             break
           case HttpStatus.BAD_REQUEST:
-            console.log(error.response.data)
-            errorStore().setErrors(error.response.data.errors)
+            errorStore().setErrors(error.response.data.messages)
             break
           case HttpStatus.FORBIDDEN:
             ElMessage({ type: 'error', message: message ?? '没有操作权限' })

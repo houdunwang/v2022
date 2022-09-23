@@ -1,7 +1,7 @@
 import { Auth } from '@/auth/decorator/auth.decorator'
 import { CurrentUser } from '@/auth/decorator/user.decorator'
 import { Policy } from '@/casl/policy.decortor'
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
 import { User } from '@prisma/client'
 import { CreateTopicDto } from './dto/create-topic.dto'
 import { UpdateTopicDto } from './dto/update-topic.dto'
@@ -18,9 +18,8 @@ export class TopicController {
   }
 
   @Get()
-  findAll() {
-    return {}
-    return this.topicService.findAll()
+  findAll(@Query('page', new DefaultValuePipe(1)) page: number) {
+    return this.topicService.findAll(page)
   }
 
   @Get(':id')

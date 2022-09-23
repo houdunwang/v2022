@@ -1,27 +1,19 @@
 <script setup lang="ts">
-import { register } from '@/apis/auth'
-import errorStore from '@/store/errorStore'
-import { loginCallback } from '@/utils/helper'
-import { reactive, watch } from 'vue'
+import useAuth from '@/composables/useAuth'
+import { reactive } from 'vue'
 import Footer from './components/footer.vue'
-import { Wechat } from '@icon-park/vue-next'
+import SendCode from '@/components/sendCode.vue'
+const { register } = useAuth()
 
 const form = reactive({
-  mobile: '199999999999',
-  password: 'admin888',
-  password_confirmation: 'admin888',
+  mobile: '',
+  password: '',
+  password_confirm: '',
   code: '',
 })
 
-const store = errorStore()
-
-watch(form, () => store.resetError())
-
 const onSubmit = async () => {
-  try {
-    const { data } = await register(form)
-    loginCallback(data.token)
-  } catch (error) {}
+  await register(form)
 }
 </script>
 
@@ -33,28 +25,23 @@ const onSubmit = async () => {
         <div>
           <h2 class="text-center text-gray-700 text-lg mt-3">会员注册</h2>
           <div class="mt-8">
-            <FormInputComponent v-model="form.mobile" placeholder="请输入手机号" v-clearError="'account'" />
-            <HdError name="account" />
-
-            <FormInputComponent v-model="form.password" class="mt-3" type="password" placeholder="密码" />
-            <HdError name="password" />
+            <FormInputComponent v-model="form.mobile" placeholder="请输入手机号" v-clearError="'mobile'" />
+            <HdError name="mobile" />
 
             <FormInputComponent
-              v-model="form.password_confirmation"
+              v-model="form.password"
               class="mt-3"
               type="password"
-              placeholder="确认密码" />
+              placeholder="密码"
+              v-clearError="'password'" />
+            <HdError name="password" />
+
+            <FormInputComponent v-model="form.password_confirm" class="mt-3" type="password" placeholder="确认密码" />
+
+            <SendCode v-model:mobile="form.mobile" v-model:code="form.code" />
           </div>
 
           <FormButtonComponent class="w-full primary mt-2">注册</FormButtonComponent>
-
-          <div class="flex justify-center mt-3">
-            <Wechat
-              theme="outline"
-              size="24"
-              fill="#fff"
-              class="fab fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer" />
-          </div>
         </div>
         <Footer />
       </div>

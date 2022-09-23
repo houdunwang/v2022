@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ElLoading } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-
 const loadingInstance = ElLoading.service({
   background: 'rgba(255,255,255,.5)',
 })

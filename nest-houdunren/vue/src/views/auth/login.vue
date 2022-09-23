@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { login } from '@/apis/auth'
-import { loginCallback, request } from '@/utils/helper'
+import useUtil from '@/composables/system/useUtil'
+import useAuth from '@/composables/useAuth'
+import userStore from '@/store/userStore'
+import { Wechat } from '@icon-park/vue-next'
 import { reactive } from 'vue'
 import Footer from './components/footer.vue'
-import { Wechat } from '@icon-park/vue-next'
-
-const form = reactive({ mobile: '18600276067', password: 'admin888' })
+const { login } = useAuth()
+const { request } = useUtil()
+const form = reactive({ mobile: '19999999999', password: 'admin888' })
 
 const onSubmit = request(async () => {
-  const { data } = await login(form)
-  loginCallback(data.token)
+  await login(form)
 })
 </script>
 
@@ -35,13 +36,13 @@ const onSubmit = request(async () => {
 
           <FormButtonComponent class="w-full mt-3 primary">登录</FormButtonComponent>
 
-          <div class="flex justify-center mt-3">
+          <!-- <div class="flex justify-center mt-3">
             <wechat
               theme="outline"
               size="24"
               fill="#fff"
               class="fab fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer" />
-          </div>
+          </div> -->
         </div>
         <Footer />
       </div>
