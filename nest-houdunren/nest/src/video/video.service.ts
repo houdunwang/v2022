@@ -24,4 +24,10 @@ export class VideoService {
 
     return paginate({ data, row, page, total })
   }
+
+  async findOne(id: number) {
+    return this.prisma.video.findUnique({
+      where: { id: +id },
+    })
+  }
 }

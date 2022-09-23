@@ -6,6 +6,7 @@ import { UpdateTopicDto } from './dto/update-topic.dto'
 import { app } from '@/config/app'
 import { paginate } from '@/helper'
 import { User } from '@prisma/client'
+import _ from 'lodash'
 
 @Injectable()
 export class TopicService {
@@ -16,10 +17,16 @@ export class TopicService {
     })
   }
 
-  async findAll(page = 1) {
+  async findAll(page: number) {
     const data = await this.prisma.topic.findMany({
       skip: (page - 1) * this.appConfig.topic_page_row,
       take: this.appConfig.topic_page_row,
+      orderBy: { id: 'desc' },
+      include: {
+        User: {
+          select: { id: true, name: true, avatar: true },
+        },
+      },
     })
 
     const total = await this.prisma.topic.count({})
@@ -27,13 +34,18 @@ export class TopicService {
   }
 
   findOne(id: number) {
-    return this.prisma.topic.findUnique({ where: { id } })
+    return this.prisma.topic.findUnique({
+      where: { id },
+      include: {
+        User: { select: { id: true, avatar: true, name: true } },
+      },
+    })
   }
 
   update(id: number, updateTopicDto: UpdateTopicDto) {
     return this.prisma.topic.update({
       where: { id },
-      data: updateTopicDto,
+      data: { ..._.pick(updateTopicDto, ['title', 'content']) },
     })
   }
 

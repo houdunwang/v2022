@@ -3,12 +3,12 @@ import { Random } from 'mockjs'
 import { create } from '../helper'
 
 export default async () => {
-  await create(20, (prisma: PrismaClient) => {
+  await create(60, (prisma: PrismaClient) => {
     return prisma.video.create({
       data: {
         title: Random.ctitle(),
-        path: 'http://aaa.mp4',
-        lessonId: Random.integer(1, 20),
+        path: 'https://houdunren-test.oss-cn-hangzhou.aliyuncs.com/videos/test.mp4',
+        lessonId: Random.integer(1, 15),
       },
     })
   })

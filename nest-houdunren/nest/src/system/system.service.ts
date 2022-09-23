@@ -19,6 +19,7 @@ export class SystemService {
   findOne(id: number) {
     return this.prisma.system.findFirst({
       where: { id },
+      include: { lessons: { select: { id: true, title: true } } },
     })
   }
 

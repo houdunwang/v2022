@@ -10,7 +10,9 @@ async function bootstrap() {
   app.setGlobalPrefix('api')
   app.useGlobalInterceptors(new TransformInterceptor())
   app.useStaticAssets('uploads', { prefix: '/uploads' })
+  app.useStaticAssets('assets', { prefix: '/assets' })
 
   await app.listen(3000)
 }
+
 bootstrap()
