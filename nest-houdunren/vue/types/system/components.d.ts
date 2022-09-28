@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Avatar: typeof import('./../../src/components/avatar.vue')['default']
+    Comment: typeof import('./../../src/components/comment.vue')['default']
     FormButtonComponent: typeof import('./../../src/components/form/buttonComponent.vue')['default']
     FormInputComponent: typeof import('./../../src/components/form/inputComponent.vue')['default']
     HdAnimateList: typeof import('./../../src/components/hd/animateList.vue')['default']

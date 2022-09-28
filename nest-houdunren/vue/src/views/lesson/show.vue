@@ -12,7 +12,7 @@ await findOne(+route.params.id)
   <el-card shadow="always" :body-style="{ padding: '20px' }">
     <template #header>
       <div class="flex items-center">
-        <el-tag type="danger" size="normal" effect="dark" class="mr-2">实战课程</el-tag>
+        <el-tag type="danger" size="small" effect="dark" class="mr-2">实战课程</el-tag>
         <span class="font-bold">{{ lesson.title }}</span>
       </div>
     </template>

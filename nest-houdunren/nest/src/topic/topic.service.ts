@@ -38,6 +38,7 @@ export class TopicService {
       where: { id },
       include: {
         User: { select: { id: true, avatar: true, name: true } },
+        comments: true,
       },
     })
   }

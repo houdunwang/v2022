@@ -54,3 +54,14 @@ type VideoModel = {
   path: string
   lessonId: number
 }
+
+type CommentModel = {
+  id: number
+  content: string
+  createdAt: string
+  updatedAt: string
+  userId: number
+  topicId: number
+  videoId?: any
+  User: UserModel
+}

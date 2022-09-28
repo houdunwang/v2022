@@ -24,6 +24,7 @@ onMounted(() => {
     <div class="border font-bold px-5 py-3">
       {{ video.title }}
     </div>
+    <Comment class="mt-3" type="video" :id="video.id" />
   </main>
 </template>
 

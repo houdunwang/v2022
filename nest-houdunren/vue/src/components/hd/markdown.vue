@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, withDefaults } from 'vue'
 import VueMarkdownEditor from '@kangc/v-md-editor'
 import useUpload from '@/composables/useUpload'
 const { uploadImage } = useUpload()
-const { modelValue } = defineProps<{
-  modelValue: any
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: any
+    height?: string
+  }>(),
+  { height: '300px' },
+)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: any): void
 }>()
-const text = ref(modelValue)
+const text = ref(props.modelValue)
 
 watch(text, (value) => {
   emit('update:modelValue', value)
@@ -30,6 +34,6 @@ const handleUploadImage = async (event: any, insertImage: any, files: any) => {
     :value="modelValue"
     v-model="text"
     :disabled-menus="[]"
-    height="400px"
+    :height="props.height"
     @upload-image="handleUploadImage" />
 </template>
