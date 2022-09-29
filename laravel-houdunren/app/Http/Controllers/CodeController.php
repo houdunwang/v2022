@@ -17,7 +17,7 @@ class CodeController extends Controller
             ['mobile' => ['required', new PhoneRule()]]
         )->validate();
 
-        app(CodeService::class)->send($request->input('mobile'));
-        return "验证码发送成功";
+        $code = app(CodeService::class)->send($request->input('mobile'));
+        return $this->success('验证码发送成功', ['code' => app()->environment('production') ? '' : $code]);
     }
 }

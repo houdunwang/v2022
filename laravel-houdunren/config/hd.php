@@ -6,5 +6,8 @@ return [
         'aliyun_code_sign' => env('ALIYUN_CODE_SIGN'),
         'aliyun_code_template' => env("ALIYUN_CODE_TEMPLATE")
     ],
+    "code" => [
+        "timeout" => env('CODE_SEND_TIMEOUT', 600)
+    ]
 
 ];

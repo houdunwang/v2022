@@ -26,7 +26,7 @@ class CodeRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Cache::get(request('mobile')) === $value;
+        return  Cache::get(request('mobile')) == $value;
     }
 
     /**

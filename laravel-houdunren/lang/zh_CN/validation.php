@@ -200,5 +200,7 @@ return [
         'updated_at'               => '更新于',
         'username'                 => '用户名',
         'year'                     => '年',
+        //
+        'code' => '验证码'
     ],
 ];
