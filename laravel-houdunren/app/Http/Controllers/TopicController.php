@@ -60,7 +60,8 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        //
+        $topic->fill($request->input())->save();
+        return $this->success('', $topic);
     }
 
     /**
@@ -71,6 +72,8 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        $this->authorize('delete', $topic);
+        $topic->delete();
+        return $this->success("删除成功");
     }
 }

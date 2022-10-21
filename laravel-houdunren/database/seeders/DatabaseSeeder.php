@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\System;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Topic::factory(50)->create();
+        System::factory(10)->create();
     }
 }

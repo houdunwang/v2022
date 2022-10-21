@@ -38,7 +38,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "./app/helper.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

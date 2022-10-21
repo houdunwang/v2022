@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,6 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
 Route::controller(TopicController::class)->prefix('topic')->group(function () {
     Route::apiResource(null, TopicController::class)->parameters([null => 'topic']);
 });
+
+//系统课程
+Route::apiResource('system', SystemController::class);
