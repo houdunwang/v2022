@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +28,8 @@ Route::controller(TopicController::class)->prefix('topic')->group(function () {
 
 //系统课程
 Route::apiResource('system', SystemController::class);
+//课程
+Route::apiResource('lesson', LessonController::class);
+
+//视频
+Route::apiResource('video', VideoController::class);

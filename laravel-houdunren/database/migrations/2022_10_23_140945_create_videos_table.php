@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->comment('标题');
-            $table->text('content'); //makedown   -> js ->html
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('title')->comment('视频标题');
+            $table->string('path')->comment('播放地址');
+            $table->foreignId('lesson_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('videos');
     }
 };

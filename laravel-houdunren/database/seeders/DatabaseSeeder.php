@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Lesson;
 use App\Models\System;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,8 +31,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
         Topic::factory(50)->create();
         System::factory(10)->create();
+        Lesson::factory(15)->create();
+        Video::factory(100)->create();
     }
 }
