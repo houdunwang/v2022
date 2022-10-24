@@ -13,14 +13,21 @@ abstract class TestCase extends BaseTestCase
 
     protected $seed = true;
     protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->login();
+    }
+
     protected function create($class, $count = null, $attributes = [])
     {
         return $class::factory($count)->create($attributes);
     }
 
-    protected function login()
+    protected function login($user = null)
     {
-        $user = User::find(1);
+        $user = $user ?? User::find(1);
         $this->actingAs($user);
         $this->user = $user;
         return $this;

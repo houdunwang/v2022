@@ -2,13 +2,18 @@
 
 namespace App\Policies;
 
+use App\Models\Sign;
 use App\Models\User;
-use App\Models\Video;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class VideoPolicy
+class SignPolicy
 {
     use HandlesAuthorization;
+
+    public function before()
+    {
+        // if (isSuperadmin()) return true;
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -25,13 +30,12 @@ class VideoPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Sign  $sign
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Video $video)
+    public function view(User $user, Sign $sign)
     {
-        //只有在有效期内的订阅
-        return $user->duration && ($user->duration->end_time->diffInMinutes(now()) < 0);
+        //
     }
 
     /**
@@ -42,41 +46,41 @@ class VideoPolicy
      */
     public function create(User $user)
     {
-        //
+        //你只能签到当天
+        return !$user->signs()->whereDate('created_at', now())->exists();
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Sign  $sign
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Video $video)
+    public function update(User $user, Sign $sign)
     {
-        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Sign  $sign
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Video $video)
+    public function delete(User $user, Sign $sign)
     {
-        //
+        return $user->id == $sign->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Sign  $sign
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Video $video)
+    public function restore(User $user, Sign $sign)
     {
         //
     }
@@ -85,10 +89,10 @@ class VideoPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Sign  $sign
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Video $video)
+    public function forceDelete(User $user, Sign $sign)
     {
         //
     }

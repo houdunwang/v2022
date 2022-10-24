@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Favorite;
 use App\Models\User;
-use App\Models\Video;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class VideoPolicy
+class FavoritePolicy
 {
     use HandlesAuthorization;
 
@@ -25,13 +25,12 @@ class VideoPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Video $video)
+    public function view(User $user, Favorite $favorite)
     {
-        //只有在有效期内的订阅
-        return $user->duration && ($user->duration->end_time->diffInMinutes(now()) < 0);
+        //
     }
 
     /**
@@ -49,10 +48,10 @@ class VideoPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Video $video)
+    public function update(User $user, Favorite $favorite)
     {
         //
     }
@@ -61,10 +60,10 @@ class VideoPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Video $video)
+    public function delete(User $user, Favorite $favorite)
     {
         //
     }
@@ -73,10 +72,10 @@ class VideoPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Video $video)
+    public function restore(User $user, Favorite $favorite)
     {
         //
     }
@@ -85,10 +84,10 @@ class VideoPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Video $video)
+    public function forceDelete(User $user, Favorite $favorite)
     {
         //
     }

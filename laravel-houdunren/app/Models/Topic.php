@@ -11,15 +11,13 @@ class Topic extends Model
 
     protected $fillable =  ['title', 'content'];
 
-    // protected $appends = ['html'];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // public function getHtmlAttribute()
-    // {
-    //     return  'abc';
-    // }
+    public function favorites()
+    {
+        return $this->morphToMany(User::class, 'favorite')->withTimestamps();
+    }
 }

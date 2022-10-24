@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Lesson;
+use App\Models\Sign;
 use App\Models\System;
 use App\Models\Topic;
 use App\Models\User;
@@ -35,5 +36,6 @@ class DatabaseSeeder extends Seeder
         System::factory(10)->create();
         Lesson::factory(15)->create();
         Video::factory(100)->create();
+        Sign::factory(5)->create();
     }
 }

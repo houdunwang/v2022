@@ -43,4 +43,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //签到关联
+    public function signs()
+    {
+        return $this->hasMany(Sign::class);
+    }
+
+    public function signCount()
+    {
+        return $this->hasOne(SignCount::class);
+    }
+
+    public function duration()
+    {
+        return $this->hasOne(Duration::class);
+    }
 }
