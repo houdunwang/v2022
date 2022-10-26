@@ -11,10 +11,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function success(string $message, $data = [])
+    protected function success(string $message, $data = [], $code = 0)
     {
         return [
             'message' => $message,
+            'code' => $code,
             'data' => $data
         ];
     }

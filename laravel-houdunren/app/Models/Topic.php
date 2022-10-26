@@ -20,4 +20,9 @@ class Topic extends Model
     {
         return $this->morphToMany(User::class, 'favorite')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

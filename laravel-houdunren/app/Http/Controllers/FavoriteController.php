@@ -18,5 +18,11 @@ class FavoriteController extends Controller
     {
         $model = modelClass($type)::findOrFail($id);
         $model->favorites()->toggle([Auth::id()]);
+
+        return [
+            'total' => $model->favorites()->count(),
+            //当前用户有没有关系这个资源
+            'state' => $model->favorites()->wherePivot('user_id', Auth::id())->exists()
+        ];
     }
 }

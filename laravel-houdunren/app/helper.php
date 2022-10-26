@@ -16,3 +16,10 @@ if (!function_exists('modelClass')) {
         return 'App\Models\\' . ucfirst($name);
     }
 }
+
+if (!function_exists('model')) {
+    function model(string $name, int $id)
+    {
+        return modelClass($name)::findOrFail($id);
+    }
+}
