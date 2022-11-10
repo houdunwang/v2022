@@ -24,6 +24,8 @@ return new class extends Migration
             $table->foreignId('reply_user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
+        //commentable_type App\Models\Topic   commentable_id 1
+        //commentable_type App\Models\Video   commentable_id 2
         //你好 向军：2    id:1 user_id:2 content:你好
         //你也好 李四:5   id:2 user_id:5  content: 你也好 comment_id:1 reply_user_id:2
     }

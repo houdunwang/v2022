@@ -25,7 +25,7 @@ const onSubmit = request(async () => {
       class="w-[720px] translate-y-32 md:translate-y-0 bg-gray-50 md:grid grid-cols-2 rounded-md shadow-md overflow-hidden">
       <div class="p-6 flex flex-col justify-between">
         <div>
-          <h2 class="text-center text-gray-700 text-lg mt-3">用户登录</h2>
+          <h2 class="text-center text-gray-700 text-lg mt-3">用户登录22</h2>
           <div class="mt-8">
             <FormInputComponent v-model="form.account" placeholder="请输入邮箱或手机号" />
             <FormError name="account" />

@@ -34,7 +34,9 @@
 
 下面介绍两种安装方式
 
-### composer
+### 获取软件
+
+**composer**
 
 目前是测试版本，所以需要指定`:dev-master` 版本
 
@@ -42,9 +44,33 @@
 composer create-project houdunwang/php:dev-master
 ```
 
-### Git
+**Git**
 
 你也可以直接从 [github](https://github.com/houdunwang/php) 或 [gitee](https://gitee.com/houdunren/php) 下载项目
+
+### 后台配置
+
+执行命令生成软链接
+
+```
+php artisan storage:link
+```
+
+### 前端编译
+
+进入 vue 目录执行编译
+```
+pnpm i
+pnpm run build
+```
+
+### 安装程序
+
+然后通过域名访问，会进入安装程序，安装后就可以运行了。
+
+如果你想重新安装删除项目根目录下扩 **install_lock.html** 文件
+
+
 
 ## 项目截图
 
