@@ -155,7 +155,7 @@ return [
     */
 
     'providers' => [
-
+        Mews\Captcha\CaptchaServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -210,6 +210,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

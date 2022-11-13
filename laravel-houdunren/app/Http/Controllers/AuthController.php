@@ -17,11 +17,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         Validator::make($request->input(), [
-            "mobile" => ['required', new PhoneRule(), Rule::exists('users')]
-        ])->validate();
+            "mobile" => ['required', new PhoneRule(), Rule::exists('users')],
+            "captcha" => ['required', 'captcha']
+        ], ['captcha.captcha' => '验证码输入错误'])->validate();
 
         $user = User::where('mobile', $request->mobile)->first();
         if ($user && Hash::check($request->password, $user->password)) {
+            Auth::guard('web')->login($user);
             return $this->success('登录成功', ['token' => $user->createToken('auth')->plainTextToken, 'user' => $user]);
         }
 
@@ -41,5 +43,27 @@ class AuthController extends Controller
         $user->save();
 
         return $this->success('登录成功', ['token' => $user->createToken('auth')->plainTextToken]);
+    }
+
+    public function logout()
+    {
+        if ($user = Auth::user()) {
+            Auth::guard('web')->logout();
+            $user->tokens()->delete();
+        }
+    }
+
+    public function password(Request $request)
+    {
+        $request->validate([
+            'mobile' => ['required', Rule::exists('users', 'mobile')],
+            'code' => ['required', new CodeRule()],
+            'password' => ['required', 'confirmed'],
+        ]);
+        $user = User::whereMobile($request->mobile)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+        Auth::guard('web')->login($user);
+        return $this->success('密码重置成功');
     }
 }

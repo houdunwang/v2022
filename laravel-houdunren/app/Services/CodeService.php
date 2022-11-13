@@ -27,7 +27,7 @@ class CodeService
         if (Cache::get($phone)) abort(403, '请稍候再试');
         $code = mt_rand(1000, 9999);
 
-        Cache::put($phone,  $code = mt_rand(1000, 9999), config('hd.code.timeout'));
+        Cache::put($phone,  $code = mt_rand(1000, 9999), 600);
 
         return $code;
     }

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $user = User::first();
         $user->name = '后盾人';
         $user->mobile = env('MOBILE');
-        $user->email = '2300071698@qq.com';
+        $user->email = '';
         $user->save();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

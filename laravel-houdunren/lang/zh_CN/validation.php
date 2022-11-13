@@ -201,6 +201,7 @@ return [
         'username'                 => '用户名',
         'year'                     => '年',
         //
-        'code' => '验证码'
+        'code' => '验证码',
+        'captcha' => '验证码'
     ],
 ];
