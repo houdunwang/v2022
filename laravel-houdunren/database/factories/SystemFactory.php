@@ -19,7 +19,7 @@ class SystemFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->sentence(),
-            'preview' => fake()->imageUrl('300x300'),
+            'preview' => url('fake/system', mt_rand(1, 10) . '.png')
         ];
     }
 }

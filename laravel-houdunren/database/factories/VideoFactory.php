@@ -20,7 +20,7 @@ class VideoFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'lesson_id' => Lesson::inRandomOrder()->first()->id,
-            'path' => 'https://houdunren-test.oss-cn-hangzhou.aliyuncs.com/videos/test.mp4'
+            'path' => url('fake/video.mov')
         ];
     }
 }

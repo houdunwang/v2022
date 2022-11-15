@@ -10,4 +10,9 @@ class System extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'description', 'preview', 'order'];
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

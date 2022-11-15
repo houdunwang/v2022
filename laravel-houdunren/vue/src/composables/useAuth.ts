@@ -30,12 +30,14 @@ export default () => {
   }
 
   const login = async (data: any) => {
-    await http.request({
-      url: 'auth/login',
-      method: 'POST',
-      data,
-    })
-    location.href = '/'
+    try {
+      await http.request({
+        url: 'auth/login',
+        method: 'POST',
+        data,
+      })
+      location.href = '/'
+    } catch (error) {}
   }
 
   const password = async (data: any) => {
@@ -44,7 +46,7 @@ export default () => {
       method: 'POST',
       data,
     })
-    location.href = '/'
+    // location.href = '/'
   }
 
   return { authorize, isAdministrator, isLogin, logout, login, password }

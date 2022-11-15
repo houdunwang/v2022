@@ -45,7 +45,7 @@ class SystemController extends Controller
      */
     public function show(System $system)
     {
-        return new SystemResource($system);
+        return new SystemResource($system->load('lessons'));
     }
 
     /**

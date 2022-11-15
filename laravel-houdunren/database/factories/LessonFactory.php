@@ -20,7 +20,7 @@ class LessonFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->sentence(),
-            'preview' => fake()->imageUrl('300x300'),
+            'preview' => url('fake/lesson', mt_rand(1, 37) . '.jpg'),
             'system_id' => System::inRandomOrder()->first()->id
         ];
     }

@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         Validator::make($request->input(), [
             "mobile" => ['required', new PhoneRule(), Rule::exists('users')],
-            "captcha" => ['required', 'captcha']
+            "captcha" => app()->environment('local') ? [] : ['required', 'captcha']
         ], ['captcha.captcha' => '验证码输入错误'])->validate();
 
         $user = User::where('mobile', $request->mobile)->first();

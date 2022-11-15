@@ -18,7 +18,6 @@ const onSubmit = request(async () => {
   captcha.value.reload()
   await http.request({ url: '/sanctum/csrf-cookie', baseURL: '' })
   login(form)
-  location.href = '/'
 })
 </script>
 

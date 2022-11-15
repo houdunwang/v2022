@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        page: '1450px',
+        page: '1400px',
       },
       colors: {
         'hd-blue': '#62569F',

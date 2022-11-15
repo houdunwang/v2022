@@ -49,6 +49,10 @@ export default defineConfig(({ command, mode }) => {
           target: env.VITE_API_URL,
           changeOrigin: true,
         },
+        '/images': {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+        },
       },
     },
   }

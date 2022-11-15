@@ -14,11 +14,11 @@ const urls = urlList ? urlList.splice(urlList.findIndex((u) => url == u) + 1) : 
 onMounted(() => {
   player.value = new Player({
     id: 'videoPlayer',
-    autoplay: true,
+    autoplay: false,
     url,
     lang: 'zh-cn',
     fluid: true,
-    poster: '/assets/poster.jpg',
+    poster: '/images/poster.jpg',
     playbackRate: [1, 1.25, 1.5, 2],
     keyShortcut: 'on',
     defaultPlaybackRate: storage.get('playbackrateChange', 1),
