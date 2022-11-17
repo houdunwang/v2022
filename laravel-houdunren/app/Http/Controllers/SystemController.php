@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSystemRequest;
 use App\Http\Requests\UpdateSystemRequest;
 use App\Http\Resources\SystemResource;
 use App\Models\System;
+use Illuminate\Http\Request;
 
 class SystemController extends Controller
 {
@@ -21,7 +22,8 @@ class SystemController extends Controller
      */
     public function index()
     {
-        return SystemResource::collection(System::all());
+        $collection = System::orderBy('order', 'asc')->get();
+        return SystemResource::collection($collection);
     }
 
     /**
@@ -75,5 +77,18 @@ class SystemController extends Controller
         $this->authorize('delete', $system);
         $system->delete();
         return $this->success('删除成功');
+    }
+
+    public function order(Request $request)
+    {
+        $this->authorize('order', System::class);
+
+        collect($request->system)->map(function ($value, $index) {
+            $model = System::find($value);
+            $model->order = $index;
+            $model->save();
+        });
+
+        return $this->success('排序成功');
     }
 }

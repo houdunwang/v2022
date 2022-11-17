@@ -202,6 +202,7 @@ return [
         'year'                     => '年',
         //
         'code' => '验证码',
-        'captcha' => '验证码'
+        'captcha' => '验证码',
+        'preview' => '预览图'
     ],
 ];

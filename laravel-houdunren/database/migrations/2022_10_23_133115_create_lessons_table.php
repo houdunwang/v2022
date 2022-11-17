@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('preview')->comment('预览图');
             $table->string('description')->comment('课程介绍');
             $table->string('download')->nullable()->comment('网盘地址');
-            $table->foreignId('system_id')->nullable()->constrained();
+            $table->foreignId('system_id')->nullable()->constrained()->onDelete('SET NULL');
             $table->timestamps();
         });
     }

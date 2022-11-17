@@ -13,7 +13,7 @@ class StoreSystemRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return isSuperadmin();
     }
 
     /**

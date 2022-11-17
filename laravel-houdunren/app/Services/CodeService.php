@@ -13,8 +13,6 @@ class CodeService
         if (app()->environment('testing')) return $code;
 
         app(AliyunService::class)->sms(
-            config('hd.aliyun.aliyun_code_sign'),
-            config('hd.aliyun.aliyun_code_template'),
             $phone,
             ["code" => $code, "product" => config('app.name')]
         );

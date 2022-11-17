@@ -15,6 +15,10 @@ class SystemPolicy
         return isSuperadmin();
     }
 
+    public function order(User $user)
+    {
+    }
+
     /**
      * Determine whether the user can view any models.
      *

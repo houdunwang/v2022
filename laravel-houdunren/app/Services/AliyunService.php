@@ -15,13 +15,13 @@ class AliyunService
      * @param string $accessKeySecret
      * @return Dysmsapi Client
      */
-    public static function createClient($accessKeyId, $accessKeySecret)
+    public static function createClient()
     {
         $config = new Config([
             // 您的 AccessKey ID
-            "accessKeyId" => $accessKeyId,
+            "accessKeyId" => config('hd.aliyun.aliyun_key'),
             // 您的 AccessKey Secret
-            "accessKeySecret" => $accessKeySecret
+            "accessKeySecret" => config('hd.aliyun.aliyun_secret')
         ]);
         // 访问的域名
         $config->endpoint = "dysmsapi.aliyuncs.com";

@@ -34,6 +34,31 @@ export default [
     ],
   },
   {
+    path: '/admin',
+    component: adminLayout,
+    meta: { auth: true, menu: { title: '系统课程', icon: DashboardOne, order: 100 } },
+    children: [
+      {
+        name: 'admin.system.index',
+        path: 'system',
+        component: () => import('@/views/system/admin.vue'),
+        meta: { title: '系统课程', menu: { title: '系统课程' } },
+      },
+      {
+        name: 'admin.system.add',
+        path: 'system',
+        component: () => import('@/views/system/create.vue'),
+        meta: { title: '添加课程', menu: { title: '添加课程' } },
+      },
+      {
+        name: 'admin.system.edit',
+        path: 'system/edit/:id',
+        component: () => import('@/views/system/edit.vue'),
+        meta: { title: '添加课程', menu: { title: '添加课程' } },
+      },
+    ],
+  },
+  {
     path: '/admin/editor',
     component: adminLayout,
     meta: { auth: true, menu: { title: '编辑器', icon: DocDetail } },

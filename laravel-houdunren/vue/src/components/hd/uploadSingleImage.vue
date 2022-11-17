@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { Plus } from '@element-plus/icons-vue'
 import useUpload from '@/composables/useUpload'
-const { uploadImage } = useUpload()
+import { http } from '@/plugins/axios'
+import { Plus } from '@element-plus/icons-vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   modelValue: string
+  url?: string
 }>()
 const imageUrl = ref(props.modelValue)
 
@@ -17,7 +18,11 @@ const request = async (options: any) => {
   const form = new FormData()
   form.append('file', options.file)
 
-  const { data } = await uploadImage(form)
+  const { data } = await http.request<{ data: { url: string } }>({
+    url: props.url ?? `upload/image`,
+    method: 'post',
+    data: form,
+  })
   imageUrl.value = data.url
   emit('update:modelValue', imageUrl.value!)
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CodeController;
@@ -33,6 +34,7 @@ Route::controller(TopicController::class)->prefix('topic')->group(function () {
 });
 
 //系统课程
+Route::post('system/order', [SystemController::class, 'order']);
 Route::apiResource('system', SystemController::class);
 //课程
 Route::apiResource('lesson', LessonController::class);
@@ -53,3 +55,6 @@ Route::apiResource('comment', CommentController::class);
 
 //图形验证码
 Route::get('captcha', CaptchaController::class);
+
+//中传
+Route::post('upload/image', [AttachmentController::class, 'image']);
