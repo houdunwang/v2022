@@ -27,23 +27,23 @@ interface SystemModel {
 }
 
 interface LessonModel {
-  id: number
+  id?: number
   title: string
   preview: string
   description: string
   download?: any
-  system_id: number
-  created_at: string
-  updated_at: string
+  system_id: any
+  created_at?: string
+  updated_at?: string
   videos: VideoModel[]
-  system: SystemModel
+  system?: SystemModel
 }
 interface VideoModel {
-  id: number
+  id?: number
   title: string
-  lesson_id: number
-  created_at: string
-  updated_at: string
+  lesson_id?: number
+  created_at?: string
+  updated_at?: string
   path: string
-  lesson: LessonModel
+  lesson?: LessonModel
 }

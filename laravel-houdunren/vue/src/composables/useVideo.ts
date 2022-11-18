@@ -1,13 +1,11 @@
 import { http } from '@/plugins/axios'
 export default () => {
-  const collection = ref<VideoModel[]>()
+  const collection = ref<ApiPage<VideoModel>>()
   const model = ref<VideoModel>()
   const getAll = async () => {
-    const { data } = await http.request<ApiData<VideoModel[]>>({
-      url: 'system',
+    collection.value = await http.request<ApiPage<VideoModel>>({
+      url: 'video',
     })
-
-    collection.value = data
   }
 
   const find = async (id: any) => {

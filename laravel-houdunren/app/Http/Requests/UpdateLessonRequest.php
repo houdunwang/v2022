@@ -24,7 +24,7 @@ class UpdateLessonRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'between:3,20'],
+            'title' => ['required', 'between:3,100'],
             'description' => ['required'],
             'preview' => ['required', 'url'],
         ];

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-
-const { getAll, collection } = useSystem()
-await getAll()
+const { getAll, collection } = useLesson()
+const route = useRoute()
+await getAll(route.query.page || 1, 8)
 </script>
 
 <template>
-  <main class="grid grid-cols-3 gap-2">
-    <section v-for="item of collection" :key="item.id" class="border rounded-md overflow-hidden bg-white">
-      <RouterLink :to="{ name: 'system.show', params: { id: item.id } }">
-        <el-image :src="item.preview" fit="cover" :lazy="true" />
-        <div class="p-3 text-center border-t">
-          {{ item.title }}
-        </div>
-      </RouterLink>
-    </section>
-  </main>
+  <HdCard>
+    <template #header>碎片课程</template>
+    <main class="grid grid-cols-4 gap-2">
+      <LessonBlockItem v-for="item of collection?.data" :key="item.id" :lesson="item" />
+    </main>
+  </HdCard>
+
+  <HdPagination
+    :per_page="collection?.meta.per_page"
+    :total="collection?.meta.total"
+    @currentChange="$router.push({ name: 'lesson.index', query: { page: $event } })" />
 </template>
 
 <style lang="scss"></style>

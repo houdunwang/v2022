@@ -22,7 +22,7 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        return LessonResource::collection(Lesson::paginate($request->query('row', 20)));
+        return LessonResource::collection(Lesson::latest()->paginate(request('row', 10)));
     }
 
     /**
@@ -35,6 +35,12 @@ class LessonController extends Controller
     {
         $this->authorize('create', $lesson);
         $lesson->fill($request->input())->save();
+
+        //添加课程的视频
+        collect(request('videos'))->map(function ($video) use ($lesson) {
+            if (empty($video['title']) || empty($video['path'])) return;
+            $lesson->videos()->create($video);
+        });
         return $this->success('添加成功', $lesson);
     }
 

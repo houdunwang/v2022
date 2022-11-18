@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLessonRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ class StoreLessonRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'between:3,20'],
+            'title' => ['required', 'between:3,100'],
             'description' => ['required'],
             'preview' => ['required', 'url'],
         ];

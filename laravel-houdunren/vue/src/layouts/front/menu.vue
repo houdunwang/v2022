@@ -13,7 +13,8 @@ const { isLogin } = useAuth()
           <span class="font-bold text-xl"> houdunren</span>
         </RouterLink>
         <RouterLink :to="{ name: 'system.index' }" class="flex items-center gap-1"> 系统课程 </RouterLink>
-        <RouterLink to="/" class="flex items-center gap-1"> 碎片课程 </RouterLink>
+        <RouterLink :to="{ name: 'lesson.index' }" class="flex items-center gap-1"> 碎片课程 </RouterLink>
+        <RouterLink :to="{ name: 'video.index' }" class="flex items-center gap-1"> 最近更新 </RouterLink>
       </section>
       <section>
         <div class="" v-if="isLogin()">

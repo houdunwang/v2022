@@ -1,4 +1,4 @@
-import { DashboardOne, DocDetail, ImageFiles } from '@icon-park/vue-next'
+import { DashboardOne, DocDetail, ImageFiles, AddFour } from '@icon-park/vue-next'
 import { RouteRecordRaw } from 'vue-router'
 import adminLayout from '@/layouts/admin/index.vue'
 import adminIndex from '@/views/admin/index.vue'
@@ -54,7 +54,30 @@ export default [
         name: 'admin.system.edit',
         path: 'system/edit/:id',
         component: () => import('@/views/system/edit.vue'),
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    component: adminLayout,
+    meta: { auth: true, menu: { title: '碎片课程', icon: AddFour, order: 100 } },
+    children: [
+      {
+        name: 'admin.lesson.index',
+        path: 'lesson',
+        component: () => import('@/views/lesson/admin.vue'),
+        meta: { title: '碎片课程', menu: { title: '课程列表' } },
+      },
+      {
+        name: 'admin.lesson.add',
+        path: 'lesson/add',
+        component: () => import('@/views/lesson/form.vue'),
         meta: { title: '添加课程', menu: { title: '添加课程' } },
+      },
+      {
+        name: 'admin.lesson.edit',
+        path: 'lesson/edit/:id',
+        component: () => import('@/views/lesson/form.vue'),
       },
     ],
   },

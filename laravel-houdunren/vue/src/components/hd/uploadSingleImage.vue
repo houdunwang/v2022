@@ -5,7 +5,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 
 const props = defineProps<{
-  modelValue: string
+  modelValue?: string
   url?: string
 }>()
 const imageUrl = ref(props.modelValue)

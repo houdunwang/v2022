@@ -24,11 +24,21 @@ export default {
 
     //课程
     {
+      name: 'lesson.index',
+      path: 'lesson',
+      component: () => import('@/views/lesson/index.vue'),
+    },
+    {
       name: 'lesson.show',
       path: 'lesson/:id',
       component: () => import('@/views/lesson/show.vue'),
     },
     //视频
+    {
+      name: 'video.index',
+      path: 'video',
+      component: () => import('@/views/video/index.vue'),
+    },
     {
       name: 'video.show',
       path: 'video/:id',
