@@ -63,7 +63,10 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SystemItem: typeof import('./../../src/components/system-item.vue')['default']
+    TopicItem: typeof import('./../../src/components/topic-item.vue')['default']
     UserAvatarMenu: typeof import('./../../src/components/userAvatarMenu.vue')['default']
+    UserItem: typeof import('./../../src/components/user-item.vue')['default']
     VideoItem: typeof import('./../../src/components/video-item.vue')['default']
+    VueItem: typeof import('./../../src/components/vue-item.vue')['default']
   }
 }

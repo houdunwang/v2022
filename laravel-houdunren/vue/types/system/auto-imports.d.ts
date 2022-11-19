@@ -238,6 +238,7 @@ declare global {
   const useToNumber: typeof import('@vueuse/core')['useToNumber']
   const useToString: typeof import('@vueuse/core')['useToString']
   const useToggle: typeof import('@vueuse/core')['useToggle']
+  const useTopic: typeof import('../../src/composables/useTopic')['default']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUpload: typeof import('../../src/composables/useUpload')['default']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']

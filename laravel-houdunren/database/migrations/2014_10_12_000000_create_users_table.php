@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->default('盾友')->comment("昵称");
+            $table->string('avatar')->nullable();
             $table->string('mobile')->unique();
             $table->string('email')->nullable()->unique();
             $table->string('password');

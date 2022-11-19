@@ -34,27 +34,7 @@ await Promise.all([find(route.params.id), getAllSystem()])
       </el-form-item>
     </el-form>
   </HdCard>
-  <HdCard class="mt-3">
-    <template #header>视频</template>
-    <section class="grid grid-cols-4 gap-2">
-      <div
-        class="flex flex-col gap-1 border shadow-sm p-3 rounded-md relative group"
-        v-for="(video, index) of form.videos"
-        :key="index">
-        <el-input v-model="video.title" placeholder="视频标题" size="default" clearable></el-input>
-        <el-input v-model="video.path" placeholder="视频地址" size="default" clearable></el-input>
-        <icon-close-one
-          theme="outline"
-          size="20"
-          fill="#555"
-          class="absolute top-0 right-0 bg-white hidden group-hover:block duration-300 cursor-pointer"
-          @click="removeVideo(form.videos, index)" />
-      </div>
-    </section>
-    <template #footer>
-      <el-button type="info" size="small" @click="addVideo(form.videos)">添加视频</el-button>
-    </template>
-  </HdCard>
+  
 </template>
 
 <style lang="scss"></style>

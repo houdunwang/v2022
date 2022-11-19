@@ -44,5 +44,26 @@ export default {
       path: 'video/:id',
       component: () => import('@/views/video/show.vue'),
     },
+    //贴子
+    {
+      name: 'topic.index',
+      path: 'topic',
+      component: () => import('@/views/topic/index.vue'),
+    },
+    {
+      name: 'topic.create',
+      path: 'topic/create',
+      component: () => import('@/views/topic/create.vue'),
+    },
+    {
+      name: 'topic.edit',
+      path: 'topic/edit/:id',
+      component: () => import('@/views/topic/edit.vue'),
+    },
+    {
+      name: 'topic.show',
+      path: 'topic/:id',
+      component: () => import('@/views/topic/show.vue'),
+    },
   ],
 } as RouteRecordRaw

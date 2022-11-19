@@ -2,6 +2,7 @@ interface UserModel {
   id: number
   name: string
   email: string
+  avatar: string
   qq?: any
   github?: any
   wakatime?: any
@@ -46,4 +47,14 @@ interface VideoModel {
   updated_at?: string
   path: string
   lesson?: LessonModel
+}
+
+interface TopicModel {
+  id: number
+  title: string
+  content: string
+  user_id: number
+  created_at: string
+  updated_at: string
+  user: UserModel
 }

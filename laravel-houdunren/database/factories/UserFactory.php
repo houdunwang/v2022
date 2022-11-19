@@ -25,6 +25,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => Hash::make('admin888'),
             'remember_token' => Str::random(10),
+            'avatar' => url('fake/avatar/' . mt_rand(1, 10) . '.jpg')
         ];
     }
 

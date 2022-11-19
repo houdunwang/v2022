@@ -6,7 +6,7 @@ import Menu from './menu.vue'
     <Menu />
     <RouterView v-slot="{ Component, route }">
       <template v-if="Component">
-        <component :is="Component" :key="route.fullPath" class="2xl:w-page mx-auto p-3 lg:mt-5" />
+        <component :is="Component" :key="route.fullPath" class="xl:w-page mx-auto p-3 lg:mt-5" />
       </template>
     </RouterView>
   </main>
