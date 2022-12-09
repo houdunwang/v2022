@@ -24,6 +24,12 @@ const storeUser = userStore()
               <router-link :to="{ name: 'admin' }"> 后台管理 </router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link :to="{ name: 'member' }"> 会员中心 </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <router-link :to="{ name: 'space', params: { uid: storeUser.user.id } }"> 个人空间 </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link :to="{ name: 'home' }" #default="{ href }" custom>
                 <a :href="href"> 网站首页</a>
               </router-link>

@@ -9,10 +9,10 @@ class CodeService
     public function send($phone): int
     {
         $code = $this->code($phone);
-
         if (app()->environment('testing')) return $code;
-
         app(AliyunService::class)->sms(
+            config('hd.aliyun.aliyun_code_sign'),
+            config('hd.aliyun.aliyun_code_template'),
             $phone,
             ["code" => $code, "product" => config('app.name')]
         );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\OssService;
+use App\Services\UploadService;
 use Illuminate\Http\Request;
 
 class AttachmentController extends Controller
@@ -17,7 +18,9 @@ class AttachmentController extends Controller
         $request->validate([
             'file' => ['required', 'image', 'max:2048']
         ], ['file.max' => '文件不能超过2MB']);
-        $url = app(OssService::class)->image(request('file'));
+
+        $url = app(UploadService::class)->image(request('file'));
+
         return $this->success('', ["url" => $url]);
     }
 }

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum'])->only(['store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,7 @@ class CommentController extends Controller
      */
     public function index(Request $request, string $type, int $id)
     {
-        $comments = model($type, $id)->comments()->get();
+        $comments = model($type, $id)->comments()->whereNull('comment_id')->with(['replys'])->get();
         return CommentResource::collection($comments);
     }
 

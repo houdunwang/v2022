@@ -15,4 +15,14 @@ class Video extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function learnHistory()
+    {
+        return $this->belongsToMany(User::class, 'learn_histories')->withTimestamps();
+    }
 }

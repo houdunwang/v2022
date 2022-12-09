@@ -22,7 +22,10 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return TopicResource::collection(Topic::with('user')->paginate(10));
+        $collection = Topic::with('user')->when(request('uid'), function ($query) {
+            return $query->where('user_id', request('uid'));
+        })->paginate(10);
+        return TopicResource::collection($collection);
     }
 
 
@@ -48,6 +51,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
+        $topic->html = $topic->html;
         return new TopicResource($topic->load('user'));
     }
 
@@ -60,6 +64,7 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
+        $this->authorize('update', $topic);
         $topic->fill($request->input())->save();
         return $this->success('', $topic);
     }

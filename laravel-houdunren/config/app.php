@@ -211,6 +211,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

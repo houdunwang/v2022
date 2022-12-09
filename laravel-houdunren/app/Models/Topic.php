@@ -4,12 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Topic extends Model
 {
     use HasFactory;
 
     protected $fillable =  ['title', 'content'];
+
+    public function getHtmlAttribute()
+    {
+        return Markdown::convert($this->content)->getContent();
+    }
 
     public function user()
     {

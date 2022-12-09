@@ -6,6 +6,7 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -41,7 +42,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        // $this->authorize('view', $video);
+        $video->learnHistory()->syncWithPivotValues([Auth::id()], ['lesson_id' => $video->lesson_id], false);
         return new VideoResource($video->makeVisible(['path'])->load('lesson.system'));
     }
 

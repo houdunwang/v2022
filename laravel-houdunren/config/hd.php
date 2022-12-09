@@ -9,6 +9,9 @@ return [
     ],
     "code" => [
         "timeout" => env('CODE_SEND_TIMEOUT', 600)
+    ],
+    "upload" => [
+        'type' => 'local'
     ]
 
 ];

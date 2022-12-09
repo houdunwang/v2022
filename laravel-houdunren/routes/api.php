@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\LearnHistoryController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SystemController;
@@ -28,6 +30,8 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
 
 //用户
 Route::get('user/info', [UserController::class, 'info']);
+Route::post('user/mobile', [UserController::class, 'mobile']);
+Route::apiResource('user', UserController::class);
 
 Route::controller(TopicController::class)->prefix('topic')->group(function () {
     Route::apiResource(null, TopicController::class)->parameters([null => 'topic']);
@@ -56,5 +60,12 @@ Route::apiResource('comment', CommentController::class);
 //图形验证码
 Route::get('captcha', CaptchaController::class);
 
-//中传
+//上传
 Route::post('upload/image', [AttachmentController::class, 'image']);
+
+// 动态
+Route::apiResource('activity', ActivityController::class);
+
+//学习动态
+Route::get('learnHistory/{user}', [LearnHistoryController::class, 'getByUser']);
+Route::apiResource('learnHistory', LearnHistoryController::class);

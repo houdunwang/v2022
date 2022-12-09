@@ -18,7 +18,7 @@ onMounted(() => {
     url,
     lang: 'zh-cn',
     fluid: true,
-    poster: '/images/poster.jpg',
+    // poster: '/images/poster.jpg',
     playbackRate: [1, 1.25, 1.5, 2],
     keyShortcut: 'on',
     defaultPlaybackRate: storage.get('playbackrateChange', 1),

@@ -11,12 +11,14 @@
         "php": "^8.0.2",
         "alibabacloud/dysmsapi-20170525": "2.0.18",
         "aliyuncs/oss-sdk-php": "^2.6",
+        "graham-campbell/markdown": "^14.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mews/captcha": "^3.2",
-        "spatie/image": "^2.2"
+        "spatie/image": "^2.2",
+        "spatie/laravel-activitylog": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

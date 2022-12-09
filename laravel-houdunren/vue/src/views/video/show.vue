@@ -14,15 +14,16 @@ await find(route.params.id)
       <h2>{{ model.title }}</h2>
       <div class="flex items-center gap-1 mt-5">
         <icon-folder-close theme="outline" size="20" fill="#333" />
-        <RouterLink :to="{ name: 'system.show', params: { id: model.lesson.system_id } }">
-          {{ model.lesson.system.title }}
+        <RouterLink :to="{ name: 'system.show', params: { id: model.lesson?.system_id } }">
+          {{ model.lesson?.system?.title }}
         </RouterLink>
         <icon-right-small theme="outline" size="20" fill="#333" />
         <RouterLink :to="{ name: 'lesson.show', params: { id: model.lesson_id } }">
-          {{ model.lesson.title }}
+          {{ model.lesson?.title }}
         </RouterLink>
       </div>
     </div>
+    <CommentList class="w-page m-auto mt-3" type="Video" :id="model.id" />
   </main>
 </template>
 
