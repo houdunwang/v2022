@@ -14,6 +14,8 @@ use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\WechatController;
+use App\Http\Controllers\WechatLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -69,3 +71,9 @@ Route::apiResource('activity', ActivityController::class);
 //学习动态
 Route::get('learnHistory/{user}', [LearnHistoryController::class, 'getByUser']);
 Route::apiResource('learnHistory', LearnHistoryController::class);
+
+//wechat
+Route::any('wechat', WechatController::class);
+Route::get('wechat/ticket', [WechatLoginController::class, 'ticket']);
+Route::get('wechat/qr_image/{ticket}', [WechatLoginController::class, 'qrImage']);
+Route::get('wechat/login/{ticket}', [WechatLoginController::class, 'loginByTicket']);

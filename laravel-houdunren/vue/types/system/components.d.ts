@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -64,6 +65,7 @@ declare module '@vue/runtime-core' {
     IconRightSmall: typeof import('@icon-park/vue-next')['RightSmall']
     IconTime: typeof import('@icon-park/vue-next')['Time']
     IconUpSquare: typeof import('@icon-park/vue-next')['UpSquare']
+    IconWechat: typeof import('@icon-park/vue-next')['Wechat']
     IconYoutube: typeof import('@icon-park/vue-next')['Youtube']
     Layout: typeof import('./../../src/layouts/layout/index.vue')['default']
     LearnHistoryItem: typeof import('./../../src/components/learn-history-item.vue')['default']
@@ -82,5 +84,6 @@ declare module '@vue/runtime-core' {
     UserItem: typeof import('./../../src/components/user-item.vue')['default']
     VideoItem: typeof import('./../../src/components/video-item.vue')['default']
     VueItem: typeof import('./../../src/components/vue-item.vue')['default']
+    WechatLogin: typeof import('./../../src/components/wechatLogin.vue')['default']
   }
 }
