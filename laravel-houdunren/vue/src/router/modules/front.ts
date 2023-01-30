@@ -65,5 +65,11 @@ export default {
       path: 'topic/:id',
       component: () => import('@/views/topic/show.vue'),
     },
+    {
+      path: 'subscribe',
+      name: 'subscribe',
+      component: () => import('@/views/subscribe/front.vue'),
+      meta: { title: '订阅会员', auth: true },
+    },
   ],
 } as RouteRecordRaw

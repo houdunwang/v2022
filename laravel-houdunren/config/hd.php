@@ -17,6 +17,9 @@ return [
         "appid" => env('WECHAT_APPID'),
         "appsecret" => env('WECHAT_SECRET'),
         "token" => env('WECHAT_TOKEN')
+    ],
+    "subscribe" => [
+        "price" => 375
     ]
 
 ];

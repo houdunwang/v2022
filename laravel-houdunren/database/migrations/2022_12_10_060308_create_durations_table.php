@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('durations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->dateTime('end_time')->comment('订阅到期时间');
+            $table->foreignId("user_id")->unique()->constrained('users')->onDelete('cascade');
+            $table->dateTime('end_time')->comment('到期时间');
             $table->timestamps();
         });
     }

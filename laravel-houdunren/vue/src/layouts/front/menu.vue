@@ -17,6 +17,10 @@ const { isLogin } = useAuth()
         <RouterLink :to="{ name: 'video.index' }" class="flex items-center gap-1"> 最近更新 </RouterLink>
         <RouterLink :to="{ name: 'topic.index' }" class="flex items-center gap-1"> 互动交流 </RouterLink>
         <RouterLink :to="{ name: 'topic.index' }" class="flex items-center gap-1"> 在线文档 </RouterLink>
+        <router-link :to="{ name: 'subscribe' }" class="flex items-center gap-1">
+          订阅优惠
+          <el-tag type="success" size="small" effect="dark">荐</el-tag>
+        </router-link>
       </section>
       <section>
         <div class="" v-if="isLogin()">

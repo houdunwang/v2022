@@ -18,6 +18,8 @@ use App\Http\Controllers\WechatController;
 use App\Http\Controllers\WechatLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlipayController;
+use App\Http\Controllers\WepayController;
 
 Route::controller(CodeController::class)->prefix('code')->group(function () {
     Route::post('send', 'send');
@@ -77,3 +79,20 @@ Route::any('wechat', WechatController::class);
 Route::get('wechat/ticket', [WechatLoginController::class, 'ticket']);
 Route::get('wechat/qr_image/{ticket}', [WechatLoginController::class, 'qrImage']);
 Route::get('wechat/login/{ticket}', [WechatLoginController::class, 'loginByTicket']);
+
+
+//支付宝
+Route::controller(AlipayController::class)->prefix("alipay")->group(function () {
+    Route::post('create_order', 'createOrder');
+    Route::get('pay/{order:sn}', 'pay');
+    Route::get('return', 'returnUrl');
+    Route::any('notify', 'notifyUrl');
+});
+
+//微信支付
+Route::controller(WepayController::class)->prefix("wepay")->group(function () {
+    Route::post('create_order', 'createOrder');
+    Route::get('pay/{order:sn}', 'pay');
+    Route::get('mp', 'mp');
+    Route::any('notify', 'notifyUrl');
+});

@@ -194,6 +194,7 @@ declare global {
   const useOnline: typeof import('@vueuse/core')['useOnline']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
   const useParallax: typeof import('@vueuse/core')['useParallax']
+  const usePay: typeof import('../../src/composables/usePay')['default']
   const usePermission: typeof import('@vueuse/core')['usePermission']
   const usePointer: typeof import('@vueuse/core')['usePointer']
   const usePointerSwipe: typeof import('@vueuse/core')['usePointerSwipe']

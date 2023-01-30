@@ -78,6 +78,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Space: typeof import('./../../src/layouts/space/index.vue')['default']
     Spacecopy: typeof import('./../../src/layouts/space copy/index.vue')['default']
+    SubscribePay: typeof import('./../../src/components/subscribe-pay.vue')['default']
     SystemItem: typeof import('./../../src/components/system-item.vue')['default']
     TopicItem: typeof import('./../../src/components/topic-item.vue')['default']
     UserAvatarMenu: typeof import('./../../src/components/userAvatarMenu.vue')['default']
