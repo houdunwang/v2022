@@ -26,16 +26,16 @@ export default {
     num: 200,
   },
   wall: {
-    num: 80,
+    num: 8,
   },
   water: {
-    num: 20,
+    num: 200,
   },
   steel: {
     num: 10,
   },
   tank: {
-    num: 10,
+    num: 100,
   },
   images: {
     straw,

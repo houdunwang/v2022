@@ -24,7 +24,11 @@ export default {
       await this.start()
       this.interval = setInterval(() => {
         if (tank.models.length == 0) this.state = 1
-        if (play.models.length == 0 || boss.models.length == 0) this.state = 0
+        if (
+          play.models.length == 0 ||
+          boss.models.length == 0
+        )
+          this.state = 0
         if (this.state != 9) this.stop()
       }, 100)
     })
@@ -44,7 +48,11 @@ export default {
     ctx.font = '80px CascadiaMono'
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'center'
-    ctx.fillText(this.state == 1 ? '恭喜你，赢得胜利' : '啥也不是', config.canvas.width / 2, config.canvas.height / 2)
+    ctx.fillText(
+      this.state == 1 ? '恭喜你，赢得胜利' : '啥也不是',
+      config.canvas.width / 2,
+      config.canvas.height / 2,
+    )
     app.appendChild(el)
   },
   async start() {
