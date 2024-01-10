@@ -1,8 +1,8 @@
 ## 后盾人 / 2022年视频教程代码
 
-本项目为视频代码或直播课程代码，希望大家能给个 `star` 这是对我们最好的鼓励和肯定。
-
-> 更多视频教程请访问 [ houdunren.com](houdunren.com) 学习
+> 本项目为视频或直播代码，你可以在 [后盾人](https://gitee.com/link?target=https%3A%2F%2Fwww.houdunren.com) 网站通过视频学习。
+>
+> > 兄弟姐妹们给个 Star 鼓励我一下吧
 
 
 
