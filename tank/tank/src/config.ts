@@ -23,19 +23,19 @@ export default {
     height: 30,
   },
   straw: {
-    num: 200,
+    num: 100,
   },
   wall: {
-    num: 8,
+    num: 50,
   },
   water: {
-    num: 200,
+    num: 100,
   },
   steel: {
-    num: 10,
+    num: 50,
   },
   tank: {
-    num: 100,
+    num: 35,
   },
   images: {
     straw,

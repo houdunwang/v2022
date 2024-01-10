@@ -42,6 +42,7 @@
 
 | 年份      | GitHub                                                       | Gitee                                                        |
 | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 2024      | [https://github.com/houdunwang/v2024](https://github.com/houdunwang/v2024) | [https://gitee.com/houdunren/v2024](https://gitee.com/houdunren/v2024) |
 | 2023      | [https://github.com/houdunwang/v2023](https://github.com/houdunwang/v2023) | [https://gitee.com/houdunren/v2023](https://gitee.com/houdunren/v2023) |
 | 2022      | [https://github.com/houdunwang/v2022](https://github.com/houdunwang/v2022) | [https://gitee.com/houdunren/v2022](https://gitee.com/houdunren/v2022) |
 | 2021      | [https://github.com/houdunwang/v2021](https://github.com/houdunwang/v2021) | [https://gitee.com/houdunren/v2021](https://gitee.com/houdunren/v2021) |
